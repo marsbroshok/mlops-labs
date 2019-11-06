@@ -52,7 +52,10 @@ After the build completes, follow the  [instructions in AI Platform Notebooks Do
 
 ## Deploying Kubeflow Pipelines 
 
-The MVP infrastructure to support a lightweight deployment of Kubeflow Pipelines comprises the following GCP services:
+The below diagrame shows an MVP infrastructure required to support a lightweight deployment of Kubeflow Pipelines:
+
+![KFP Deployment](/images/kfp.png)
+
 - A VPC to host GKE cluster
 - A GKE cluster to host KFP services
 - A Cloud SQL managed MySQL instance to host KFP and ML Metadata databases
