@@ -86,9 +86,10 @@ resource "null_resource" "kfp_installer" {
       kubectl create secret -n "${var.namespace}" generic user-gcp-sa --from-file=application_default_credentials.json --from-file=user-gcp-sa.json=application_default_credentials.json
       kubectl create secret -n "${var.namespace}" generic mysql-credential --from-literal=username="${var.sql_username}" --from-literal=password="${var.sql_password}"
       kubectl create configmap -n "${var.namespace}" gcp-configs --from-literal=connection_name="${var.project_id}:${var.region}:${module.ml_metadata_mysql.mysql_instance.name}" --from-literal=bucket_name="${google_storage_bucket.artifact_store.name}"
-      sed 's/\([[:blank:]]*namespace:[[:blank:]]*\).*/\1"${var.namespace}"/'
-      kustomize build ../kustomize | kubectl apply -f -
       rm application_default_credentials.json
+      cd ../kustomize
+      kustomize edit set namespace "${var.namespace}"
+      kustomize build . | kubectl apply -f - 
     EOT
   }
 }
