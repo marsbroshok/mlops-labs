@@ -28,7 +28,7 @@ module "gke_service_account" {
 # Create the KFP service account 
 module "kfp_service_account" {
   source                       = "github.com/jarokaz/terraform-gcp-kfp/modules/service_account"
-  service_account_id           = "${var.name_prefix}-kfp-sa"
+  service_account_id           = "${var.name_prefix}-sa"
   service_account_display_name = "The KFP service account"
   service_account_roles        = var.kfp_service_account_roles
 }
@@ -44,7 +44,7 @@ module "kfp_gke_vpc" {
 # Create the KFP GKE cluster
 module "kfp_gke_cluster" {
   source                 = "github.com/jarokaz/terraform-gcp-kfp/modules/gke"
-  name                   = "${var.name_prefix}-kfp-cluster"
+  name                   = "${var.name_prefix}-cluster"
   location               = var.zone != "" ? var.zone : var.region
   description            = "KFP GKE cluster"
   sa_full_id             = module.gke_service_account.service_account.email
@@ -58,7 +58,7 @@ module "kfp_gke_cluster" {
 module "ml_metadata_mysql" {
   source  = "github.com/jarokaz/terraform-gcp-kfp//modules/mysql"
   region  = var.region
-  name    = "${var.name_prefix}-ml-metadata"
+  name    = "${var.name_prefix}-metadata"
 }
 
 # Add the root user with no password to Cloud SQL instance.
