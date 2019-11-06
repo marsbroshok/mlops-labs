@@ -2,7 +2,7 @@
 
 The environment for the 200-series labs is depicted on the below diagram.
 
-![Reference topolgy](/images/environment.png)
+![Reference topolgy](/images/lab_200.png)
 
 The core services in the environment are:
 - AI Platform Notebooks - ML experimentation and development
