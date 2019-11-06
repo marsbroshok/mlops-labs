@@ -52,12 +52,10 @@ variable "kfp_service_account_roles" {
 
 variable "sql_username" {
     description = "The name of the Cloud SQL database user"
-    default = "root"
 }
 
 variable "sql_password" {
     description = "The password of the Cloud SQL database user"
-    default = "test"
 }
 
 variable "namespace" {

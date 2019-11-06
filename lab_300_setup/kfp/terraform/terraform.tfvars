@@ -1,0 +1,7 @@
+project_id   = "jk-caip"
+region       = "us-central1"
+zone         = "us-central1-a"
+namespace    = "kfp"
+name_prefix  = "env5"
+sql_username = "root"
+sql_password = "test5"

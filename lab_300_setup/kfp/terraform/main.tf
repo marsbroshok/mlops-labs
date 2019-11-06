@@ -62,29 +62,33 @@ module "ml_metadata_mysql" {
 }
 
 # Add the root user with no password to Cloud SQL instance.
-resource "google_sql_user" "root_user" {
-  project  = var.project_id
-  name     = var.sql_username
-  password = var.sql_password
-  instance = module.ml_metadata_mysql.mysql_instance.name
-}
+#resource "google_sql_user" "root_user" {
+#  project  = var.project_id
+#  name     = var.sql_username
+#  password = var.sql_password
+#  instance = module.ml_metadata_mysql.mysql_instance.name
+#}
 
 # Create Cloud Storage bucket for artifact storage
 resource "google_storage_bucket" "artifact_store" {
-  name = "${var.name_prefix}-artifact-store"
+  name          = "${var.name_prefix}-artifact-store"
+  force_destroy = true
 }
 
 # Install KFP
 resource "null_resource" "kfp_installer" {
   provisioner "local-exec" {
     command = <<EOT
-      gcloud container clusters get-credentials "${module.kfp_gke_cluster.name}" --zone "${var.zone}" --project "${var.project_id}"
+      gcloud sql users create "${var.sql_username}" --instance="${module.ml_metadata_mysql.mysql_instance.name}" --password="${var.sql_password}" --project "${var.project_id}"
       gcloud iam service-accounts keys create application_default_credentials.json --iam-account="${module.kfp_service_account.service_account.email}"
+      gcloud container clusters get-credentials "${module.kfp_gke_cluster.name}" --zone "${var.zone}" --project "${var.project_id}"
       kubectl create namespace "${var.namespace}"
       kubectl create secret -n "${var.namespace}" generic user-gcp-sa --from-file=application_default_credentials.json --from-file=user-gcp-sa.json=application_default_credentials.json
       kubectl create secret -n "${var.namespace}" generic mysql-credential --from-literal=username="${var.sql_username}" --from-literal=password="${var.sql_password}"
       kubectl create configmap -n "${var.namespace}" gcp-configs --from-literal=connection_name="${var.project_id}:${var.region}:${module.ml_metadata_mysql.mysql_instance.name}" --from-literal=bucket_name="${google_storage_bucket.artifact_store.name}"
+      sed 's/\([[:blank:]]*namespace:[[:blank:]]*\).*/\1"${var.namespace}"/'
       kustomize build ../kustomize | kubectl apply -f -
+      rm application_default_credentials.json
     EOT
   }
 }
