@@ -43,10 +43,9 @@ You can use the `enable_apis.sh` script to enable the required services from **C
 ## Provisioning an AI Platform Notebook instance
 You use an **AI Platform Notebooks** instance based on a custom container as your primary development environment. 
 
-The process of creating the custom container image has been automated with  [Cloud Build](https://cloud.google.com/cloud-build/). To build the image and push it to your project's **Container Registry** run the `./build.sh` script from **Cloud Shell**.
+The process of creating the custom container image has been automated with  [Cloud Build](https://cloud.google.com/cloud-build/). To build the image and push it to your project's **Container Registry** use **Cloud Shell** to run the `build.sh` script from the `dev-image` folder.
 
 After the build completes, follow the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container) to create an **AI Platform Notebook** instance. In the **Docker container image** field, enter the following image name: `gcr.io/[YOUR_PROJECT_NAME/tfx-kfp-dev:latest`.
-
 
 
 
@@ -64,7 +63,7 @@ The infrastructure includes:
 
 The diagram also depicts core services comprising a Kubeflow pipelines deployment. External clients access the KFP services through [Inverting Proxy](https://github.com/google/inverting-proxy). The KFP services access the Cloud SQL instance through [Cloud SQL Proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy).
 
-The provisioning of the MVP infrastructure and installation of Kubeflow Pipelines has been automated with Terraform. The Terraform HCL configurations can be found in the `terraform` folder.
+The provisioning of the MVP infrastructure and installation of Kubeflow Pipelines has been automated with Terraform. The Terraform HCL configurations can be found in the `kfp/terraform` folder.
 
 To deploy Kubeflow Pipelines:
 
