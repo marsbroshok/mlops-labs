@@ -45,6 +45,12 @@ You use an **AI Platform Notebooks** instance based on a custom container as you
 
 The process of creating the custom container image has been automated with  [Cloud Build](https://cloud.google.com/cloud-build/). To build the image and push it to your project's **Container Registry** use **Cloud Shell** to run the `build.sh` script from the `dev-image` folder.
 
+```
+cd dev-image
+gcloud config set project [YOUR_PROJECT_ID]
+./build.sh
+```
+
 After the build completes, follow the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container) to create an **AI Platform Notebook** instance. In the **Docker container image** field, enter the following image name: `gcr.io/[YOUR_PROJECT_NAME/tfx-kfp-dev:latest`.
 
 

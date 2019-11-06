@@ -17,9 +17,8 @@
 
 PROJECT_ID=$(gcloud config get-value core/project)
 IMAGE_NAME=tfx-kfp-dev
-PYTHON=3.6
 TAG=latest
 
-IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}-py${PYTHON}:${TAG}"
+IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
