@@ -2,7 +2,7 @@
 
 The environment for the 300-series labs is depicted on the below diagram.
 
-![Reference topolgy](/images/lab_200_env.png)
+![Reference topolgy](/images/lab_300.png)
 
 The core services in the environment are:
 - AI Platform Notebooks - ML experimentation and development
