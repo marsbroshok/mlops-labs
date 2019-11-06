@@ -50,7 +50,6 @@ After the build completes, follow the  [instructions in AI Platform Notebooks Do
 
 
 
-
 ## Deploying Kubeflow Pipelines 
 
 The MVP infrastructure to support a lightweight deployment of Kubeflow Pipelines comprises the following GCP services:
@@ -66,10 +65,17 @@ To deploy Kubeflow Pipelines:
 
 1. Open **Cloud Shell**
 1. Navigate to the `terraform` folder
+1. Configure your environment settings. You have two options. You can modify the settings in the `terraform.tfvars` file or you can provide the settings when applying the configuration using the `terraform apply -var '[NAME1]=[VALUE1]' -var '[NAME2]=[VALUE2]' ` format. The following settings must be configured:
+    1. `project_id` - your project ID
+    1. `region` - the region for a Cloud SQL instance
+    1. `zone` - the zone for a GKE cluster
+    1. `name_prefix` - the name prefix that will be added to resource names
+    1. `sql_username` - the name of a Cloud SQL user
+    1. `sql_password` - the password of a Cloud SQL user
 1. From the terraform folder execute
 ```
 terraform init 
-terraform apply -var ...
+terraform apply 
 ```
 
 The *Name Prefix* value will be added to the names of provisioned resources including: GKE cluster name, GCS bucket name, Cloud SQL instance name.
