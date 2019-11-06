@@ -52,7 +52,7 @@ After the build completes, follow the  [instructions in AI Platform Notebooks Do
 
 ## Deploying Kubeflow Pipelines 
 
-The below diagrame shows an MVP infrastructure required to support a lightweight deployment of Kubeflow Pipelines:
+The below diagrame shows an MVP infrastructure for a lightweight deployment of Kubeflow Pipelines on GCP:
 
 ![KFP Deployment](/images/kfp.png)
 
