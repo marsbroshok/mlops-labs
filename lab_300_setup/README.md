@@ -56,11 +56,13 @@ The below diagrame shows an MVP infrastructure for a lightweight deployment of K
 
 ![KFP Deployment](/images/kfp.png)
 
+The infrastructure includes:
 - A VPC to host GKE cluster
 - A GKE cluster to host KFP services
 - A Cloud SQL managed MySQL instance to host KFP and ML Metadata databases
 - A Cloud Storage bucket to host artifact repository
-- GKE and KFP service accounts. The GKE service account is used by GKE nodes. The KFP service account is used by KFP pipelines.
+
+The diagram also depicts core services comprising a Kubeflow pipelines deployment. External clients access the KFP services through [Inverting Proxy](https://github.com/google/inverting-proxy). The KFP services access the Cloud SQL instance through [Cloud SQL Proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy).
 
 The provisioning of the MVP infrastructure and installation of Kubeflow Pipelines has been automated with Terraform. The Terraform HCL configurations can be found in the `terraform` folder.
 
