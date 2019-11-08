@@ -41,11 +41,12 @@ metadata:
       > 0\n  AND tf.monetary <= 15000", "name": "feature_engineering_query"}, {"default":
       "us-central1", "name": "aml_compute_region"}, {"default": "features", "name":
       "features_table_name"}, {"default": "lab_301", "name": "features_dataset"},
-      {"default": "clv_features", "name": "aml_dataset_name"}, {"default": "target_monetary",
-      "name": "target_column_name"}, {"default": "clv_regression", "name": "aml_model_name"},
-      {"default": "1000", "name": "train_budget", "type": "Integer"}, {"default":
-      "mean_absolute_error", "name": "primary_metric"}, {"default": "900", "name":
-      "deployment_threshold", "type": "Float"}], "name": "CLV Training"}'
+      {"default": "US", "name": "features_dataset_location"}, {"default": "clv_features",
+      "name": "aml_dataset_name"}, {"default": "target_monetary", "name": "target_column_name"},
+      {"default": "clv_regression", "name": "aml_model_name"}, {"default": "1000",
+      "name": "train_budget", "type": "Integer"}, {"default": "mean_absolute_error",
+      "name": "primary_metric"}, {"default": "900", "name": "deployment_threshold",
+      "type": "Float"}], "name": "CLV Training"}'
   generateName: clv-training-
 spec:
   arguments:
@@ -106,6 +107,8 @@ spec:
       value: features
     - name: features-dataset
       value: lab_301
+    - name: features-dataset-location
+      value: US
     - name: aml-dataset-name
       value: clv_features
     - name: target-column-name

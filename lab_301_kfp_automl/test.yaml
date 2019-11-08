@@ -1,0 +1,60 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  annotations:
+    pipelines.kubeflow.org/pipeline_spec: '{"description": "Pipeline that passes small
+      data from producer to consumer", "name": "task_output_to_consumer_pipeline"}'
+  generateName: task-output-to-consumer-pipeline-
+spec:
+  arguments:
+    parameters: []
+  entrypoint: task-output-to-consumer-pipeline
+  serviceAccountName: pipeline-runner
+  templates:
+  - container:
+      args:
+      - '----output-paths'
+      - /tmp/outputs/Output/data
+      command:
+      - python3
+      - -u
+      - -c
+      - "def produce_one_small_output() -> str:\n    return 'Hello world'\n\ndef _serialize_str(str_value:\
+        \ str) -> str:\n    if not isinstance(str_value, str):\n        raise TypeError('Value\
+        \ \"{}\" has type \"{}\" instead of str.'.format(str(str_value), str(type(str_value))))\n\
+        \    return str_value\n\nimport argparse\n_parser = argparse.ArgumentParser(prog='Produce\
+        \ one small output', description='')\n_parser.add_argument(\"----output-paths\"\
+        , dest=\"_output_paths\", type=str, nargs=1)\n_parsed_args = vars(_parser.parse_args())\n\
+        _output_files = _parsed_args.pop(\"_output_paths\", [])\n\n_outputs = produce_one_small_output(**_parsed_args)\n\
+        \nif not hasattr(_outputs, '__getitem__') or isinstance(_outputs, str):\n\
+        \    _outputs = [_outputs]\n\n_output_serializers = [\n    _serialize_str\n\
+        ]\n\nimport os\nfor idx, output_file in enumerate(_output_files):\n    try:\n\
+        \        os.makedirs(os.path.dirname(output_file))\n    except OSError:\n\
+        \        pass\n    with open(output_file, 'w') as f:\n        f.write(_output_serializers[idx](_outputs[idx]))\n"
+      env:
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: /secret/gcp-credentials/user-gcp-sa.json
+      - name: CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE
+        value: /secret/gcp-credentials/user-gcp-sa.json
+      image: tensorflow/tensorflow:1.13.2-py3
+      volumeMounts:
+      - mountPath: /secret/gcp-credentials
+        name: gcp-credentials-user-gcp-sa
+    metadata:
+      annotations:
+        pipelines.kubeflow.org/component_spec: '{"inputs": [], "name": "Produce one
+          small output", "outputs": [{"name": "Output", "type": "String"}]}'
+    name: produce-one-small-output
+    outputs:
+      artifacts:
+      - name: produce-one-small-output-output
+        path: /tmp/outputs/Output/data
+    volumes:
+    - name: gcp-credentials-user-gcp-sa
+      secret:
+        secretName: user-gcp-sa
+  - dag:
+      tasks:
+      - name: produce-one-small-output
+        template: produce-one-small-output
+    name: task-output-to-consumer-pipeline
