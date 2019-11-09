@@ -13,16 +13,15 @@ The core services in the environment are:
 - Kubeflow Pipelines (KFP) - machine learning worklow orchestration
 - Cloud SQL - machine learning metadata  management
     
-All required services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). Before proceeding make sure that your account has access to the project and is assigned to the **Owner** or **Editor** role.
+In the lab environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). Before proceeding make sure that your account has access to the project and is assigned to the **Owner** or **Editor** role.
 
 ## Enabling the required cloud services
 
-The following GCP Cloud APIs  must be enabled in your project:
+In addition to the [services enabled by default](https://cloud.google.com/service-usage/docs/enabled-service), the following additional services must be enabled for the 200-series labs:
+
 1. Compute Engine
-1. Cloud Storage
 1. Container Registry
-1. BigQuery
-1. Cloud Machine Learning Engine
+1. AI Platform Training and Prediction
 1. IAM
 1. Dataflow
 1. Kubernetes Engine
