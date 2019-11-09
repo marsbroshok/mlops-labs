@@ -74,26 +74,25 @@ The provisioning of the MVP infrastructure and installation of Kubeflow Pipeline
 To deploy Kubeflow Pipelines:
 
 1. Open **Cloud Shell**
-1. Install **Kustomize** 
+2. Install **Kustomize** 
 ```
 cd /usr/local/bin 
 sudo wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.3.0/kustomize_v3.3.0_linux_amd64.tar.gz \
 sudo chmod 755 kustomize_3.1.0_linux_amd64 \
-sudo ln -s kustomize_3.1.0_linux_amd64 kustomize \
+sudo ln -s kustomize_3.1.0_linux_amd64 kustomize 
 ```
-1. Navigate to the `terraform` folder
-1. Configure your environment settings. You have two options. You can modify the settings in the `terraform.tfvars` file or you can provide the settings when applying the configuration using the `terraform apply -var '[NAME1]=[VALUE1]' -var '[NAME2]=[VALUE2]' ` format. The following settings must be configured:
-    - `project_id` - your project ID
-    - `region` - the region for a Cloud SQL instance
-    - `zone` - the zone for a GKE cluster
-    - `name_prefix` - the name prefix that will be added to the names of provisioned resources
-    - `sql_username` - the name of a Cloud SQL user
-    - `sql_password` - the password of a Cloud SQL user
-1. From the terraform folder execute
+3. Start installation by executing the `install.sh` script from the `/lab_300_setup/kfp` folder.
 ```
-terraform init 
-terraform apply 
+./install.sh [PROJECT_ID] [REGION] [ZONE] [PREFIX] [NAMESPACE] [SQL_USERNAME] [SQL_PASSWORD
 ```
+Where:
+    - `[PROJECT_ID]` - your project ID
+    - `[REGION]` - the region for a Cloud SQL instance
+    - `[ZONE]` - the zone for a GKE cluster
+    - `[PREFIX]` - the name prefix that will be added to the names of provisioned resources
+    - `[SQL_USERNAME]` - the Cloud SQL user that will be used by KFP services to acces the Cloud SQL instance
+    - `[SQL_PASSWORD]` - the password of the Cloud SQL user
+
 
 
 ## Accessing KFP UI
