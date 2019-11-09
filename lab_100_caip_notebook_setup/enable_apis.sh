@@ -15,13 +15,6 @@
 
 # This script enables the APIs required by the solution
 
-gcloud services enable cloudbuild.googleapis.com
-gcloud services enable container.googleapis.com
-gcloud services enable cloudresourcemanager.googleapis.com
-gcloud services enable iam.googleapis.com
-gcloud services enable containerregistry.googleapis.com
-gcloud services enable containeranalysis.googleapis.com
+gcloud services enable compute.googleapis.com
 gcloud services enable ml.googleapis.com
-gcloud services enable sqladmin.googleapis.com
 gcloud services enable dataflow.googleapis.com
-gcloud services enable automl.googleapis.com

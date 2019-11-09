@@ -9,11 +9,12 @@ The services are provisioned in the same [Google Cloud Project](https://cloud.go
 
 ## Enabling the required cloud services
 
-The following GCP Cloud APIs  must be enabled in your project:
-1. Compute Engine
-1. Cloud Storage
-1. BigQuery
-1. Cloud Machine Learning Engine
+In addition to the [services enabled by default](https://cloud.google.com/service-usage/docs/enabled-service), the following additional services must be enabled for the 100-series labs:
+
+1. Compute Engine - `compute.googleapis.com`
+1. AI Platform Training & Prediction - `ml.googleapis.com`
+1. Cloud Dataflow - `dataflow.googleapis.com`
+
 
 Use [GCP Console](https://console.cloud.google.com/) or `gcloud` command line interface in [Cloud Shell](https://cloud.google.com/shell/docs/) to [enable the required services](https://cloud.google.com/service-usage/docs/enable-disable) . 
 
