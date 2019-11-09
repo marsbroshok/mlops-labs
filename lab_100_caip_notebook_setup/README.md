@@ -1,6 +1,6 @@
 # Setting up a lab environment for 100 series labs.
 
-**AI Platform Notebooks**, **AI Platform Training and Prediction**, and **BigQuery** are the primary services used in the 100 series labs. 
+**AI Platform Notebooks**, **AI Platform Training and Prediction**, **Dataflow**, and **BigQuery** are the primary services used in the 100 series labs. 
 
 ![Reference topolgy](/images/lab_200.png)
 
