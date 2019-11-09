@@ -59,12 +59,13 @@ kustomize edit set namespace $NAMESPACE
 # Configure user-gpc-sa with a private key of the KFP service account
 gcloud iam service-accounts keys create application_default_credentials.json --iam-account=$KFP_SA_EMAIL
 kubectl create secret -n $NAMESPACE generic user-gcp-sa --from-file=application_default_credentials.json --from-file=user-gcp-sa.json=application_default_credentials.json
+rm application_default_credentials.json
 
 # Create a Cloud SQL database user and store its credentials in mysql-credential secret
 gcloud sql users create $SQL_USERNAME --instance=$SQL_INSTANCE_NAME --password=$SQL_PASSWORD --project $PROJECT_ID
 kubectl create secret -n $NAMESPACE generic mysql-credential --from-literal=username=$SQL_USERNAME --from-literal=password=$SQL_PASSWORD
 
-# Generate an environment file with connections settings to Cloud SQL and artifact store
+# Generate an environment file with connection settings to Cloud SQL and artifact store
 cat > gcp-configs.env << EOF
 sql_connection_name=$SQL_CONNECTION_NAME
 bucket_name=$BUCKET_NAME
