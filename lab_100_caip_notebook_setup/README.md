@@ -14,6 +14,7 @@ The following GCP Cloud APIs  must be enabled in your project:
 1. Cloud Storage
 1. BigQuery
 1. Cloud Machine Learning Engine
+1. Dataflow
 
 Use [GCP Console](https://console.cloud.google.com/) or `gcloud` command line interface in [Cloud Shell](https://cloud.google.com/shell/docs/) to [enable the required services](https://cloud.google.com/service-usage/docs/enable-disable) . 
 
