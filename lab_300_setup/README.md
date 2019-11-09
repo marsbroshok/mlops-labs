@@ -69,11 +69,18 @@ The infrastructure includes:
 
 The diagram also depicts core services comprising a Kubeflow pipelines deployment. External clients access the KFP services through [Inverting Proxy](https://github.com/google/inverting-proxy). The KFP services access the Cloud SQL instance through [Cloud SQL Proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy).
 
-The provisioning of the MVP infrastructure and installation of Kubeflow Pipelines has been automated with Terraform. The Terraform HCL configurations can be found in the `kfp/terraform` folder.
+The provisioning of the MVP infrastructure and installation of Kubeflow Pipelines has been automated with Terraform and Kustomize. The Terraform HCL configurations can be found in the `kfp/terraform` folder. The Kustomize overlays are in the `kfp/kustomize` folder.
 
 To deploy Kubeflow Pipelines:
 
 1. Open **Cloud Shell**
+1. Install **Kustomize** 
+```
+cd /usr/local/bin 
+sudo wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.3.0/kustomize_v3.3.0_linux_amd64.tar.gz \
+sudo chmod 755 kustomize_3.1.0_linux_amd64 \
+sudo ln -s kustomize_3.1.0_linux_amd64 kustomize \
+```
 1. Navigate to the `terraform` folder
 1. Configure your environment settings. You have two options. You can modify the settings in the `terraform.tfvars` file or you can provide the settings when applying the configuration using the `terraform apply -var '[NAME1]=[VALUE1]' -var '[NAME2]=[VALUE2]' ` format. The following settings must be configured:
     - `project_id` - your project ID
