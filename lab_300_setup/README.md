@@ -79,8 +79,7 @@ To deploy Kubeflow Pipelines:
 ```
 cd /usr/local/bin 
 sudo wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.3.0/kustomize_v3.3.0_linux_amd64.tar.gz 
-sudo chmod 755 kustomize_3.1.0_linux_amd64 
-sudo ln -s kustomize_3.1.0_linux_amd64 kustomize 
+sudo tar xvf kustomize_v3.3.0_linux_amd64.tar.gz
 ```
 3. Start installation by executing the `install.sh` script from the `/lab_300_setup/kfp` folder.
 ```
