@@ -86,12 +86,12 @@ sudo rm kustomize_v3.3.0_linux_amd64.tar.gz
 ./install.sh [PROJECT_ID] [REGION] [ZONE] [PREFIX] [NAMESPACE] [SQL_USERNAME] [SQL_PASSWORD]
 ```
 Where:
-    - `[PROJECT_ID]` - your project ID
-    - `[REGION]` - the region for a Cloud SQL instance
-    - `[ZONE]` - the zone for a GKE cluster
-    - `[PREFIX]` - the name prefix that will be added to the names of provisioned resources
-    - `[SQL_USERNAME]` - the Cloud SQL user that will be used by KFP services to acces the Cloud SQL instance
-    - `[SQL_PASSWORD]` - the password of the Cloud SQL user
+- `[PROJECT_ID]` - your project ID
+- `[REGION]` - the region for a Cloud SQL instance
+- `[ZONE]` - the zone for a GKE cluster
+- `[PREFIX]` - the name prefix that will be added to the names of provisioned resources
+- `[SQL_USERNAME]` - the Cloud SQL user that will be used by KFP services to acces the Cloud SQL instance
+- `[SQL_PASSWORD]` - the password of the Cloud SQL user
 
 
 
