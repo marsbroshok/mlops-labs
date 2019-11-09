@@ -24,7 +24,7 @@ variable "cluster_node_count" {
 
 variable "cluster_node_type" {
     description = "The cluster's node type"
-    default     = "n1-standard-1"
+    default     = "n1-standard-4"
 }
 
 variable "gke_service_account_roles" {
@@ -50,15 +50,3 @@ variable "kfp_service_account_roles" {
   ]
 }
 
-variable "sql_username" {
-    description = "The name of the Cloud SQL database user"
-}
-
-variable "sql_password" {
-    description = "The password of the Cloud SQL database user"
-}
-
-variable "namespace" {
-    description = "GKE namespace to host KFP"
-    default = "kubeflow"
-}

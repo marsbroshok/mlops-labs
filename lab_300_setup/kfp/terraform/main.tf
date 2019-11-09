@@ -2,17 +2,9 @@ terraform {
   required_version = ">= 0.12"
 }
 
-# Provision MVP KFP infrastructure using a reusable module
-# module "dev_infrastructure" {
-#  source      = "github.com/jarokaz/terraform-gcp-kfp"
-#  project_id  = var.project_id
-#  region      = var.region
-#  zone        = var.zone
-#  name_prefix = var.name_prefix
-#}
-
 # Provision MVP KFP infrastructure using reusable Terraform modules from
 # github/jarokaz/terraform-gcp-kfp
+
 provider "google" {
     project   = var.project_id 
 }
@@ -61,38 +53,9 @@ module "ml_metadata_mysql" {
   name    = "${var.name_prefix}-metadata"
 }
 
-# Add the root user with no password to Cloud SQL instance.
-#resource "google_sql_user" "root_user" {
-#  project  = var.project_id
-#  name     = var.sql_username
-#  password = var.sql_password
-#  instance = module.ml_metadata_mysql.mysql_instance.name
-#}
-
 # Create Cloud Storage bucket for artifact storage
 resource "google_storage_bucket" "artifact_store" {
   name          = "${var.name_prefix}-artifact-store"
   force_destroy = true
 }
-
-# Install KFP
-resource "null_resource" "kfp_installer" {
-  provisioner "local-exec" {
-    command = <<EOT
-      gcloud sql users create "${var.sql_username}" --instance="${module.ml_metadata_mysql.mysql_instance.name}" --password="${var.sql_password}" --project "${var.project_id}"
-      gcloud iam service-accounts keys create application_default_credentials.json --iam-account="${module.kfp_service_account.service_account.email}"
-      gcloud container clusters get-credentials "${module.kfp_gke_cluster.name}" --zone "${var.zone}" --project "${var.project_id}"
-      kubectl create namespace "${var.namespace}"
-      kubectl create secret -n "${var.namespace}" generic user-gcp-sa --from-file=application_default_credentials.json --from-file=user-gcp-sa.json=application_default_credentials.json
-      kubectl create secret -n "${var.namespace}" generic mysql-credential --from-literal=username="${var.sql_username}" --from-literal=password="${var.sql_password}"
-      kubectl create configmap -n "${var.namespace}" gcp-configs --from-literal=connection_name="${var.project_id}:${var.region}:${module.ml_metadata_mysql.mysql_instance.name}" --from-literal=bucket_name="${google_storage_bucket.artifact_store.name}"
-      rm application_default_credentials.json
-      cd ../kustomize
-      kustomize edit set namespace "${var.namespace}"
-      kustomize build . | kubectl apply -f - 
-    EOT
-  }
-}
-
-
 
