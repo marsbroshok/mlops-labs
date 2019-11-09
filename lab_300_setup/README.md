@@ -57,17 +57,20 @@ After the build completes, follow the  [instructions in AI Platform Notebooks Do
 
 ## Deploying Kubeflow Pipelines 
 
-The below diagrame shows an MVP infrastructure for a lightweight deployment of Kubeflow Pipelines on GCP:
+The below diagrame shows an MVP environment for a lightweight deployment of Kubeflow Pipelines on GCP:
 
 ![KFP Deployment](/images/kfp.png)
 
-The infrastructure includes:
+The environment includes:
 - A VPC to host GKE cluster
 - A GKE cluster to host KFP services
 - A Cloud SQL managed MySQL instance to host KFP and ML Metadata databases
 - A Cloud Storage bucket to host artifact repository
 
-The diagram also depicts core services comprising a Kubeflow pipelines deployment. External clients access the KFP services through [Inverting Proxy](https://github.com/google/inverting-proxy). The KFP services access the Cloud SQL instance through [Cloud SQL Proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy).
+The core services comprising a Kubeflow pipelines deployment, include:
+- 
+- [Inverting Proxy](https://github.com/google/inverting-proxy). External clients use the proxy to access the KFP services.
+- [Cloud SQL Proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy). The KFP services access the Cloud SQL instance through the proxy 
 
 The provisioning of the MVP infrastructure and installation of Kubeflow Pipelines has been automated with Terraform and Kustomize. The Terraform HCL configurations can be found in the `kfp/terraform` folder. The Kustomize overlays are in the `kfp/kustomize` folder.
 
