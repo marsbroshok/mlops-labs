@@ -1,6 +1,6 @@
-# Setting up a lab environment for 300 series labs.
+# Setting up a lab environment for 200 series labs.
 
-The environment for the 300-series labs is depicted on the below diagram.
+The environment for the 200-series labs is depicted on the below diagram.
 
 ![Reference topolgy](/images/lab_300.png)
 
@@ -46,7 +46,7 @@ You use an **AI Platform Notebooks** instance based on a custom container as you
 The process of creating the custom container image has been automated with  [Cloud Build](https://cloud.google.com/cloud-build/). To build the image and push it to your project's **Container Registry** use **Cloud Shell** to run the `build.sh` script from the `dev-image` folder.
 
 ```
-cd dev-image
+cd notebook-image
 gcloud config set project [YOUR_PROJECT_ID]
 ./build.sh
 ```
