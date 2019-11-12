@@ -344,10 +344,10 @@ spec:
       - "def automl_deploy_model(model_path: str):\n\n    import logging\n    from\
         \ google.cloud import automl_v1beta1 as automl\n    from google.cloud.automl_v1beta1\
         \ import enums\n\n    logging.basicConfig(level=logging.INFO)\n    client\
-        \ = automl.TablesClient()\n\n    model = client.get_model(model_path)\n  \
-        \  if model.deployment_state != enums.Model.DeploymentState.DEPLOYED:\n  \
-        \      logging.info(\"Starting model deployment: {}\".format(model_path))\n\
-        \        #response = client.deploy_model(model_path)\n        #response.result()\
+        \ = automl.TablesClient()\n\n    model = client.get_model(model_name=model_path)\n\
+        \    if model.deployment_state != enums.Model.DeploymentState.DEPLOYED:\n\
+        \        logging.info(\"Starting model deployment: {}\".format(model_path))\n\
+        \        response = client.deploy_model(model_name=model_path)\n        response.result()\
         \ # Wait for operation to complete\n        logging.info(\"Deployment completed\"\
         )\n    else:\n         logging.info(\"Model already deployed\")\n\nimport\
         \ argparse\n_parser = argparse.ArgumentParser(prog='Automl deploy model',\
@@ -641,27 +641,20 @@ spec:
         \ str, \n             location: str) -> NamedTuple('Outputs', [('table_uri',\
         \ str), ('job_id', str)]):\n\n    from google.cloud import bigquery\n    from\
         \ google.api_core import exceptions\n    import logging\n    import os\n \
-        \   import uuid\n\n    KFP_POD_ENV_NAME = 'KFP_POD_NAME'\n    DEFAULT_DATASET_ID\
-        \ = 'lab_301'\n\n    logging.basicConfig(level=logging.INFO)\n\n    def _prepare_dataset_ref(client,\
-        \ dataset_id, location):\n        if not dataset_id:\n            dataset_id\
-        \ = DEFAULT_DATASET_ID\n        dataset_ref = client.dataset(dataset_id)\n\
-        \        try:\n            dataset = client.get_dataset(dataset_ref)\n   \
-        \     except exceptions.NotFound:\n            dataset = bigquery.Dataset(dataset_ref)\n\
-        \            dataset.location = location\n            logging.info('Creating\
-        \ dataset {}'.format(dataset_id))\n            client.create_dataset(dataset)\n\
-        \n        return dataset_ref\n\n    def _get_job(client, job_id):\n      \
-        \  try:\n            return client.get_job(job_id)\n        except exceptions.NotFound:\n\
-        \            return None\n\n    client = bigquery.Client(project=project_id,\
-        \ location=location)\n    job_config = bigquery.QueryJobConfig()\n    job_config.create_disposition\
-        \ = bigquery.job.CreateDisposition.CREATE_IF_NEEDED\n    job_config.write_disposition\
-        \ = bigquery.job.WriteDisposition.WRITE_TRUNCATE\n    job_id = 'query_' +\
-        \ os.environ.get(KFP_POD_ENV_NAME, uuid.uuid1().hex)\n\n    if not _get_job(client,\
-        \ job_id):\n        dataset_ref = _prepare_dataset_ref(client, dataset_id,\
-        \ location)\n        if not table_id:\n            table_id = job_id\n   \
-        \     table_ref = dataset_ref.table(table_id)\n        job_config.destination\
-        \ = table_ref\n        logging.info('Submitting the jobL {}'.format(job_id))\n\
-        \        query_job = client.query(query, job_config, job_id=job_id)\n    \
-        \    query_job.result() # Wait for query to finish\n\n    table_uri = 'bq://{}.{}.{}'.format(project_id,\
+        \   import uuid\n\n    logging.basicConfig(level=logging.INFO)\n\n    client\
+        \ = bigquery.Client(project=project_id, location=location)\n\n    job_config\
+        \ = bigquery.QueryJobConfig()\n    job_config.create_disposition = bigquery.job.CreateDisposition.CREATE_IF_NEEDED\n\
+        \    job_config.write_disposition = bigquery.job.WriteDisposition.WRITE_TRUNCATE\n\
+        \    job_id = 'query_' + os.environ.get('KFP_POD_NAME', uuid.uuid1().hex)\n\
+        \n    dataset_ref = client.dataset(dataset_id)\n    try:\n        dataset\
+        \ = client.get_dataset(dataset_ref)\n    except exceptions.NotFound:\n   \
+        \     dataset = bigquery.Dataset(dataset_ref)\n        dataset.location =\
+        \ location\n        logging.info('Creating dataset {}'.format(dataset_id))\n\
+        \        client.create_dataset(dataset)\n\n    table_id = table_id if table_id\
+        \ else job_id\n    table_ref = dataset_ref.table(table_id)\n    job_config.destination\
+        \ = table_ref\n    logging.info('Submitting the job {}'.format(job_id))\n\
+        \    query_job = client.query(query, job_config, job_id=job_id)\n    query_job.result()\
+        \ # Wait for query to finish\n\n    table_uri = 'bq://{}.{}.{}'.format(project_id,\
         \ dataset_id, table_id)\n\n    return (table_uri, job_id)\n\ndef _serialize_str(str_value:\
         \ str) -> str:\n    if not isinstance(str_value, str):\n        raise TypeError('Value\
         \ \"{}\" has type \"{}\" instead of str.'.format(str(str_value), str(type(str_value))))\n\
