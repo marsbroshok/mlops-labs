@@ -1,6 +1,6 @@
-# Setting up a lab environment for 200 series labs.
+# Setting up a lab environment.
 
-The environment for the 200-series labs is depicted on the below diagram.
+A full lab environment is depicted on the below diagram.
 
 ![Reference topolgy](/images/lab_300.png)
 
@@ -15,9 +15,11 @@ The core services in the environment are:
     
 In the lab environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). Before proceeding make sure that your account has access to the project and is assigned to the **Owner** or **Editor** role.
 
+The labs in 100-series don't use Kubeflow Pipelines. If you intend to go through the 100-series labs only you don't need to provision the Kubeflow Pipelines components.
+
 ## Enabling the required cloud services
 
-In addition to the [services enabled by default](https://cloud.google.com/service-usage/docs/enabled-service), the following additional services must be enabled for the 200-series labs:
+In addition to the [services enabled by default](https://cloud.google.com/service-usage/docs/enabled-service), the following additional services must be enabled in order to complete the labs:
 
 1. Compute Engine
 1. Container Registry
@@ -40,9 +42,11 @@ You can use the `enable_apis.sh` script to enable the required services from **C
 *Make sure that the Cloud Build service account (that was created when you enabled the Cloud Build service) is granted the Kubernetes Engine Developer role.*
 
 ## Provisioning an AI Platform Notebook instance
-You use an **AI Platform Notebooks** instance based on a custom container as your primary development environment. 
+You use an **AI Platform Notebooks** instance as your primary lab environment. Different labs use a different configuration of **AI Platform Notebooks** so make sure to check the lab's README file before starting.
 
-The process of creating the custom container image has been automated with  [Cloud Build](https://cloud.google.com/cloud-build/). To build the image and push it to your project's **Container Registry** use **Cloud Shell** to run the `build.sh` script from the `dev-image` folder.
+The labs in 200-series (KFPTFX labs) use an **AI Platform Notebooks** instance based on a custom image image container.
+
+The process of creating the custom container image has been automated with  [Cloud Build](https://cloud.google.com/cloud-build/). To build the image and push it to your project's **Container Registry** use **Cloud Shell** to run the `build.sh` script from the `notebook-image` folder.
 
 ```
 cd notebook-image
