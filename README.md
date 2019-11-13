@@ -9,3 +9,5 @@ With few exceptions the labs are self-contained - they don't rely on other labs.
 - **Lab-01-KFP_AutoML**. This lab demonstrates how to use Kubeflow Pipelines to orchestrate an ML workflow that utilizes BigQuery for feature engineering and AutoML Tables for model training and deployment.
 
 
+- **Lab-12-TFX-KFP**. This lab walks you through the development and and deployment of a TFX pipeline that uses Dataflow and Cloud AI Platform as processing runtimes and Kubeflow Pipelines for workflow orchestration.
+
