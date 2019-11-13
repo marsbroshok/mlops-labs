@@ -1,6 +1,6 @@
 # Setting up an MLOps environment on GCP.
 
-A reference environment for developing and operationalizing production grade ML workflows on GCP is depicted on the below diagram.
+The labs in this repo are designed to run in a reference MLOps environment. The environment is configured to support effective development and operationalization of production grade ML workflows.
 
 ![Reference topolgy](/images/lab_300.png)
 
@@ -40,7 +40,7 @@ You can use the `enable_apis.sh` script to enable the required services from **C
 *Make sure that the Cloud Build service account (that was created when you enabled the Cloud Build service) is granted the Kubernetes Engine Developer role.*
 
 ## Provisioning an AI Platform Notebook instance
-You use an **AI Platform Notebooks** instance as your primary lab environment. Different labs use a different configuration of **AI Platform Notebooks** so make sure to check the lab's README file before starting.
+You use an **AI Platform Notebooks** instance as your primary experimentation/development workspace. Different labs use a different configuration of **AI Platform Notebooks** so make sure to check the lab's README file before starting.
 
 The labs in 200-series (KFPTFX labs) use an **AI Platform Notebooks** instance based on a custom image image container.
 
