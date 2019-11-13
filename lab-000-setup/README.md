@@ -17,7 +17,7 @@ In the reference environment, all services are provisioned in the same [Google C
 
 ## Enabling the required cloud services
 
-In addition to the [services enabled by default](https://cloud.google.com/service-usage/docs/enabled-service), the following additional services must be enabled in order to complete the labs:
+In addition to the [services enabled by default](https://cloud.google.com/service-usage/docs/enabled-service), the following additional services must be enabled in the project hosting an MLOps environment:
 
 1. Compute Engine
 1. Container Registry
