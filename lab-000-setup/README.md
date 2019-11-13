@@ -13,9 +13,7 @@ The core services in the environment are:
 - TensorFlow Extended/Kubeflow Pipelines (TFX/KFP) - machine learning pipelines
 - Cloud SQL - machine learning metadata  management
     
-In the lab environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). Before proceeding make sure that your account has access to the project and is assigned to the **Owner** or **Editor** role.
-
-The labs in 100-series don't use Kubeflow Pipelines. If you intend to go through the 100-series labs only you don't need to provision the Kubeflow Pipelines components.
+In the reference environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). Before proceeding make sure that your account has access to the project and is assigned to the **Owner** or **Editor** role.
 
 ## Enabling the required cloud services
 
