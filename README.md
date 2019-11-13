@@ -6,4 +6,6 @@ With few exceptions the labs are self-contained - they don't rely on other labs.
 
 - **Lab-00- Environment Setup**. This lab guides you through the process of provisioning and configuring of a reference MLOps environment. Most other labs rely on this environment. 
 
-- **Lab-12-KFP_AutoML**. 
+- **Lab-01-KFP_AutoML**. This lab demonstrates how to use Kubeflow Pipelines to orchestrate an ML workflow that utilizes BigQuery for feature engineering and AutoML Tables for model training and deployment.
+
+
