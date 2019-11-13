@@ -1,6 +1,6 @@
-# Setting up a lab environment.
+# Setting up an MLOps environment on GCP.
 
-A full lab environment is depicted on the below diagram.
+A reference environment for developing and operationalizing production grade ML training and serving workflows on GCP is depicted on the below diagram.
 
 ![Reference topolgy](/images/lab_300.png)
 
@@ -10,7 +10,7 @@ The core services in the environment are:
 - AI Platform Prediction - scalable, serverless model serving
 - BigQuery - analytics data warehouse
 - Cloud Storage - unified object storage
-- Kubeflow Pipelines (KFP) - machine learning worklow orchestration
+- TensorFlow Extended/Kubeflow Pipelines (TFX/KFP) - machine learning pipelines
 - Cloud SQL - machine learning metadata  management
     
 In the lab environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). Before proceeding make sure that your account has access to the project and is assigned to the **Owner** or **Editor** role.
