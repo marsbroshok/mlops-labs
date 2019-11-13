@@ -1,6 +1,6 @@
 # Setting up an MLOps environment on GCP.
 
-A reference environment for developing and operationalizing production grade ML training and serving workflows on GCP is depicted on the below diagram.
+A reference environment for developing and operationalizing production grade ML workflows on GCP is depicted on the below diagram.
 
 ![Reference topolgy](/images/lab_300.png)
 
