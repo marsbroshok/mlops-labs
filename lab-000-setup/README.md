@@ -42,7 +42,7 @@ You can use the `enable_apis.sh` script to enable the required services from **C
 ## Provisioning an AI Platform Notebook instance
 You use an **AI Platform Notebooks** instance as your primary experimentation/development workspace. Different labs use a different configuration of **AI Platform Notebooks** so make sure to check the lab's README file before starting.
 
-The labs in 200-series (KFPTFX labs) use an **AI Platform Notebooks** instance based on a custom image image container.
+TFX/KFP labs use an **AI Platform Notebooks** instance based on a custom image container that has all components required for TFX/KFP development pre-installed.
 
 The process of creating the custom container image has been automated with  [Cloud Build](https://cloud.google.com/cloud-build/). To build the image and push it to your project's **Container Registry** use **Cloud Shell** to run the `build.sh` script from the `notebook-image` folder.
 
@@ -58,7 +58,7 @@ After the build completes, follow the  [instructions in AI Platform Notebooks Do
 
 ## Deploying Kubeflow Pipelines 
 
-The below diagrame shows an MVP environment for a lightweight deployment of Kubeflow Pipelines on GCP:
+The below diagrame shows an MVP infrastructure for a lightweight deployment of Kubeflow Pipelines on GCP:
 
 ![KFP Deployment](/images/kfp.png)
 
