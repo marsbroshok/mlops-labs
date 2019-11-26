@@ -106,3 +106,8 @@ After the installation completes, you can access the KFP UI from the following U
 ```
 echo "https://"$(kubectl describe configmap inverse-proxy-config -n kubeflow | grep "googleusercontent.com")
 ```
+
+# Optional 
+## Step by step instructions for installing Kubeflow Pipelines
+If you need to understand in more detail the process of installing a lightweight deployment of Kubeflow Pipelines the following step-by-step instructions follow the same process as the `install.sh` script.
+
