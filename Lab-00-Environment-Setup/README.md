@@ -12,6 +12,7 @@ The core services in the environment are:
 - Cloud Storage - unified object storage
 - TensorFlow Extended/Kubeflow Pipelines (TFX/KFP) - machine learning pipelines
 - Cloud SQL - machine learning metadata  management
+- Cloud Build - CI/CD
     
 In the reference environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). Before proceeding make sure that your account has access to the project and is assigned to the **Owner** or **Editor** role.
 
