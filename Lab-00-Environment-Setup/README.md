@@ -8,6 +8,7 @@ The core services in the environment are:
 - AI Platform Notebooks - ML experimentation and development
 - AI Platform Training - scalable, serverless model training
 - AI Platform Prediction - scalable, serverless model serving
+- Dataflow - distributed data processing
 - BigQuery - analytics data warehouse
 - Cloud Storage - unified object storage
 - TensorFlow Extended/Kubeflow Pipelines (TFX/KFP) - machine learning pipelines
