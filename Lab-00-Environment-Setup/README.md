@@ -127,4 +127,26 @@ The `main.tf` script creates:
 - An instance of Cloud SQL hosted MySQL. For the security reasons, the created instance does not have any use accounts
 - A GCS storage bucket
 
+To apply the Terraform configurations:
+1. Navigate to the `terraform folder`.
+```
+cd terraform
+```
+2. Initialize Terraform. This downloads Terraform modules used by the script, including Google providers and the modules from `jarokaz/terraform-gcp`, and initializes local Terraform state.
+```
+terraform init
+```
+3. Apply the configuration. Refer to the previous section for more detail about the variables passed to the apply command. 
+```
+terraform apply \
+-var "project_id=[YOUR_PROJECT_ID] \
+-var "region=[YOUR_REGION] \
+-var "zone=[YOUR_ZONE] \
+-var "name_prefix"=[YOUR_NAME_PREFIX]
+```
+4. Review the resource configurations that will be provisioned and type `yes` to start provisioning.
+5. After the process completes you can review the status of the infrastructure by
+```
+terraform show
+```
 
