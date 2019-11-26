@@ -114,4 +114,17 @@ If you need to understand in more detail the process of installing a lightweight
 ### Provisioning infrastructure
 The `terraform` folder contains Terraform configuration language scripts that provision an MVP infrastructure required to run a lightweigth deployment of Kubeflow Pipelines.
 
-The `main.tf` file contains resource configurations and utilizes re-usable Terraform modules from https://github.com/jarokaz/terraform-gcp-kfp
+The `main.tf` file utilizes re-usable Terraform modules from https://github.com/jarokaz/terraform-gcp-kfp, specifically:
+- The `modules/service_account` module that creates a GCP service account and grants to the account a set of IAM roles.
+- The `modules/vpc` module that creates a VPC network
+- The `modules/gke` module that creates a GKE cluster with a default node pool
+
+The `main.tf` script creates:
+- A service account to be used by GKE nodes
+- A service account to be used by KFP pipelines
+- A regional VPC to host a GKE cluster
+- A simple GKE cluster with a single (default) node pool
+- An instance of Cloud SQL hosted MySQL. For the security reasons, the created instance does not have any use accounts
+- A GCS storage bucket
+
+
