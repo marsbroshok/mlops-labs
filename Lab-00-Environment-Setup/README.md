@@ -109,5 +109,5 @@ echo "https://"$(kubectl describe configmap inverse-proxy-config -n kubeflow | g
 
 # Optional 
 ## Step by step instructions for installing Kubeflow Pipelines
-If you need to understand in more detail the process of installing a lightweight deployment of Kubeflow Pipelines the following step-by-step instructions follow the same process as the `install.sh` script.
+If you need to understand in more detail the process of installing a lightweight deployment of Kubeflow Pipelines the following the instructions step through the process automated by the `install.sh` script.
 
