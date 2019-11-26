@@ -109,7 +109,7 @@ echo "https://"$(kubectl describe configmap inverse-proxy-config -n kubeflow | g
 
 # Optional 
 ## Step by step instructions for installing Kubeflow Pipelines
-If you need to understand in more detail the process of installing a lightweight deployment of Kubeflow Pipelines the following the instructions step through the process automated by the `install.sh` script.
+If you need to understand in more detail the process of installing a lightweight deployment of Kubeflow Pipelines the following instructions step through the same process as automated by the `install.sh` script.
 
 ### Provisioning infrastructure
 The `terraform` folder contains Terraform configuration language scripts that provision an MVP infrastructure required to run a lightweigth deployment of Kubeflow Pipelines.
