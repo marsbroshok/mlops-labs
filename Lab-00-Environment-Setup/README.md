@@ -130,15 +130,24 @@ The `main.tf` script creates:
 - A GCS storage bucket
 
 To apply the Terraform configurations:
-1. Navigate to the `terraform folder`.
+1. Start **Cloud Shell**.
+2. Verify that your GCP project is configured properly
 ```
-cd terraform
+gcloud config set project [YOUR_PROJECT_ID]
 ```
-2. Initialize Terraform. This downloads Terraform modules used by the script, including Google providers and the modules from `jarokaz/terraform-gcp`, and initializes local Terraform state.
+3. If you did not do it in the previous steps clone this repository
+```
+git clone https://github.com/jarokaz/mlops-labs.git
+```
+4. Navigate to the `terraform folder` in *Lab-00*.
+```
+cd mlops-labs/Lab-00-Environment-Setup/kfp/terraform
+```
+5. Initialize Terraform. This downloads Terraform modules used by the script, including Google providers and the modules from `jarokaz/terraform-gcp`, and initializes local Terraform state.
 ```
 terraform init
 ```
-3. Apply the configuration. Refer to the previous section for more detail about the variables passed to the apply command. 
+6. Apply the configuration. Refer to the previous section for more detail about the variables passed to the apply command. 
 ```
 terraform apply \
 -var "project_id=[YOUR_PROJECT_ID] \
@@ -146,8 +155,8 @@ terraform apply \
 -var "zone=[YOUR_ZONE] \
 -var "name_prefix"=[YOUR_NAME_PREFIX]
 ```
-4. Review the resource configurations that will be provisioned and type `yes` to start provisioning.
-5. After the process completes you can review the status of the infrastructure by
+7. Review the resource configurations that will be provisioned and type `yes` to start provisioning.
+8. After the process completes you can review the status of the infrastructure by
 ```
 terraform show
 ```
