@@ -154,7 +154,7 @@ git clone https://github.com/jarokaz/mlops-labs.git
 ```
 cd mlops-labs/Lab-00-Environment-Setup/kfp/terraform
 ```
-5. Initialize Terraform. This downloads Terraform modules used by the script, including Google providers and the modules from `jarokaz/terraform-gcp`, and initializes local Terraform state.
+5. Initialize Terraform. This downloads Terraform modules used by the script, including the *Google Terraform Provider* and the modules from `jarokaz/terraform-gcp`, and initializes local Terraform state.
 ```
 terraform init
 ```
