@@ -146,7 +146,7 @@ To apply the Terraform configurations:
 ```
 gcloud config set project [YOUR_PROJECT_ID]
 ```
-3. If you did not do it in the previous steps replicate the folder structure of this lab in your home directory of if you prefer clone the whole repository
+3. If you did not do it in the previous steps replicate the folder structure of this lab in your home directory or clone the whole repository
 ```
 git clone https://github.com/jarokaz/mlops-labs.git
 ```
