@@ -204,6 +204,10 @@ kubectl create secret -n $NAMESPACE generic user-gcp-sa --from-file=application_
 ```
 rm application_default_credentials.json
 ```
+4. You can verify that the secret stores the private key by executing
+```
+kubectl get secret user-gcp-sa -n kubeflow -o yaml
+```
 
 
 
