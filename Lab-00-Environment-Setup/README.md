@@ -217,6 +217,8 @@ The instance of MySQL created by Terraform in the previous step does not have an
 SQL_INSTANCE_NAME=$(terraform output sql_name)
 gcloud sql users create [YOUR_USER_NAME] --instance=$SQL_INSTANCE_NAME --password=[YOUR_PASSWORD] --project [YOUR_PROJECT_ID]
 ```
-
-
+2. Create the `mysql-credential` secret to store user name and password
+```
+kubectl create secret -n $NAMESPACE generic mysql-credential --from-literal=username=[YOUR_USERNAME] --from-literal=password=[YOUR_PASSWORD]
+```
 
