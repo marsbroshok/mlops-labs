@@ -184,6 +184,28 @@ gcloud container clusters get-credentials $CLUSTER_NAME --zone [YOUR_ZONE] --pro
 ```
 2. Create a namespace
 ```
-kubectl create namespace [YOUR_NAMESPACE]
+NAMESPACE=[YOUR_NAMESPACE]
+kubectl create namespace $NAMESPACE
 ```
+
+#### Creating `user-gcp-sa` secret
+It is recommended to run KFP pipelines using a dedicated service account. A lot of samples, including samples in this repo, assume that the credentials for the service account are stored in a Kubernetes secret named `user-gcp-sa`, under the `application_default_credentials.json` key.
+
+1. Create a private key for the KFP service account created by Terraform in the previous step
+```
+KFP_SA_EMAIL=$(terraform output kfp_sa_email)
+gcloud iam service-accounts keys create application_default_credentials.json --iam-account=$KFP_SA_EMAIL
+```
+2. Create a Kubernetes secret in your namespace
+```
+kubectl create secret -n $NAMESPACE generic user-gcp-sa --from-file=application_default_credentials.json --from-file=user-gcp-sa.json=application_default_credentials.json
+```
+3. Remove the private key
+```
+rm application_default_credentials.json
+```
+
+
+
+
 
