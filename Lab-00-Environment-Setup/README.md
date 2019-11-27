@@ -225,3 +225,15 @@ kubectl create secret -n $NAMESPACE generic mysql-credential --from-literal=user
 ```
 kubectl get secret mysql-credential -n $NAMESPACE -o yaml
 ```
+#### Deploying Kubeflow Pipelines using Kustomize
+In this step you deploy Kubeflow Pipelines using **Kustomize**.
+
+The Kustomize overlays and patches are applied on top of the Kustomize configuration from the Kubeflow github repo. 
+https://github.com/kubeflow/pipelines/tree/master/manifests/kustomize/env/gcp
+
+The `kustomization.yaml` file in the `kfp/kustomize` folder refers to a specific release of KFP as a base. The labs in this repo were tested with the release of 0.1.35 of KFP and this is the base release for this installation.
+
+The `gcp-configurations-patch.yaml` file contains patches that configure the KFP services to retrieve credentials from the secrets created in the previous steps and connection information to the Cloud SQL and the GCS bucket from the Kubernetes **ConfigMap** named `gcp-configs`.
+
+The `gcp-configs` config map is created by **Kustomize** using *configMapGenerator* defined in the `kustomization.yaml` file. The generator is configured to retrieve connections settings from the `gcp-configs.env` environmental file.
+
