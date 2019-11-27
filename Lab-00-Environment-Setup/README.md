@@ -177,9 +177,13 @@ In this section you deploy Kubeflow Pipelines to your GKE cluster. The KFP servi
 #### Creating a Kubernetes namespace
 The KFP services are installed to a dedicated Kubernetes namespace. You can use any name for the namespace, e.g. *kubeflow*.
 
-First get credentials to your cluster:
+1. Get credentials to your cluster:
 ```
 CLUSTER_NAME=$(terraform output cluster_name)
 gcloud container clusters get-credentials $CLUSTER_NAME --zone [YOUR_ZONE] --project [YOUR_PROJECT_ID]
+```
+2. Create a namespace
+```
+kubectl create namespace [YOUR_NAMESPACE]
 ```
 
