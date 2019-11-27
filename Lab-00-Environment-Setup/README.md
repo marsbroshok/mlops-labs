@@ -302,9 +302,9 @@ You can also use this image with Visual Studio Code for both local and remote de
 ### Configuring Visual Studio Code for local development
 1. Clone this repo on your workstation
 2. In the repo's root create the `.devcontainer` folder.
-3. In the `.devcontainer` folder create a Dockerfile:
+3. In the `.devcontainer` folder create a Dockerfile using the following template. Make sure to replace the `[YOUR_PROJECT_NAME]` placeholder with you project id.
 ```
-FROM gcr.io/[YOUR PROJECT ID]/tfx-dev-3.6
+FROM gcr.io/[YOUR_PROJECT_NAME/tfx-kfp-dev:latest
 ```
 4. In the `.devcontainer` folder create the `devcontainer.json` file. Refer to https://github.com/microsoft/vscode-dev-containers/tree/master/containers/docker-existing-dockerfile for more information about the configuration options. The below configuration tells VSC to create an image using the provided Dockerfile and install Microsoft Python extension after the container is started.
 ```
