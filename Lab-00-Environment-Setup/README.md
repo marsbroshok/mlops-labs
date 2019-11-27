@@ -17,6 +17,13 @@ The core services in the environment are:
     
 In the reference environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). Before proceeding make sure that your account has access to the project and is assigned to the **Owner** or **Editor** role.
 
+## Copy the installation files to Cloud Shell
+In the home directory of your **Cloud Shell**, replicate the folder structure of this lab. If you prefer, you can clone the whole repo using `git clone` command:
+```
+git clone https://github.com/jarokaz/mlops-labs.git
+```
+
+
 ## Enabling the required cloud services
 
 In addition to the [services enabled by default](https://cloud.google.com/service-usage/docs/enabled-service), the following additional services must be enabled in the project hosting an MLOps environment:
@@ -40,6 +47,8 @@ You can use the `enable_apis.sh` script to enable the required services from **C
 ```
 
 *Make sure that the Cloud Build service account (that was created when you enabled the Cloud Build service) is granted the Kubernetes Engine Developer role.*
+
+
 
 ## Provisioning an AI Platform Notebook instance
 You use an **AI Platform Notebooks** instance as your primary experimentation/development workspace. Different labs use a different configuration of **AI Platform Notebooks** so make sure to check the lab's README file before starting.
@@ -135,7 +144,7 @@ To apply the Terraform configurations:
 ```
 gcloud config set project [YOUR_PROJECT_ID]
 ```
-3. If you did not do it in the previous steps clone this repository
+3. If you did not do it in the previous steps replicate the folder structure of this lab in your home directory of if you prefer clone the whole repository
 ```
 git clone https://github.com/jarokaz/mlops-labs.git
 ```
