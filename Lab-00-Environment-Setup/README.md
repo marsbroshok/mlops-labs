@@ -221,4 +221,7 @@ gcloud sql users create [YOUR_USER_NAME] --instance=$SQL_INSTANCE_NAME --passwor
 ```
 kubectl create secret -n $NAMESPACE generic mysql-credential --from-literal=username=[YOUR_USERNAME] --from-literal=password=[YOUR_PASSWORD]
 ```
-
+3. You can verify that the secret was created in you namespace by executing:
+```
+kubectl get secret mysql-credential -n $NAMESPACE -o yaml
+```
