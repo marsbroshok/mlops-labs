@@ -124,6 +124,17 @@ If you need to understand in more detail the process of installing a lightweight
 
 *Before procedding make sure to enable the required Cloud Services as described in the previous section*.
 
+The following instructions have been tested with **Cloud Shell**.
+
+This installation requires **Terraform** and **Kustomize**. **Terraform** is pre-installed in **Cloud Shell**. To install **Kustomize** in **Cloud Shell**:
+```
+cd /usr/local/bin 
+sudo wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.3.0/kustomize_v3.3.0_linux_amd64.tar.gz 
+sudo tar xvf kustomize_v3.3.0_linux_amd64.tar.gz
+sudo rm kustomize_v3.3.0_linux_amd64.tar.gz
+```
+
+
 ### Provisioning infrastructure
 The `terraform` folder contains Terraform configuration language scripts that provision an MVP infrastructure required to run a lightweigth deployment of Kubeflow Pipelines.
 
@@ -237,30 +248,24 @@ The `gcp-configurations-patch.yaml` file contains patches that configure the KFP
 
 The `gcp-configs` config map is created by **Kustomize** using *configMapGenerator* defined in the `kustomization.yaml` file. The generator is configured to retrieve connections settings from the `gcp-configs.env` environment file.
 
-1. Install **Kustomize**
-```
-cd /usr/local/bin 
-sudo wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.3.0/kustomize_v3.3.0_linux_amd64.tar.gz 
-sudo tar xvf kustomize_v3.3.0_linux_amd64.tar.gz
-sudo rm kustomize_v3.3.0_linux_amd64.tar.gz
-```
-2. Retrieve connections settings from the Terraform state
+
+1. Retrieve connections settings from the Terraform state
 ```
 SQL_CONNECTION_NAME=$(terraform output sql_connection_name)
 BUCKET_NAME=$(terraform output artifact_store_bucket)
 ```
-3. Assuming that you are still in the `terraform` folder, navigate to the `kustomize` folder
+2. Assuming that you are still in the `terraform` folder, navigate to the `kustomize` folder
 ```
 cd ../kustomize
 ```
-4. Create an environment file with connection settings
+3. Create an environment file with connection settings
 ```
 cat > gcp-configs.env << EOF
 sql_connection_name=$SQL_CONNECTION_NAME
 bucket_name=$BUCKET_NAME
 EOF
 ```
-5. Deploy KFP to the cluster
+4. Deploy KFP to the cluster
 ```
 kustomize build . | kubectl apply -f -
 ```
