@@ -269,6 +269,11 @@ EOF
 ```
 kustomize build . | kubectl apply -f -
 ```
+5. To list the workloads comprising Kubeflow Pipelines:
+```
+kubectl get all -n $NAMESPACE
+```
+
 
 ### Accessing KFP UI
 
