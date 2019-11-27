@@ -235,5 +235,26 @@ The `kustomization.yaml` file in the `kfp/kustomize` folder refers to the 0.1.35
 
 The `gcp-configurations-patch.yaml` file contains patches that configure the KFP services to retrieve credentials from the secrets created in the previous steps and connection information to the Cloud SQL and the GCS bucket from the Kubernetes **ConfigMap** named `gcp-configs`.
 
-The `gcp-configs` config map is created by **Kustomize** using *configMapGenerator* defined in the `kustomization.yaml` file. The generator is configured to retrieve connections settings from the `gcp-configs.env` environmental file.
+The `gcp-configs` config map is created by **Kustomize** using *configMapGenerator* defined in the `kustomization.yaml` file. The generator is configured to retrieve connections settings from the `gcp-configs.env` environment file.
+
+1. Retrieve connections settings from the Terraform state
+```
+SQL_CONNECTION_NAME=$(terraform output sql_connection_name)
+BUCKET_NAME=$(terraform output artifact_store_bucket)
+```
+2. Assuming that you are still in the `terraform` folder, navigate to the `kustomize` folder
+```
+cd ../kustomize
+```
+3. Create an environment file with connection settings
+```
+cat > gcp-configs.env << EOF
+sql_connection_name=$SQL_CONNECTION_NAME
+bucket_name=$BUCKET_NAME
+EOF
+```
+4. Deploy KFP to the cluster
+```
+kustomize build . | kubectl apply -f -
+```
 
