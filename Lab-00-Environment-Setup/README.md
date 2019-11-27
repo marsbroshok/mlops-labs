@@ -228,7 +228,7 @@ kubectl get secret mysql-credential -n $NAMESPACE -o yaml
 #### Deploying Kubeflow Pipelines using Kustomize
 In this step you deploy Kubeflow Pipelines using **Kustomize**.
 
-The Kustomize overlays and patches are applied on top of the Kustomize configuration from the Kubeflow Pipelines github repo. 
+The Kustomize overlays and patches, which can be found in the `kfp/kustomize` folder, are applied on top of the Kustomize configuration from the Kubeflow Pipelines github repo. 
 https://github.com/kubeflow/pipelines/tree/master/manifests/kustomize/env/gcp
 
 The `kustomization.yaml` file in the `kfp/kustomize` folder refers to a specific release of KFP as a base. The labs in this repo were tested with the release 0.1.35 of KFP and this is the base release for this installation.
