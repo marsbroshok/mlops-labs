@@ -212,7 +212,11 @@ kubectl get secret user-gcp-sa -n kubeflow -o yaml
 #### Creating Cloud SQL database user and a Kubernetes secret to hold the user's credentials
 The instance of MySQL created by Terraform in the previous step does not have any database users configured. In this step you create a database user that will be used by KFP and ML Metadata services to access the instance. The services are configured to retrieve the database user credentials from the Kubernetes secret named `mysql-credential`. You can use any name for the database user. Since some older TFX samples assume the user named `root` it is recommended to use this name if you intend to use the samples from the TFX site. The labs in this repo do not hard code any user names. 
 
-1. Create a 
+1. Create a database user
+```
+SQL_INSTANCE_NAME=$(terraform output sql_name)
+gcloud sql users create [YOUR_USER_NAME] --instance=$SQL_INSTANCE_NAME --password=[YOUR_PASSWORD] --project [YOUR_PROJECT_ID]
+```
 
 
 
