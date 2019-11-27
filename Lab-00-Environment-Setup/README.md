@@ -237,23 +237,30 @@ The `gcp-configurations-patch.yaml` file contains patches that configure the KFP
 
 The `gcp-configs` config map is created by **Kustomize** using *configMapGenerator* defined in the `kustomization.yaml` file. The generator is configured to retrieve connections settings from the `gcp-configs.env` environment file.
 
-1. Retrieve connections settings from the Terraform state
+1. Install **Kustomize**
+```
+cd /usr/local/bin 
+sudo wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.3.0/kustomize_v3.3.0_linux_amd64.tar.gz 
+sudo tar xvf kustomize_v3.3.0_linux_amd64.tar.gz
+sudo rm kustomize_v3.3.0_linux_amd64.tar.gz
+```
+2. Retrieve connections settings from the Terraform state
 ```
 SQL_CONNECTION_NAME=$(terraform output sql_connection_name)
 BUCKET_NAME=$(terraform output artifact_store_bucket)
 ```
-2. Assuming that you are still in the `terraform` folder, navigate to the `kustomize` folder
+3. Assuming that you are still in the `terraform` folder, navigate to the `kustomize` folder
 ```
 cd ../kustomize
 ```
-3. Create an environment file with connection settings
+4. Create an environment file with connection settings
 ```
 cat > gcp-configs.env << EOF
 sql_connection_name=$SQL_CONNECTION_NAME
 bucket_name=$BUCKET_NAME
 EOF
 ```
-4. Deploy KFP to the cluster
+5. Deploy KFP to the cluster
 ```
 kustomize build . | kubectl apply -f -
 ```
