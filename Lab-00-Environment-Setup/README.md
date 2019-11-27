@@ -171,4 +171,15 @@ terraform apply \
 ```
 terraform show
 ```
+### Deploying Kubeflow Pipelines
+In this section you deploy Kubeflow Pipelines to your GKE cluster. The KFP services are configured to use the Cloud SQL and the GCS bucket provisioned by Terraform to host metadata databases and an artifacts store.
+
+#### Creating a Kubernetes namespace
+The KFP services are installed to a dedicated Kubernetes namespace. You can use any name for the namespace, e.g. *kubeflow*.
+
+First get credentials to your cluster:
+```
+CLUSTER_NAME=$(terraform output cluster_name)
+gcloud container clusters get-credentials $CLUSTER_NAME --zone [YOUR_ZONE] --project [YOUR_PROJECT_ID]
+```
 
