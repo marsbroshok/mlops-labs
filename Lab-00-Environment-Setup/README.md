@@ -221,7 +221,7 @@ kubectl get secret user-gcp-sa -n kubeflow -o yaml
 ```
 
 #### Creating Cloud SQL database user and a Kubernetes secret to hold the user's credentials
-The instance of MySQL created by Terraform in the previous step does not have any database users configured. In this step you create a database user that will be used by KFP and ML Metadata services to access the instance. The services are configured to retrieve the database user credentials from the Kubernetes secret named `mysql-credential`. You can use any name for the database user. Since some older TFX samples assume the user named `root` it is recommended to use this name if you intend to use the samples from the TFX site. The labs in this repo do not hard code any user names. 
+The instance of MySQL created by Terraform in the previous step does not have any database users configured. In this step, you create a database user that will be used by KFP and ML Metadata services to access the instance. The services are configured to retrieve the database user credentials from the Kubernetes secret named `mysql-credential`. You can use any name for the database user. Since some older TFX samples assume the user named `root`, it is recommended to use this name if you intend to use the samples from the TFX site. The labs in this repo do not hard code any user names. 
 
 1. Create a database user
 ```
@@ -242,7 +242,7 @@ In this step you deploy Kubeflow Pipelines using **Kustomize**.
 The Kustomize overlays and patches, which can be found in the `kfp/kustomize` folder, are applied on top of the Kustomize configuration from the Kubeflow Pipelines github repo. 
 https://github.com/kubeflow/pipelines/tree/master/manifests/kustomize/env/gcp
 
-The `kustomization.yaml` file in the `kfp/kustomize` folder refers to the 0.1.35 release of KFP as a base. This is the release agains which the labs in this repo were tested. As the labs and KFP evolve this will be updated to align with the required version of KFP.
+The `kustomization.yaml` file in the `kfp/kustomize` folder refers to the 0.1.35 release of KFP as a base. This is the release agains which the labs in this repo were tested. As the labs and KFP evolve, this will be updated to align with the required version of KFP.
 
 The `gcp-configurations-patch.yaml` file contains patches that configure the KFP services to retrieve credentials from the secrets created in the previous steps and connection information to the Cloud SQL and the GCS bucket from the Kubernetes **ConfigMap** named `gcp-configs`.
 
