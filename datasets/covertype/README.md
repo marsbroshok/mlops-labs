@@ -97,8 +97,8 @@ Code | Description
 The file `covertype.csv` is a full dataset with 531012 examples.
 
 In addition the following data splits have been created:
-- `covertype_train.csv` - the training split with 431012 examples
-- `covertype_train_anomaly.csv` - the training split with ... examples and ... ELU code missing from the **Soil Type** domain.
+- `covertype_training.csv` - the training split with 431012 examples
+- `covertype_training_anomaly.csv` - the training split with ... examples and ... ELU code missing from the **Soil Type** domain.
 - `covertype_evaluation.csv` -  the evaluation split with 75,000 examples
 - `covertype_serving.csv`- the serving split with 75,000 examples. The serving split does not have the `Cover_type` column
 
