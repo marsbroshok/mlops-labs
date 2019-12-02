@@ -100,8 +100,7 @@ In addition the following data splits have been created:
 - `covertype_training.csv` - the training split with 431012 examples
 - `covertype_evaluation.csv` -  the evaluation split with 75,000 examples
 - `covertype_serving.csv`- the serving split with 75,000 examples. The serving split does not have the `Cover_type` column
-- `covertype_training_anomaly.csv` - the training split with simulated anomalies
-- `covertype_evaluation.csv` - the evaluation split with simulated anomalies
+- `covertype_evaluation_anomaly.csv` - the evaluation split with simulated anomalies
 
 The full data set splits have been uploaded to the `gs://workshop-datasets/covertype` GCS location.
 In addition the full dataset has been loaded to BigQuery at ...
