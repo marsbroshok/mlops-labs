@@ -17,7 +17,7 @@ Horizontal_Distance_To_Hydrology | Integer  | Quantitative | meters | Horizontal
 Vertical_Distance_To_Hydrology | Integer  | Quantitative | meters | Vertical distance to nearest surface water features
 Horizontal_Distance_To_Roadways | Integer  | Quantitative | meters | Horizontal distance to nearest roadway
 Hillshade_9am | Integer  | Quantitative | 0 to 255 index |  Hillshade index at 9am, summer solstice
-Hillshade_Noon | Integer  | Quantitative | 0 t 255 index |  Hillshade index at noon, summer soltice
+Hillshade_Noon | Integer  | Quantitative | 0 to 255 index |  Hillshade index at noon, summer soltice
 Hillshade_3pm | Integer  | Quantitative | 0 to 255 index |  Hillshade index at 3pm, summer solstice
 Horizontal_Distance_To_Fire_Points | Integer  | Quantitative | meters | Horizontal distance to nearest wildfire ignition points
 Wilderness_Area | String | Categorical | Text codes |  Wilderness area designation - refer to the below table for code designations
