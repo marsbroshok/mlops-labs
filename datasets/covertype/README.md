@@ -94,7 +94,7 @@ Code | Description
 
 ## Data Splits
 
-The file `covertype.csv` is a full dataset with 531012 examples.
+The file `covertype.csv` is a full dataset with 581012 examples.
 
 In addition the following data splits have been created:
 - `covertype_training.csv` - the training split with 431012 examples
