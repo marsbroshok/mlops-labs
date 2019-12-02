@@ -4,6 +4,8 @@ This dataset is based on **Covertype Data Set** from UCI Machine Learning Reposi
 
 https://archive.ics.uci.edu/ml/datasets/covertype
 
+## Schema
+
 The original dataset has been modified to conform to the following schema:
 
 Column Name | Data Type | Measurement | Description
@@ -15,10 +17,14 @@ Horizontal_Distance_To_Hydrology | Numeric | meters | Horizontal distance to nea
 Vertical_Distance_To_Hydrology | Numeric | meters | Vertical distance to nearest surface water features
 Horizontal_Distance_To_Roadways | Numeric | meters | Horizontal distance to nearest roadway
 Hillshade_9am | Numeric | 0 to 255 index |  Hillshade index at 9am, summer solstice
+Hillshade_Noon | Numeric | 0 t 255 index |  Hillshade index at noon, summer soltice
+Hillshade_3pm | Numeric | 0 to 255 index |  Hillshade index at 3pm, summer solstice
+Horizontal_Distance_To_Fire_Points | Numeric | meters | Horizontal distance to nearest wildfire ignition points
+Wilderness_Area | String | Categorical |  Wilderness area designation - refer to the below table for code designations
+Soil_Type | Integer | Categorical | Soil Type designation - refer to the below table for code designations
+Cover_Type | Integer | Categorical | Forest Cover Type designation - refer to the below table for code designations
 
-
-
-Columns 10-13 that in the original dataset are a one-hot encoded representation of the wilderness area designation have been replaced by a single column with a name of the Wilderness Area, using the following mappings:
+### Wilderness Area Code designations
 
 Code | Wilderness Area 
 ----------------|-----
@@ -29,7 +35,7 @@ Cache | Cache la Poudre Wilderness Area
 
 
     
-Columns 14-53 that in the original dataset are a one-hot encoded representation of the soil type designation have been replaced by a single column with the ELU code of the soil type, using the following mappings
+### Soil Type Code designations
 
  ELU Code | Description
 ----------|------------
@@ -73,6 +79,20 @@ Columns 14-53 that in the original dataset are a one-hot encoded representation 
  8771|Leighcan - Moran families - Cryaquolls complex, extremely stony.
  8772|Moran family - Cryorthents - Leighcan family complex, extremely stony.
  8776|Moran family - Cryorthents - Rock land complex, extremely stony.
+
+### Forest Cover Code designations (type classes)
+
+Code | Description
+-----|------------
+1 | Spruce/Fir
+2 | Lodgepole Pine
+3 | Ponderosa Pine
+4 | Cottonwood/Willow
+5 | Aspen
+6 | Douglas-fir
+7 | Krummholz
+
+## Splits
 
 The modified dataset has been used to create 5 splits: 
 - `covertype.csv` - the full dataset with 531012 examples
