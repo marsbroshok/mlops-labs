@@ -96,11 +96,11 @@ Code | Description
 
 The file `covertype.csv` is a full dataset with 581012 examples.
 
-In addition the following data splits have been created:
+In addition, the following data splits have been created:
 - `covertype_training.csv` - the training split with 431012 examples
 - `covertype_evaluation.csv` -  the evaluation split with 75,000 examples
 - `covertype_serving.csv`- the serving split with 75,000 examples. The serving split does not have the `Cover_type` column
-- `covertype_evaluation_anomaly.csv` - the evaluation split with simulated anomalies: some examples have slope values over 90 degrees, some examples have soil type 2701 (that code does not exist in the training split).
+- `covertype_evaluation_anomalies.csv` - the evaluation split with simulated anomalies: some examples have slope values over 90 degrees, some examples have soil type 2701 (that code does not exist in the training split).
 
 All data set splits have been uploaded to the `gs://workshop-datasets/covertype` GCS location.
 In addition the full dataset has been loaded to BigQuery at ...
