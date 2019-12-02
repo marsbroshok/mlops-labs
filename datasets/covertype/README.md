@@ -13,6 +13,10 @@ Aspect | Numeric | azimuth |  Aspect in degrees azimuth
 Slope | Numeric | degress | Slop in degress
 Horizontal_Distance_To_Hydrology | Numeric | meters | Horizontal distance to nearest surface water features
 Vertical_Distance_To_Hydrology | Numeric | meters | Vertical distance to nearest surface water features
+Horizontal_Distance_To_Roadways | Numeric | meters | Horizontal distance to nearest roadway
+Hillshade_9am | Numeric | 0 to 255 index |  Hillshade index at 9am, summer solstice
+
+
 
 Columns 10-13 that in the original dataset are a one-hot encoded representation of the wilderness area designation have been replaced by a single column with a name of the Wilderness Area, using the following mappings:
 
