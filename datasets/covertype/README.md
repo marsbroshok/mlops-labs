@@ -7,10 +7,15 @@ https://archive.ics.uci.edu/ml/datasets/covertype
 The original dataset has been modified in the following ways:
 
 - Columns 10-13 that a are one-hot encoded representation of the wilderness area designation have been replaced by a single column with a name of the Wilderness Area:
-    - Rawah - Rawah Wilderness Area
-    - Neota - Neota Wilderness Area
-    - Comanche - Comanche Peak Wilderness Area
-    - Cache - Cache la 
+
+Wilderness Area | Code
+----------------|-----
+Rawah Wilderness Area | Rawah
+Neota Wilderness Area | Neota
+Comanche Peak Wilderness Area | Comanche
+Cache la Poudre Wilderness Area | Cache
+
+
     - 
 - Columns 14-53 that are a one-hot encoded representation of the soil type designation have been replaced by a single column with the ELU code of the soil type.
 
