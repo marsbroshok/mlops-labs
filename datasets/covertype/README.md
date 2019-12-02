@@ -9,7 +9,7 @@ https://archive.ics.uci.edu/ml/datasets/covertype
 The original dataset has been modified to conform to the following schema:
 
 Column Name | Data Type | Feature Type | Data Domain | Description
-------------|-----------|------------|-------------
+------------|-----------|--------------|-------------|------------
 Elevation | Integer | Quantitative | meters |  Elevation in meters
 Aspect | Integer  | Quantitative | azimuth |  Aspect in degrees azimuth
 Slope | Integer | Quantitative | degress | Slop in degress
@@ -20,7 +20,7 @@ Hillshade_9am | Integer  | Quantitative | 0 to 255 index |  Hillshade index at 9
 Hillshade_Noon | Integer  | Quantitative | 0 t 255 index |  Hillshade index at noon, summer soltice
 Hillshade_3pm | Integer  | Quantitative | 0 to 255 index |  Hillshade index at 3pm, summer solstice
 Horizontal_Distance_To_Fire_Points | Integer  | Quantitative | meters | Horizontal distance to nearest wildfire ignition points
-Wilderness_Area | String | Categorical | Alphanumeric codes |  Wilderness area designation - refer to the below table for code designations
+Wilderness_Area | String | Categorical | Text codes |  Wilderness area designation - refer to the below table for code designations
 Soil_Type | Integer | Categorical | Integer codes | Soil Type designation - refer to the below table for code designations
 Cover_Type | Integer | Categorical | Integer codes | Forest Cover Type designation - refer to the below table for code designations
 
