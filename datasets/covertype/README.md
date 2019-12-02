@@ -4,7 +4,15 @@ This dataset is based on **Covertype Data Set** from UCI Machine Learning Reposi
 
 https://archive.ics.uci.edu/ml/datasets/covertype
 
-The original dataset has been modified in the following ways:
+The original dataset has been modified to conform to the following schema:
+
+Column Name | Data Type | Measurement | Description
+------------|-----------|------------|-------------
+Elevation | Numeric | meters |  Elevation in meters
+Aspect | Numeric | azimuth |  Aspect in degrees azimuth
+Slope | Numeric | degress | Slop in degress
+Horizontal_Distance_To_Hydrology | Numeric | meters | Horizontal distance to nearest surface water features
+Vertical_Distance_To_Hydrology | Numeric | meters | Vertical distance to nearest surface water features
 
 Columns 10-13 that in the original dataset are a one-hot encoded representation of the wilderness area designation have been replaced by a single column with a name of the Wilderness Area, using the following mappings:
 
