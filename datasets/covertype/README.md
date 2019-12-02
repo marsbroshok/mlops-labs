@@ -92,15 +92,16 @@ Code | Description
 6 | Douglas-fir
 7 | Krummholz
 
-## Splits
+## Data Splits
 
-The modified dataset has been used to create 5 splits: 
-- `covertype.csv` - the full dataset with 531012 examples
+The file `covertype.csv` is a full dataset with 531012 examples.
+
+In addition the following data splits have been created:
 - `covertype_train.csv` - the training split with 431012 examples
-- `covertype_train_anomaly.csv` - the training split ...
+- `covertype_train_anomaly.csv` - the training split with ... examples and ... ELU code missing from the **Soil Type** domain.
 - `covertype_evaluation.csv` -  the evaluation split with 75,000 examples
 - `covertype_serving.csv`- the serving split with 75,000 examples. The serving split does not have the `Cover_type` column
 
-The splits have been uploaded to the `gs://workshop-datasets/covertype` GCS location.
-
+The full data set splits have been uploaded to the `gs://workshop-datasets/covertype` GCS location.
+In addition the full dataset has been loaded to BigQuery at ...
 
