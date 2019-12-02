@@ -6,7 +6,7 @@ https://archive.ics.uci.edu/ml/datasets/covertype
 
 The original dataset has been modified in the following ways:
 
-- Columns 10-13 that in the original dataset are a one-hot encoded representation of the wilderness area designation have been replaced by a single column with a name of the Wilderness Area, using the following mappings:
+Columns 10-13 that in the original dataset are a one-hot encoded representation of the wilderness area designation have been replaced by a single column with a name of the Wilderness Area, using the following mappings:
 
 Code | Wilderness Area 
 ----------------|-----
@@ -17,7 +17,7 @@ Cache | Cache la Poudre Wilderness Area
 
 
     
-- Columns 14-53 that in the original dataset are a one-hot encoded representation of the soil type designation have been replaced by a single column with the ELU code of the soil type, using the following mappings
+Columns 14-53 that in the original dataset are a one-hot encoded representation of the soil type designation have been replaced by a single column with the ELU code of the soil type, using the following mappings
 
  ELU Code | Description
 ----------|------------
@@ -62,21 +62,13 @@ Cache | Cache la Poudre Wilderness Area
  8772|Moran family - Cryorthents - Leighcan family complex, extremely stony.
  8776|Moran family - Cryorthents - Rock land complex, extremely stony.
 
-The modified dataset has been divided into 5 splits: 
-- Training - 431012 exmplates
-- Training-anomaly
-- Evaluation -  75,000 examples
-- Serving - 75,000 examples
+The modified dataset has been used to create 5 splits: 
+- `covertype.csv` - the full dataset with 531012 examples
+- `covertype_train.csv` - the training split with 431012 examples
+- `covertype_train_anomaly.csv` - the training split ...
+- `covertype_evaluation.csv` -  the evaluation split with 75,000 examples
+- `covertype_serving.csv`- the serving split with 75,000 examples. The serving split does not have the `Cover_type` column
 
-The *Testing-corry
+The splits have been uploaded to the `gs://workshop-datasets/covertype` GCS location.
 
-
-The original dataset is at
-gs://workshop-datasets/covertype/orig
-
-The modified datasets are at:
-gs://workshop-datasets/covertype/preprocessed/training
-gs://workshop-datasets/covertype/preprocessed/validation
-gs://workshop-datasets/covertype/preprocessed/testing
-gs://workshop-datasets/covertype/preprocessed/serving
 
