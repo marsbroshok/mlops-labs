@@ -102,6 +102,6 @@ In addition the following data splits have been created:
 - `covertype_serving.csv`- the serving split with 75,000 examples. The serving split does not have the `Cover_type` column
 - `covertype_evaluation_anomaly.csv` - the evaluation split with simulated anomalies: some examples have slope values over 90 degrees, some examples have soil type 2701 (that code does not exist in the training split).
 
-The full data set splits have been uploaded to the `gs://workshop-datasets/covertype` GCS location.
+All data set splits have been uploaded to the `gs://workshop-datasets/covertype` GCS location.
 In addition the full dataset has been loaded to BigQuery at ...
 
