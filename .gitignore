@@ -108,4 +108,5 @@ terraform.tfstate
 terraform.tfstate.backup
 application_default_credentials.json
 
+.whl
 
