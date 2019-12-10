@@ -109,4 +109,6 @@ terraform.tfstate.backup
 application_default_credentials.json
 
 .whl
+.DS_Store
+
 
