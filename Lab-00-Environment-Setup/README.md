@@ -55,17 +55,17 @@ You can use the `enable_apis.sh` script to enable the required services from **C
 ## Provisioning an AI Platform Notebook instance
 You use an **AI Platform Notebooks** instance as your primary experimentation/development workspace. Different labs use a different configuration of **AI Platform Notebooks** so make sure to check the lab's README file before starting.
 
-TFX/KFP labs use an **AI Platform Notebooks** instance based on a custom image container that has all components required for TFX/KFP development pre-installed.
+When running labs you use an **AI Platform Notebooks** instance based on a custom image container that has all components required for a given lab pre-installed.
 
-The process of creating the custom container image has been automated with  [Cloud Build](https://cloud.google.com/cloud-build/). To build the image and push it to your project's **Container Registry** use **Cloud Shell** to run the `build.sh` script from the `notebook-image` folder.
+The process of creating a custom container image has been automated with  [Cloud Build](https://cloud.google.com/cloud-build/). To build the image and push it to your project's **Container Registry** use **Cloud Shell** to run the `build.sh` script from the `notebook-images/[IMAGE_TYPE]` folder. Make sure to check the given lab's README for the required IMAGE_TYPE.
 
 ```
-cd notebook-image
+cd notebook-images/[IMAGE_TYPE]
 gcloud config set project [YOUR_PROJECT_ID]
 ./build.sh
 ```
 
-After the build completes, follow the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container) to create an **AI Platform Notebook** instance. In the **Docker container image** field, enter the following image name: `gcr.io/[YOUR_PROJECT_NAME/tfx-kfp-dev:latest`.
+After the build completes, follow the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container) to create an **AI Platform Notebook** instance. In the **Docker container image** field, enter the following image name: `gcr.io/[YOUR_PROJECT_NAME/[IMAGE_TYPE]`.
 
 
 
