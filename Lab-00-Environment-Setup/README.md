@@ -172,10 +172,10 @@ terraform init
 6. Apply the configuration. Refer to the previous section for more detail about the variables passed to the apply command. 
 ```
 terraform apply \
--var "project_id=[YOUR_PROJECT_ID] \
--var "region=[YOUR_REGION] \
--var "zone=[YOUR_ZONE] \
--var "name_prefix"=[YOUR_NAME_PREFIX]
+-var "project_id=[YOUR_PROJECT_ID]" \
+-var "region=[YOUR_REGION]" \
+-var "zone=[YOUR_ZONE]" \
+-var "name_prefix=[YOUR_NAME_PREFIX]"
 ```
 7. Review the resource configurations that will be provisioned and type `yes` to start provisioning.
 8. After the process completes you can review the status of the infrastructure by
