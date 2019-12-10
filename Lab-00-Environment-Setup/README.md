@@ -18,7 +18,7 @@ The core services in the environment are:
 In the reference environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). Before proceeding make sure that your account has access to the project and is assigned to the **Owner** or **Editor** role.
 
 ## Copy the installation files to Cloud Shell
-Although you can run the installation from any workstation configured with *Google Cloud SDK* and *Terraform*, the following instructions has been based on and tested with [Cloud Shell](https://cloud.google.com/shell/).
+Although you can run the installation from any workstation configured with *Google Cloud SDK* and *Terraform*, the following instructions have been based on and tested with [Cloud Shell](https://cloud.google.com/shell/).
 
 In the home directory of your **Cloud Shell**, replicate the folder structure of this lab. If you prefer, you can clone the whole repo using `git clone` command:
 ```
