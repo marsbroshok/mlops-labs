@@ -17,7 +17,7 @@
 
 PROJECT_ID=$(gcloud config get-value core/project)
 IMAGE_NAME=tfx-kfp-dev
-TAG=latest
+TAG=TF115-TFX015-KFP136
 
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
