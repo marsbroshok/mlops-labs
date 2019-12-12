@@ -3,7 +3,7 @@
 ## Lab setup
 
 ### AI Platform Notebook configuration
-In this lab you use the **AI Platform Notebooks** instance configured with the `tf115-tfx015-kfp1361` image. To prepare the lab:
+In this lab you use the **AI Platform Notebooks** instance configured with the `tf115-tfx015-kfp137` image. To prepare the lab:
 1. Create/use the **AI Platform Notebook** instance using the process described in [Lab-00-Environment-Setup](../Lab-00-Environment-Setup/README.md).
 2. Open **JupyterLab** in your instance
 
