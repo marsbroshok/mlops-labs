@@ -36,7 +36,7 @@ def train_evaluate(job_dir, training_dataset_path, validation_dataset_path, alph
 
   pipeline = Pipeline([
     ('preprocessor', preprocessor),
-    ('classifier', SGDClassifier(alpha=alpha, max_iter=max_iter, loss='log'))
+    ('classifier', SGDClassifier(loss='log'))
   ])
 
   print('Starting training: alpha={}, max_iter={}'.format(alpha, max_iter))
@@ -44,6 +44,8 @@ def train_evaluate(job_dir, training_dataset_path, validation_dataset_path, alph
   y_train = df_train['Cover_Type']
   X_validation = df_validation.drop('Cover_Type', axis=1)
   y_validation = df_validation['Cover_Type']
+    
+  pipeline.set_params(classifier__alpha=alpha, classifier__max_iter=max_iter)
   pipeline.fit(X_train, y_train)
   accuracy = pipeline.score(X_validation, y_validation)
   print('Finished training. Model accuracy: {}'.format(accuracy))
