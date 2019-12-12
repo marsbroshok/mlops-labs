@@ -52,4 +52,9 @@ $DATA_SOURCE \
 $SCHEMA
 ```
 
+### AI Platform job dir bucket
+```
+BUCKET_NAME=gs://lab_12_bucket
+gsutil mb -p $PROJECT_ID $BUCKET_NAME
+```
 
