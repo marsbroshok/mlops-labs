@@ -4,7 +4,7 @@ Developing a repeatable and reliable ML pipeline is a complex, multi-step proces
 
 In most cases, you start by exploring the datasets and experimenting with data preprocessing and modeling routines in an interactive environment like Jupyter notebooks. When you zero in on a given approach you formalize your workflow by authoring an ML pipeline.
 
-Today, the process of transitioning from an interactive notebook to an operationalized pipeline is not fully automated. You need to manually re-factor your code snippets in the notebook to ML Pipeline DSL. There in ongoing work in TFX and KFP initiatives to make the process more streamlined and eventually fully automated.
+Today, the process of transitioning from an interactive notebook to an operationalized pipeline is not fully automated. You need to manually re-factor your code snippets in the notebook to ML Pipeline DSL. There is in ongoing work in TFX and KFP initiatives to make the process more streamlined and eventually fully automated.
 
 In this lab, you simulate this process by walking through the development a KFP pipeline that orchrestrates BigQuery and Cloud AI Platform services to train and deploy a **scikit-learn model**:
 
