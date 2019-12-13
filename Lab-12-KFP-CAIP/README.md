@@ -14,7 +14,7 @@ In this lab, you simulate this process by walking through the development of a K
 
 ## Lab scenario
 
-In the lab, you will use the [Covertype Data Set](../datasets/covertype/README.md) to develop a multi-class classification model that predicts the type of forest cover from cartographic data. 
+Using the [Covertype Data Set](../datasets/covertype/README.md) you will develop a multi-class classification model that predicts the type of forest cover from cartographic data. 
 
 The source data is in BigQuery. The pipeline uses BigQuery to prepare training and evaluation splits, AI Platform Training to run a custom container with data preprocessing and training code, and AI Platform Prediction as a deployment target. The below diagram represents the workflow orchestrated by the pipeline.
 
