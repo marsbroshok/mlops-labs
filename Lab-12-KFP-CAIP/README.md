@@ -14,16 +14,16 @@ In this lab, you simulate this process by walking through the development of a K
 
 ## Lab scenario
 
-In the lab you use the [Covertype Dat Set](../datasets/covertype/README.md) to develop a multi-class classification model that predicts the type of forest cover from cartographic data. 
+In the lab, you will use the [Covertype Data Set](../datasets/covertype/README.md) to develop a multi-class classification model that predicts the type of forest cover from cartographic data. 
 
 The source data is in BigQuery. The pipeline uses BigQuery to prepare training and evaluation splits, AI Platform Training to run a custom container with data preprocessing and training code, and AI Platform Prediction as a deployment target. The below diagram represents the workflow orchestrated by the pipeline.
 
-[Training pipeline](../images/kfp-caip.png).
+![Training pipeline](../images/kfp-caip.png).
 
 ## Lab setup
 
 ### AI Platform Notebook configuration
-In this lab you use the **AI Platform Notebooks** instance configured with the `tf115-tfx015-kfp137` image. To prepare the lab:
+You will use the **AI Platform Notebooks** instance configured with the `tf115-tfx015-kfp137` image. To prepare the lab:
 1. Create/use the **AI Platform Notebook** instance using the process described in [Lab-00-Environment-Setup](../Lab-00-Environment-Setup/README.md).
 2. Open **JupyterLab** in your instance
 
