@@ -85,8 +85,9 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
 
 ## Lab Part 1 - Experimentation
+1. Walk through the `notebooks/covertype_experminentation.ipynb` notebook
 ## Lab Part 2 - KFP pipeline authoring
-1. Code review.
+1. Review code in the `pipelines` folder
 2. Compile the pipeline
 ```
 dsl-compile -py covertype_training_pipeline.py --output covertype_training_pipeline.yaml
@@ -105,6 +106,15 @@ evaluation_metric_name=accuracy \
 evaluation_metric_threshold=0.69 
 ```
 ## Lab Part 3 - CI/CD
+1. Build the *kfp-cli* docker image
+```
+cd Lab-11-KFP-CAIP/cicd/kfp-cli
+./build.sh
+```
+2. Review Cloud Build configuration
+3. Trigger the CI/CD run
+4. Configure GitHub integration
+5. Trigger the run from GitHub
 
 
 
