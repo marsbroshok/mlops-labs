@@ -165,8 +165,7 @@ def covertype_train(
     tune_args = [
         '--training_dataset_path', create_training_split.outputs['output_gcs_path'],
         '--validation_dataset_path', create_validation_split.outputs['output_gcs_path'],
-        '--evaluate', 'True',
-        '--save_model', 'False'
+        '--hptune', 'True'
     ]
     
     job_dir = '{}/{}/{}'.format(gcs_root, 'jobdir/hypertune', kfp.dsl.RUN_ID_PLACEHOLDER)
@@ -191,8 +190,7 @@ def covertype_train(
         '--validation_dataset_path', create_validation_split.outputs['output_gcs_path'],
         '--alpha', best_trial.outputs['alpha'],
         '--max_iter', best_trial.outputs['max_iter'],
-        '--evaluate', 'False',
-        '--save_model', 'True'
+        '--hptune', 'False'
     ]
     
     training_job = mlengine_train_op(

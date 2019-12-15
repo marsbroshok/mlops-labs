@@ -931,7 +931,7 @@
       - |-
         --args
       - |-
-        ["--training_dataset_path", "{{inputs.parameters.bigquery-query-output_gcs_path}}", "--validation_dataset_path", "{{inputs.parameters.bigquery-query-2-output_gcs_path}}", "--evaluate", "True", "--save_model", "False"]
+        ["--training_dataset_path", "{{inputs.parameters.bigquery-query-output_gcs_path}}", "--validation_dataset_path", "{{inputs.parameters.bigquery-query-2-output_gcs_path}}", "--hptune", "True"]
       - |-
         --job_dir
       - |-
@@ -1065,7 +1065,7 @@
       - |-
         --args
       - |-
-        ["--training_dataset_path", "{{inputs.parameters.bigquery-query-output_gcs_path}}", "--validation_dataset_path", "{{inputs.parameters.bigquery-query-2-output_gcs_path}}", "--alpha", "{{inputs.parameters.retrieve-best-run-alpha}}", "--max_iter", "{{inputs.parameters.retrieve-best-run-max_iter}}", "--evaluate", "False", "--save_model", "True"]
+        ["--training_dataset_path", "{{inputs.parameters.bigquery-query-output_gcs_path}}", "--validation_dataset_path", "{{inputs.parameters.bigquery-query-2-output_gcs_path}}", "--alpha", "{{inputs.parameters.retrieve-best-run-alpha}}", "--max_iter", "{{inputs.parameters.retrieve-best-run-max_iter}}", "--hptune", "False"]
       - |-
         --job_dir
       - |-
