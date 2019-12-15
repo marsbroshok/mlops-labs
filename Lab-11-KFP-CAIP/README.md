@@ -12,6 +12,9 @@ In this lab, you simulate this process by walking through the development of a K
 
 2. In Part 2, you will re-factor code snippets developed in the notebook into KFP components and a KFP pipeline.
 
+3. In Part 3, you will develop a CI/CD workflow that automatically builds and deploys the KFP pipeline.
+
+
 ## Lab scenario
 
 Using the [Covertype Data Set](../datasets/covertype/README.md) you will develop a multi-class classification model that predicts the type of forest cover from cartographic data. 
@@ -47,7 +50,7 @@ cd mlops-lab/datasets/covertype
 
 PROJECT_ID=[YOUR_PROJECT_ID]
 DATASET_LOCATION=US
-DATASET_ID=lab_12
+DATASET_ID=lab_11
 TABLE_ID=covertype
 DATA_SOURCE=covertype.csv
 SCHEMA=Elevation:INTEGER,\
@@ -82,6 +85,26 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
 
 ## Lab Part 1 - Experimentation
-## Lab Part 2 - Operationalization
+## Lab Part 2 - KFP pipeline authoring
+1. Code review.
+2. Compile the pipeline
+```
+dsl-compile -py covertype_training_pipeline.py --output covertype_training_pipeline.yaml
+```
+3. Run the pipeline
+```
+kfp run submit -e Covertype_Classifier_Training \
+-r Run_1 \
+-f covertype_training_pipeline.yaml \
+project_id=mlops-workshop \
+region=us-central1 \
+source_table_name=lab_11.covertype \
+gcs_root=gs://mlops-workshop-lab-12 \
+dataset_id=splits \
+evaluation_metric_name=accuracy \
+evaluation_metric_threshold=0.69 
+```
+## Lab Part 3 - CI/CD
+
 
 

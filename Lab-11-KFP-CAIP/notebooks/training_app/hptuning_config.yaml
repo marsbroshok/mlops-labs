@@ -2,7 +2,7 @@
 trainingInput:
   hyperparameters:
     goal: MAXIMIZE
-    maxTrials: 9
+    maxTrials: 6
     maxParallelTrials: 3
     hyperparameterMetricTag: accuracy
     enableTrialEarlyStopping: TRUE 
