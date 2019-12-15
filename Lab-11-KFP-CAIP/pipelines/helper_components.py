@@ -16,11 +16,8 @@ from typing import NamedTuple
 def retrieve_best_run(project_id:str, job_id:str)->NamedTuple('Outputs',
                                                    [('metric_value', float),
                                                     ('alpha', float),
-                                                    ('max_iter', int),
-                                                    ('mlpipeline_metrics', 'Metrics')]):
+                                                    ('max_iter', int)]):
 
-    import json
-    import numpy as np
     from googleapiclient import discovery
     from googleapiclient import errors
     
@@ -44,21 +41,16 @@ def retrieve_best_run(project_id:str, job_id:str)->NamedTuple('Outputs',
     alpha = float(best_trial['hyperparameters']['alpha'])
     max_iter = int(best_trial['hyperparameters']['max_iter'])
     
-    # Export the metric
-    metrics = {
-        'metrics': [{
-            'name': response['trainingOutput']['hyperparameterMetricTag'],
-            'numberValue': float(metric_value)
-        }]
-    }
-    
-    return(metric_value, alpha, max_iter, json.dumps(metrics))
+    return(metric_value, alpha, max_iter)
 
 
 def evaluate_model(dataset_path:str, model_path:str, metric_name:str)->NamedTuple('Outputs',
                                                                        [('metric_name', str),
-                                                                        ('metric_value', float)]):
-    import joblib
+                                                                        ('metric_value', float),
+                                                                        ('mlpipeline_metrics', 'Metrics')]):
+    #import joblib
+    import pickle
+    import json
     import pandas as pd
     import subprocess
     import sys
@@ -71,12 +63,14 @@ def evaluate_model(dataset_path:str, model_path:str, metric_name:str)->NamedTupl
     y_test = df_test['Cover_Type']
     
     # Copy the model from GCS
-    model_filename = 'model.joblib'
+    model_filename = 'model.pkl'
     gcs_model_filepath = "{}/{}".format(model_path, model_filename)
     print(gcs_model_filepath)
     subprocess.check_call(['gsutil', 'cp', gcs_model_filepath, model_filename], stderr=sys.stdout)
     
-    model = joblib.load(model_filename)
+    with open(model_filename, 'rb') as model_file:
+        model = pickle.load(model_file)
+    
     y_hat = model.predict(X_test)
     
     if metric_name == 'accuracy':
@@ -87,4 +81,13 @@ def evaluate_model(dataset_path:str, model_path:str, metric_name:str)->NamedTupl
         metric_name = 'N/A'
         metric_value = 0
     
-    return (metric_name, metric_value)
+    # Export the metric
+    metrics = {
+        'metrics': [{
+            'name': metric_name,
+            'numberValue': float(metric_value)
+        }]
+    }
+    
+    return (metric_name, metric_value, json.dumps(metrics))
+

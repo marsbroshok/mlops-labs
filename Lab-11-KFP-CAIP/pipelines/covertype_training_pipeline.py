@@ -28,11 +28,12 @@ from kfp.dsl.types import GCPProjectID, GCSPath, GCRPath, GCPRegion, Integer, St
 from typing import NamedTuple
 
 from helper_components import retrieve_best_run, evaluate_model
-
     
 # Defaults and environment settings
 BASE_IMAGE = os.getenv("BASE_IMAGE")
 TRAINER_IMAGE = os.getenv("TRAINER_IMAGE")
+RUNTIME_VERSION = os.getenv("RUNTIME_VERSION")
+PYTHON_VERSION = os.getenv("PYTHON_VERSION")
 COMPONENT_URL_SEARCH_PREFIX = os.getenv("COMPONENT_URL_SEARCH_PREFIX")
 
 TRAINING_FILE_PATH = 'datasets/training/data.csv'
@@ -90,6 +91,7 @@ component_store = kfp.components.ComponentStore(
 
 bigquery_query_op = component_store.load_component('bigquery/query')
 mlengine_train_op = component_store.load_component('ml_engine/train')
+mlengine_deploy_op = component_store.load_component('ml_engine/deploy')
 retrieve_best_run_op = func_to_container_op(retrieve_best_run, base_image=BASE_IMAGE)
 evaluate_model_op = func_to_container_op(evaluate_model, base_image=BASE_IMAGE)
 
@@ -106,6 +108,9 @@ def covertype_train(
     dataset_id:str,
     evaluation_metric_name:str,
     evaluation_metric_threshold:float,
+    model_id:str,
+    version_id:str,
+    replace_existing_version:bool,
     hypertune_settings:Dict =HYPERTUNE_SETTINGS,
     dataset_location:str ='US'
     ):
@@ -170,7 +175,7 @@ def covertype_train(
     
     job_dir = '{}/{}/{}'.format(gcs_root, 'jobdir/hypertune', kfp.dsl.RUN_ID_PLACEHOLDER)
     
-    hypertune_job = mlengine_train_op(
+    hypertune = mlengine_train_op(
         project_id=project_id,
         region=region,
         master_image_uri=TRAINER_IMAGE,
@@ -180,7 +185,7 @@ def covertype_train(
     )
     
     # Retrieve the best trial
-    best_trial = retrieve_best_run_op(project_id, hypertune_job.outputs['job_id'])
+    get_best_trial = retrieve_best_run_op(project_id, hypertune.outputs['job_id'])
     
     # Train the model on a combined training and validation datasets
     job_dir = '{}/{}/{}'.format(gcs_root, 'jobdir', kfp.dsl.RUN_ID_PLACEHOLDER)
@@ -188,12 +193,12 @@ def covertype_train(
     train_args = [
         '--training_dataset_path', create_training_split.outputs['output_gcs_path'],
         '--validation_dataset_path', create_validation_split.outputs['output_gcs_path'],
-        '--alpha', best_trial.outputs['alpha'],
-        '--max_iter', best_trial.outputs['max_iter'],
+        '--alpha', get_best_trial.outputs['alpha'],
+        '--max_iter', get_best_trial.outputs['max_iter'],
         '--hptune', 'False'
     ]
     
-    training_job = mlengine_train_op(
+    train_model = mlengine_train_op(
         project_id=project_id,
         region=region,
         master_image_uri=TRAINER_IMAGE,
@@ -204,10 +209,22 @@ def covertype_train(
     # Evaluate the model on the testing split
     evaluate_model = evaluate_model_op(
         dataset_path=str(create_testing_split.outputs['output_gcs_path']),
-        model_path=str(training_job.outputs['job_dir']),
+        model_path=str(train_model.outputs['job_dir']),
         metric_name=evaluation_metric_name
     )
     
+    # Deploy the model if the primary metric is better than threshold
+    with kfp.dsl.Condition(evaluate_model.outputs['metric_value'] > evaluation_metric_threshold):
+        deploy_model = mlengine_deploy_op(
+            model_uri = train_model.outputs['job_dir'],
+            project_id = project_id,
+            model_id = model_id,
+            version_id = version_id,
+            runtime_version = RUNTIME_VERSION,
+            python_version = PYTHON_VERSION,
+            replace_existing_version = replace_existing_version
+        
+    )      
     
     kfp.dsl.get_pipeline_conf().add_op_transformer(use_gcp_secret('user-gcp-sa'))
     
