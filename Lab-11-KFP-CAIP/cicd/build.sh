@@ -19,9 +19,15 @@
 SUBSTITUTIONS=\
 _TRAINER_IMAGE_NAME=trainer_image,\
 _BASE_IMAGE_NAME=base_image,\
-_PIPELINE_DSL=covertype_training_pipeline.py
-_PIPELINE_PACKAGE=covertype_training_pipeline.yaml
-_PIPELINE_NAME=covertype_training,\
-_PIPELINE_IMAGE=online_news_training_pipeline
+TAG_NAME=latest,\
+_PIPELINE_DSL=covertype_training_pipeline.py,\
+_PIPELINE_PACKAGE=covertype_training_pipeline.yaml,\
+_PIPELINE_NAME=covertype_training_deployment,\
+_RUNTIME_VERSION=1.14,\
+_PYTHON_VERSION=3.5,\
+_COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.37/components/gcp/,\
+_CLUSTER_NAME=mlops-workshop-cluster,\
+_ZONE=us-central1-a
+
 
 gcloud builds submit ../pipelines --config cloudbuild.yaml --substitutions $SUBSTITUTIONS

@@ -10,11 +10,11 @@ trainingInput:
     - parameterName: max_iter
       type: DISCRETE
       discreteValues: [
-          500,
-          1000
+          200,
+          500
           ]
     - parameterName: alpha
       type: DOUBLE
       minValue:  0.00001
-      maxValue:  0.01
+      maxValue:  0.001
       scaleType: UNIT_LINEAR_SCALE

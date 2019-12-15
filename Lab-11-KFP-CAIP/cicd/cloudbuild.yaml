@@ -36,6 +36,22 @@ steps:
   - '-c'
   - |
     dsl-compile --py $_PIPELINE_DSL --output $_PIPELINE_PACKAGE
+  env:
+  - 'BASE_IMAGE=gcr.io/$PROJECT_ID/$_BASE_IMAGE_NAME:$TAG_NAME'
+  - 'TRAINER_IMAGE=gcr.io/$PROJECT_ID/$_TRAINER_IMAGE_NAME:$TAG_NAME'
+  - 'RUNTIME_VERSION=$_RUNTIME_VERSION'
+  - 'PYTHON_VERSION=$_PYTHON_VERSION'
+  - 'COMPONENT_URL_SEARCH_PREFIX=$_COMPONENT_URL_SEARCH_PREFIX'
+
+# Upload the pipeline to the KFP cluster
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['container', 'clusters', 'get-credentials', '$_CLUSTER_NAME', '--zone', '$_ZONE']
+  
+- name: 'gcr.io/$PROJECT_ID/kfp-cli'
+  args:
+  - '-c'
+  - |
+    kfp pipeline upload -p $_PIPELINE_NAME $_PIPELINE_PACKAGE || exit 0
 
 
 # Push the imagse to Container Registry 
