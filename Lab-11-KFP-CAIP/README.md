@@ -106,7 +106,7 @@ gcloud container clusters get-credentials mlops-workshop-cluster --zone us-centr
 4. Run the pipeline
 ```
 kfp run submit -e Covertype_Classifier_Training \
--r Run_1 \
+-r Run_201 \
 -f covertype_training_pipeline.yaml \
 project_id=mlops-workshop \
 region=us-central1 \
