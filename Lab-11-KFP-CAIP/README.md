@@ -88,11 +88,7 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 1. Walk through the `notebooks/covertype_experminentation.ipynb` notebook
 ## Lab Part 2 - KFP pipeline authoring
 1. Review code in the `pipelines` folder
-2. Start a new terminal in JupyterLab and activate the `kfp` kernel
-```
-source activate kfp
-```
-3. Navigate to the `pipelines` folder and compile the pipeline
+2. Navigate to the `pipelines` folder and compile the pipeline
 ```
 export PROJECT_ID=mlops-workshop
 export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.36/components/gcp/
@@ -103,11 +99,11 @@ export PYTHON_VERSION=3.5
 
 dsl-compile --py covertype_training_pipeline.py --output covertype_training_pipeline.yaml
 ```
-4. Configure GKE credentials
+3. Configure GKE credentials
 ```
 gcloud container clusters get-credentials mlops-workshop-cluster --zone us-central1-a
 ```
-5. Run the pipeline
+4. Run the pipeline
 ```
 kfp run submit -e Covertype_Classifier_Training \
 -r Run_201 \
