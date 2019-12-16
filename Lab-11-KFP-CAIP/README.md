@@ -90,9 +90,20 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 1. Review code in the `pipelines` folder
 2. Compile the pipeline
 ```
-dsl-compile -py covertype_training_pipeline.py --output covertype_training_pipeline.yaml
+export PROJECT_ID=mlops-workshop
+export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.36/components/gcp/
+export BASE_IMAGE=gcr.io/deeplearning-platform-release/base-cpu
+export TRAINER_IMAGE=gcr.io/$PROJECT_ID/trainer_image:latest
+export RUNTIME_VERSION=1.14
+export PYTHON_VERSION=3.5
+
+dsl-compile --py covertype_training_pipeline.py --output covertype_training_pipeline.yaml
 ```
-3. Run the pipeline
+3. Configure GKE credentials
+```
+gcloud container clusters get-credentials mlops-workshop-cluster --zone us-central1-a
+```
+4. Run the pipeline
 ```
 kfp run submit -e Covertype_Classifier_Training \
 -r Run_1 \
@@ -103,7 +114,10 @@ source_table_name=lab_11.covertype \
 gcs_root=gs://mlops-workshop-lab-12 \
 dataset_id=splits \
 evaluation_metric_name=accuracy \
-evaluation_metric_threshold=0.69 
+evaluation_metric_threshold=0.69 \
+model_id=covertype_classifier \
+version_id=v0.3 \
+replace_existing_version=True
 ```
 ## Lab Part 3 - CI/CD
 1. Build the *kfp-cli* docker image

@@ -104,7 +104,7 @@
         "value": |-
           /secret/gcp-credentials/user-gcp-sa.json
       "image": |-
-        gcr.io/ml-pipeline/ml-pipeline-gcp:b63472062bd80737c7f39e0eda901db0fe23a5e0
+        gcr.io/ml-pipeline/ml-pipeline-gcp:9ad7d7dd9776ce75a83712f5723db2ef93ba5c26
       "volumeMounts":
       - "mountPath": |-
           /secret/gcp-credentials
@@ -213,7 +213,7 @@
         "value": |-
           /secret/gcp-credentials/user-gcp-sa.json
       "image": |-
-        gcr.io/ml-pipeline/ml-pipeline-gcp:b63472062bd80737c7f39e0eda901db0fe23a5e0
+        gcr.io/ml-pipeline/ml-pipeline-gcp:9ad7d7dd9776ce75a83712f5723db2ef93ba5c26
       "volumeMounts":
       - "mountPath": |-
           /secret/gcp-credentials
@@ -322,7 +322,7 @@
         "value": |-
           /secret/gcp-credentials/user-gcp-sa.json
       "image": |-
-        gcr.io/ml-pipeline/ml-pipeline-gcp:b63472062bd80737c7f39e0eda901db0fe23a5e0
+        gcr.io/ml-pipeline/ml-pipeline-gcp:9ad7d7dd9776ce75a83712f5723db2ef93ba5c26
       "volumeMounts":
       - "mountPath": |-
           /secret/gcp-credentials
@@ -745,7 +745,7 @@
         "value": |-
           /secret/gcp-credentials/user-gcp-sa.json
       "image": |-
-        gcr.io/ml-pipeline/ml-pipeline-gcp:b63472062bd80737c7f39e0eda901db0fe23a5e0
+        gcr.io/ml-pipeline/ml-pipeline-gcp:9ad7d7dd9776ce75a83712f5723db2ef93ba5c26
       "volumeMounts":
       - "mountPath": |-
           /secret/gcp-credentials
@@ -1030,19 +1030,19 @@
 
             return(metric_value, alpha, max_iter)
 
-        def _serialize_float(float_value: float) -> str:
-            if isinstance(float_value, str):
-                return float_value
-            if not isinstance(float_value, (float, int)):
-                raise TypeError('Value "{}" has type "{}" instead of float.'.format(str(float_value), str(type(float_value))))
-            return str(float_value)
-
         def _serialize_int(int_value: int) -> str:
             if isinstance(int_value, str):
                 return int_value
             if not isinstance(int_value, int):
                 raise TypeError('Value "{}" has type "{}" instead of int.'.format(str(int_value), str(type(int_value))))
             return str(int_value)
+
+        def _serialize_float(float_value: float) -> str:
+            if isinstance(float_value, str):
+                return float_value
+            if not isinstance(float_value, (float, int)):
+                raise TypeError('Value "{}" has type "{}" instead of float.'.format(str(float_value), str(type(float_value))))
+            return str(float_value)
 
         import argparse
         _parser = argparse.ArgumentParser(prog='Retrieve best run', description='')
@@ -1210,7 +1210,7 @@
         "value": |-
           /secret/gcp-credentials/user-gcp-sa.json
       "image": |-
-        gcr.io/ml-pipeline/ml-pipeline-gcp:b63472062bd80737c7f39e0eda901db0fe23a5e0
+        gcr.io/ml-pipeline/ml-pipeline-gcp:9ad7d7dd9776ce75a83712f5723db2ef93ba5c26
       "volumeMounts":
       - "mountPath": |-
           /secret/gcp-credentials
@@ -1343,7 +1343,7 @@
         "value": |-
           /secret/gcp-credentials/user-gcp-sa.json
       "image": |-
-        gcr.io/ml-pipeline/ml-pipeline-gcp:b63472062bd80737c7f39e0eda901db0fe23a5e0
+        gcr.io/ml-pipeline/ml-pipeline-gcp:9ad7d7dd9776ce75a83712f5723db2ef93ba5c26
       "volumeMounts":
       - "mountPath": |-
           /secret/gcp-credentials
