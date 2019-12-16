@@ -25,7 +25,7 @@ _PIPELINE_PACKAGE=covertype_training_pipeline.yaml,\
 _PIPELINE_NAME=covertype_training_deployment,\
 _RUNTIME_VERSION=1.14,\
 _PYTHON_VERSION=3.5,\
-_COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.37/components/gcp/,\
+_COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.36/components/gcp/,\
 _CLUSTER_NAME=mlops-workshop-cluster,\
 _ZONE=us-central1-a
 
