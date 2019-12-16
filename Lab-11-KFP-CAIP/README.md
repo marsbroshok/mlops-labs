@@ -46,7 +46,7 @@ git clone https://github.com/jarokaz/mlops-labs.git
 
 3. Navigate to the datasets folder and upload the dataset to BigQuery
 ```
-cd mlops-lab/datasets/covertype
+cd mlops-labs/datasets/covertype
 
 PROJECT_ID=[YOUR_PROJECT_ID]
 DATASET_LOCATION=US
