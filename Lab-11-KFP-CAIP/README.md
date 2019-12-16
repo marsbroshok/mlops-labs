@@ -80,7 +80,7 @@ $SCHEMA
 
 ### GCS bucket
 ```
-BUCKET_NAME=gs://${PROJECT_ID}-lab_11
+BUCKET_NAME=gs://${PROJECT_ID}-lab-11
 gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
 
