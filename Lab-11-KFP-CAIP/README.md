@@ -111,7 +111,7 @@ kfp run submit -e Covertype_Classifier_Training \
 project_id=mlops-workshop \
 region=us-central1 \
 source_table_name=lab_11.covertype \
-gcs_root=gs://mlops-workshop-lab-12 \
+gcs_root=gs://mlops-workshop-lab-11 \
 dataset_id=splits \
 evaluation_metric_name=accuracy \
 evaluation_metric_threshold=0.69 \

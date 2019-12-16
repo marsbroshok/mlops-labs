@@ -51,7 +51,7 @@ steps:
   args:
   - '-c'
   - |
-    kfp pipeline upload -p $_PIPELINE_NAME $_PIPELINE_PACKAGE || exit 0
+    kfp pipeline upload -p $_PIPELINE_NAME $_PIPELINE_PACKAGE
 
 
 # Push the imagse to Container Registry 
