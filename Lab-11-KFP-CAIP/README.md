@@ -1,4 +1,4 @@
-# Orchestraiting model training and deployment with KFP and Cloud AI Platform
+# Orchestrating model training and deployment with KFP and Cloud AI Platform
 
 Developing a repeatable and reliable ML pipeline is a complex, multi-step process.
 
