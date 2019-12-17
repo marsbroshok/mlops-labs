@@ -242,7 +242,7 @@ In this step you deploy Kubeflow Pipelines using **Kustomize**.
 The Kustomize overlays and patches, which can be found in the `kfp/kustomize` folder, are applied on top of the Kustomize configuration from the Kubeflow Pipelines github repo. 
 https://github.com/kubeflow/pipelines/tree/master/manifests/kustomize/env/gcp
 
-The `kustomization.yaml` file in the `kfp/kustomize` folder refers to the 0.1.36 release of KFP as a base. This is the release agains which the labs in this repo were tested. As the labs and KFP evolve, this will be updated to align with the required version of KFP.
+The `kustomization.yaml` file in the `kfp/kustomize` folder refers to the 0.1.36 release of KFP as a base. This is the release against which the labs in this repo were tested. As the labs and KFP evolve, this will be updated to align with the required version of KFP.
 
 The `gcp-configurations-patch.yaml` file contains patches that configure the KFP services to retrieve credentials from the secrets created in the previous steps and connection information to the Cloud SQL and the GCS bucket from the Kubernetes **ConfigMap** named `gcp-configs`.
 
