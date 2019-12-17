@@ -120,6 +120,7 @@ version_id=v0.3 \
 replace_existing_version=True
 ```
 ## Lab Part 3 - CI/CD
+### Manually triggerting the CI/CD JOB
 1. Build the *kfp-cli* docker image
 ```
 cd Lab-11-KFP-CAIP/cicd/kfp-cli
@@ -127,8 +128,15 @@ cd Lab-11-KFP-CAIP/cicd/kfp-cli
 ```
 2. Review Cloud Build configuration
 3. Trigger the CI/CD run
-4. Configure GitHub integration
-5. Trigger the run from GitHub
+### Setting up GitHub integration
+1. Fork this repo
+2. Install **Cloud Build App** connect your GitHub repository to your Google Cloud project following the **Installing the Cloud Build App** section (and only this section) of the following instructions:
+https://cloud.google.com/cloud-build/docs/create-github-app-triggers
+3. Configure ...
+
+
+2. Configure GitHub integration
+3. Trigger the run from GitHub
 
 
 
