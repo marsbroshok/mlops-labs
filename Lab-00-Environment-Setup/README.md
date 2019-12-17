@@ -258,18 +258,22 @@ BUCKET_NAME=$(terraform output artifact_store_bucket)
 ```
 cd ../kustomize
 ```
-3. Create an environment file with connection settings
+3. Update the namespace in the `kustomization.yaml` file
+```
+kustomize edit set namespace $NAMESPACE
+```
+4. Create an environment file with connection settings
 ```
 cat > gcp-configs.env << EOF
 sql_connection_name=$SQL_CONNECTION_NAME
 bucket_name=$BUCKET_NAME
 EOF
 ```
-4. Deploy KFP to the cluster
+5. Deploy KFP to the cluster
 ```
 kustomize build . | kubectl apply -f -
 ```
-5. To list the workloads comprising Kubeflow Pipelines:
+6. To list the workloads comprising Kubeflow Pipelines:
 ```
 kubectl get all -n $NAMESPACE
 ```
