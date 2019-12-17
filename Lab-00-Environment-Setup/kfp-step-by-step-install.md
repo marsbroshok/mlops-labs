@@ -1,4 +1,3 @@
-# Optional 
 ## Step by step instructions for installing Kubeflow Pipelines
 If you need to understand in more detail the process of installing a lightweight deployment of Kubeflow Pipelines the following instructions step through the same process as automated by the `install.sh` script.
 
