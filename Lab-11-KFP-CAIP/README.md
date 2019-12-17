@@ -131,7 +131,7 @@ cd Lab-11-KFP-CAIP/cicd/kfp-cli
 ### Setting up GitHub integration
 1. Fork this repo
 2. Install **Cloud Build App** connect your GitHub repository to your Google Cloud project following the **Installing the Cloud Build App** section (and only this section) of the following instructions:
-https://cloud.google.com/cloud-build/docs/create-github-app-triggers
+https://cloud.google.com/cloud-build/docs/create-github-app-triggers. When asked to create a push trigger at the end of the process skip it.
 3. Configure ...
 
 
