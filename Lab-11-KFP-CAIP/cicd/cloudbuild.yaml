@@ -23,12 +23,12 @@ steps:
 # Build the trainer image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/$_TRAINER_IMAGE_NAME:$TAG_NAME', '.']
-  dir: trainer_image
+  dir: $_PIPELINE_FOLDER/trainer_image
   
 # Build the base image for lightweight components
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/$_BASE_IMAGE_NAME:$TAG_NAME', '.']
-  dir: base_image
+  dir: $_PIPELINE_FOLDER/base_image
 
 # Compile the pipeline
 - name: 'gcr.io/$PROJECT_ID/kfp-cli'
@@ -42,6 +42,7 @@ steps:
   - 'RUNTIME_VERSION=$_RUNTIME_VERSION'
   - 'PYTHON_VERSION=$_PYTHON_VERSION'
   - 'COMPONENT_URL_SEARCH_PREFIX=$_COMPONENT_URL_SEARCH_PREFIX'
+  dir: $_PIPELINE_FOLDER
 
 # Upload the pipeline to the KFP cluster
 - name: 'gcr.io/cloud-builders/gcloud'
@@ -52,8 +53,8 @@ steps:
   - '-c'
   - |
     kfp pipeline upload -p $_PIPELINE_NAME $_PIPELINE_PACKAGE
+  dir: $_PIPELINE_FOLDER
 
 
 # Push the imagse to Container Registry 
-images: ['gcr.io/$PROJECT_ID/$_TRAINER_IMAGE_NAME:$TAG_NAME']
-images: ['gcr.io/$PROJECT_ID/$_BASE_IMAGE_NAME:$TAG_NAME']
+images: ['gcr.io/$PROJECT_ID/$_TRAINER_IMAGE_NAME:$TAG_NAME', 'gcr.io/$PROJECT_ID/$_BASE_IMAGE_NAME:$TAG_NAME']

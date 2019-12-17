@@ -20,6 +20,7 @@ SUBSTITUTIONS=\
 _TRAINER_IMAGE_NAME=trainer_image,\
 _BASE_IMAGE_NAME=base_image,\
 TAG_NAME=latest,\
+_PIPELINE_FOLDER=Lab-11-KFP-CAIP/pipelines,\
 _PIPELINE_DSL=covertype_training_pipeline.py,\
 _PIPELINE_PACKAGE=covertype_training_pipeline.yaml,\
 _PIPELINE_NAME=covertype_training_deployment,\
@@ -30,4 +31,4 @@ _CLUSTER_NAME=mlops-workshop-cluster,\
 _ZONE=us-central1-a
 
 
-gcloud builds submit ../pipelines --config cloudbuild.yaml --substitutions $SUBSTITUTIONS
+gcloud builds submit ../.. --config cloudbuild.yaml --substitutions $SUBSTITUTIONS
