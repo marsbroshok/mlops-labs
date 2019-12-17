@@ -79,6 +79,7 @@ $SCHEMA
 ```
 
 ### GCS bucket
+Create the GCS bucket that will be used as a staging area during the lab.
 ```
 BUCKET_NAME=gs://${PROJECT_ID}-lab-11
 gsutil mb -p $PROJECT_ID $BUCKET_NAME
