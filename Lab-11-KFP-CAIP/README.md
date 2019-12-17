@@ -141,7 +141,8 @@ https://cloud.google.com/cloud-build/docs/create-github-app-triggers. When asked
 3. Create a new trigger on your repo by selecting the **Add trigger**  from the menu of actions:
 ![Add trigger](../images/add_trigger.png)
 4. Configure your trigger using the below configuration as a template:
-![Configure trigger](../images/configure_trigger.png)
+
+![Configure trigger](../images/configure-trigger.png)
 
 
 
