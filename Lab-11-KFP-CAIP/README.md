@@ -121,7 +121,7 @@ version_id=v0.3 \
 replace_existing_version=True
 ```
 ## Part 3 - CI/CD
-### Manually triggerting the CI/CD JOB
+### Developing CI/CD pipeline
 1. Build the *kfp-cli* docker image
 ```
 cd Lab-11-KFP-CAIP/cicd/kfp-cli
