@@ -52,7 +52,7 @@ steps:
   args:
   - '-c'
   - |
-    kfp pipeline upload -p $_PIPELINE_NAME $_PIPELINE_PACKAGE
+    kfp pipeline upload -p ${_PIPELINE_NAME}_{$TAG_NAME} $_PIPELINE_PACKAGE
   dir: $_PIPELINE_FOLDER
 
 
