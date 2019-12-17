@@ -117,4 +117,3 @@ After the installation completes, you can access the KFP UI from the following U
 ```
 echo "https://"$(kubectl describe configmap inverse-proxy-config -n kubeflow | grep "googleusercontent.com")
 ```
-
