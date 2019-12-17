@@ -21,11 +21,11 @@ _PIPELINE_NAME=online_news_training_pipeline,\
 _PIPELINE_IMAGE=online_news_training_pipeline,\
 _GCP_REGION=us-central1,\
 _ARTIFACT_STORE_BUCKET=mlops-workshop-artifact-store,\
-_PIPELINE_FOLDER=online_news,\
+_PIPELINE_FOLDER=Lab-11-KFP-CAIP/pipelines/online_news,\
 _PIPELINE_DSL=pipeline_dsl.py,\
 TAG_NAME=latest,\
 _CLUSTER_NAME=mlops-workshop-cluster,\
 _ZONE=us-central1-a
 
-gcloud builds submit ../pipelines --config cloudbuild.yaml --substitutions $SUBSTITUTIONS
+gcloud builds submit ../.. --config cloudbuild.yaml --substitutions $SUBSTITUTIONS
 
