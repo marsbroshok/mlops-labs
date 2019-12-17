@@ -85,9 +85,9 @@ BUCKET_NAME=gs://${PROJECT_ID}-lab-11
 gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
 
-## Lab Part 1 - Experimentation
+## Part 1  - Experimentation
 1. Walk through the `notebooks/covertype_experminentation.ipynb` notebook
-## Lab Part 2 - KFP pipeline authoring
+## Part 2 - KFP pipeline authoring
 1. Review code in the `pipelines` folder
 2. Navigate to the `pipelines` folder and compile the pipeline
 ```
@@ -120,7 +120,7 @@ model_id=covertype_classifier \
 version_id=v0.3 \
 replace_existing_version=True
 ```
-## Lab Part 3 - CI/CD
+## Part 3 - CI/CD
 ### Manually triggerting the CI/CD JOB
 1. Build the *kfp-cli* docker image
 ```
