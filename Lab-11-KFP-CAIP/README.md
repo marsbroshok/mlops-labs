@@ -126,8 +126,14 @@ replace_existing_version=True
 cd Lab-11-KFP-CAIP/cicd/kfp-cli
 ./build.sh
 ```
-2. Review Cloud Build configuration
+2. Review the Cloud Build configuration in:
+```
+Lab-11-KFP-CAIP/cicd/cloudbuild.yaml
+```
 3. Trigger the CI/CD run
+```
+./build.sh
+```
 ### Setting up GitHub integration
 1. Fork this repo
 2. Install **Cloud Build App** connect your GitHub repository to your Google Cloud project following the **Installing the Cloud Build App** section (and only this section) of the following instructions:
@@ -136,6 +142,7 @@ https://cloud.google.com/cloud-build/docs/create-github-app-triggers. When asked
 ![Add trigger](../images/add_trigger.png)
 4. Configure your trigger using the below configuration as a template:
 ![Configure trigger](../images/configure_trigger.png)
+
 
 
 
