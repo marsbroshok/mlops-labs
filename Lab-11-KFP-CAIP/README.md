@@ -134,10 +134,8 @@ cd Lab-11-KFP-CAIP/cicd/kfp-cli
 https://cloud.google.com/cloud-build/docs/create-github-app-triggers. When asked to create a push trigger at the end of the process skip it.
 3. Create a new trigger on your repo by selecting the **Add trigger**  from the menu of actions:
 ![Add trigger](../images/add_trigger.png)
-
-
-2. Configure GitHub integration
-3. Trigger the run from GitHub
+4. Configure your trigger using the below configuration as a template:
+![Configure trigger](../images/configure_trigger.png)
 
 
 
