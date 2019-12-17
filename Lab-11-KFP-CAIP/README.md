@@ -144,6 +144,5 @@ https://cloud.google.com/cloud-build/docs/create-github-app-triggers. When asked
 
 ![Configure trigger](../images/configure-trigger.png)
 
-
-
+5. Create a new release of the repo in GitHub.
 
