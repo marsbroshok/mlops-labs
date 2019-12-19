@@ -11,5 +11,5 @@ You will use the AI Platform Notebooks instance configured with a custom contain
 In Cloud Shell, navigate to the Lab-00-Environment-Setup/notebook-images/tf115-tfx015-kfp136 folder.
 Build the container image
 ./build.sh
-Provision the AI Platform Notebook instance based on a custom container image, following the instructions in AI Platform Notebooks Documentation. In the Docker container image field, enter the following image name: gcr.io/[YOUR_PROJECT_NAME/tf115-tfx015-kfp136.
+Provision the AI Platform Notebook instance based on a custom container image, following the instructions in AI Platform Notebooks Documentation. In the Docker container image field, enter the following image name: gcr.io/[YOUR_PROJECT_NAME/tfx-kfp-dev:TF115-TFX015-KFP136
 
