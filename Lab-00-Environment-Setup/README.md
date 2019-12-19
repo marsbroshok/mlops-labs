@@ -81,7 +81,7 @@ sudo rm kustomize_v3.3.0_linux_amd64.tar.gz
 ```
 3. Start installation by executing the `install.sh` script from the `/Lab-00-EnvironmentSetup/kfp` folder.
 ```
-./install.sh [PROJECT_ID] [REGION] [ZONE] [PREFIX] [NAMESPACE] [SQL_USERNAME] [SQL_PASSWORD]
+./install.sh [PROJECT_ID] [REGION] [ZONE] [PREFIX] [NAMESPACE] [SQL_PASSWORD]
 ```
 Where:
 - `[PROJECT_ID]` - your project ID
