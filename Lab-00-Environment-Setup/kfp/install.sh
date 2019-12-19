@@ -15,8 +15,8 @@
 
 # Deploy Kubeflow Pipelines on GCP
 
-if [[ $# < 7 ]]; then
-  echo "Error: Arguments missing. [PROJECT_ID REGION ZONE NAME_PREFIX NAMESPACE SQL_USERNAME SQL_PASSWORD]"
+if [[ $# < 6 ]]; then
+  echo "Error: Arguments missing. [PROJECT_ID REGION ZONE NAME_PREFIX NAMESPACE SQL_PASSWORD]"
   exit 1
 fi
 
@@ -25,8 +25,8 @@ REGION=${2}
 ZONE=${3}
 NAME_PREFIX=${4}
 NAMESPACE=${5}
-SQL_USERNAME=${6}
-SQL_PASSWORD=${7}
+SQL_USERNAME=root
+SQL_PASSWORD=${6}
 
 ### Configure KPF infrastructure
 pushd terraform
