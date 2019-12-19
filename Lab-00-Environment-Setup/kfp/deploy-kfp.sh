@@ -15,29 +15,17 @@
 
 # Deploy Kubeflow Pipelines on GCP
 
-if [[ $# < 6 ]]; then
-  echo "Error: Arguments missing. [PROJECT_ID REGION ZONE NAME_PREFIX NAMESPACE SQL_PASSWORD]"
+if [[ $# < 3 ]]; then
+  echo "Error: Arguments missing. [PROJECT_ID] [NAMESPACE] [SQL_PASSWORD]"
   exit 1
 fi
 
 PROJECT_ID=${1}
-REGION=${2} 
-ZONE=${3}
-NAME_PREFIX=${4}
-NAMESPACE=${5}
+NAMESPACE=${2}
 SQL_USERNAME=root
-SQL_PASSWORD=${6}
+SQL_PASSWORD=${3}
 
-### Configure KPF infrastructure
 pushd terraform
-
-# Start terraform build
-terraform init
-terraform apply  \
--var "project_id=$PROJECT_ID" \
--var "region=$REGION" \
--var "zone=$ZONE" \
--var "name_prefix=$NAME_PREFIX"
 
 # Retrieve resource names
 CLUSTER_NAME=$(terraform output cluster_name)
@@ -45,6 +33,7 @@ KFP_SA_EMAIL=$(terraform output kfp_sa_email)
 SQL_INSTANCE_NAME=$(terraform output sql_name)
 SQL_CONNECTION_NAME=$(terraform output sql_connection_name)
 BUCKET_NAME=$(terraform output artifact_store_bucket)
+ZONE=$(terraform output cluster_zone)
 
 popd
 

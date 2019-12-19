@@ -7,7 +7,7 @@ resources:
 - github.com/kubeflow/pipelines//manifests/kustomize/env/gcp/minio/?ref=0.1.37
 - github.com/kubeflow/pipelines//manifests/kustomize/env/gcp/mysql/?ref=0.1.37
 
-namespace: kubeflow
+namespace: kfp
 
 images:
 - name: gcr.io/cloudsql-docker/gce-proxy
