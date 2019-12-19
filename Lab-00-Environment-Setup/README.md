@@ -88,7 +88,7 @@ Where:
 - `[REGION]` - the region for a Cloud SQL instance
 - `[ZONE]` - the zone for a GKE cluster
 - `[PREFIX]` - the name prefix that will be added to the names of provisioned resources
-- `[SQL_PASSWORD]` - the password of the Cloud SQL user
+- `[SQL_PASSWORD]` - the password for the Cloud SQL `root` user
 
 *Note: The `install.sh` script does not allow you to specify a SQL username. The reason is that in the current versions of KFP the SQL username must be `root`.
 
