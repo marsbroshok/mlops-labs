@@ -2,6 +2,10 @@ output "cluster_name" {
     value = module.kfp_gke_cluster.name
 }
 
+output "cluster_zone" {
+    value = var.zone
+}
+
 output "kfp_sa_email" {
     value =module.kfp_service_account.service_account.email
 }
