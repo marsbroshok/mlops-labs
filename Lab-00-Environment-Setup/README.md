@@ -81,7 +81,7 @@ sudo rm kustomize_v3.3.0_linux_amd64.tar.gz
 ```
 3. Start installation by executing the `install.sh` script from the `/Lab-00-EnvironmentSetup/kfp` folder.
 ```
-./install.sh [PROJECT_ID] [REGION] [ZONE] [PREFIX] [NAMESPACE] [SQL_USERNAME] [SQL_PASSWORD]
+./install.sh [PROJECT_ID] [REGION] [ZONE] [PREFIX] [NAMESPACE] [SQL_PASSWORD]
 ```
 Where:
 - `[PROJECT_ID]` - your project ID
@@ -90,7 +90,7 @@ Where:
 - `[PREFIX]` - the name prefix that will be added to the names of provisioned resources
 - `[SQL_PASSWORD]` - the password for the Cloud SQL `root` user
 
-*Note: The `install.sh` script does not allow you to specify a SQL username. The reason is that in the current versions of KFP the SQL username must be `root`.
+*Note: The `install.sh` script does not allow you to specify a SQL username. The reason is that in the current versions of KFP the SQL username must be `root`*.
 
 ## Accessing KFP UI
 
