@@ -5,7 +5,7 @@
 "metadata":
   "annotations":
     "pipelines.kubeflow.org/pipeline_spec": |-
-      {"description": "The pipeline training and deploying the Covertype classifierpipeline_yaml", "inputs": [{"name": "project_id"}, {"name": "region"}, {"name": "source_table_name"}, {"name": "gcs_root"}, {"name": "dataset_id"}, {"name": "evaluation_metric_name"}, {"name": "evaluation_metric_threshold"}, {"name": "model_id"}, {"name": "version_id"}, {"name": "replace_existing_version"}, {"default": "{\"hyperparameters\": {\"goal\": \"MAXIMIZE\", \"maxTrials\": 6, \"maxParallelTrials\": 3, \"hyperparameterMetricTag\": \"accuracy\", \"enableTrialEarlyStopping\": true, \"params\": [{\"parameterName\": \"max_iter\", \"type\": \"DISCRETE\", \"discreteValues\": [500, 1000]}, {\"parameterName\": \"alpha\", \"type\": \"DOUBLE\", \"minValue\": 0.0001, \"maxValue\": 0.001, \"scaleType\": \"UNIT_LINEAR_SCALE\"}]}}", "name": "hypertune_settings"}, {"default": "US", "name": "dataset_location"}], "name": "Covertype Classifier Training"}
+      {"description": "The pipeline training and deploying the Covertype classifierpipeline_yaml", "inputs": [{"name": "project_id"}, {"name": "region"}, {"name": "source_table_name"}, {"name": "gcs_root"}, {"name": "dataset_id"}, {"name": "evaluation_metric_name"}, {"name": "evaluation_metric_threshold"}, {"name": "model_id"}, {"name": "version_id"}, {"name": "replace_existing_version"}, {"default": "\n{\n    \"hyperparameters\":  {\n        \"goal\": \"MAXIMIZE\",\n        \"maxTrials\": 6,\n        \"maxParallelTrials\": 3,\n        \"hyperparameterMetricTag\": \"accuracy\",\n        \"enableTrialEarlyStopping\": True,\n        \"params\": [\n            {\n                \"parameterName\": \"max_iter\",\n                \"type\": \"DISCRETE\",\n                \"discreteValues\": [500, 1000]\n            },\n            {\n                \"parameterName\": \"alpha\",\n                \"type\": \"DOUBLE\",\n                \"minValue\": 0.0001,\n                \"maxValue\": 0.001,\n                \"scaleType\": \"UNIT_LINEAR_SCALE\"\n            }\n        ]\n    }\n}\n", "name": "hypertune_settings"}, {"default": "US", "name": "dataset_location"}], "name": "Covertype Classifier Training"}
   "generateName": |-
     covertype-classifier-training-
 "spec":
@@ -33,8 +33,31 @@
         replace_existing_version
     - "name": |-
         hypertune_settings
-      "value": |-
-        {'hyperparameters': {'goal': 'MAXIMIZE', 'maxTrials': 6, 'maxParallelTrials': 3, 'hyperparameterMetricTag': 'accuracy', 'enableTrialEarlyStopping': True, 'params': [{'parameterName': 'max_iter', 'type': 'DISCRETE', 'discreteValues': [500, 1000]}, {'parameterName': 'alpha', 'type': 'DOUBLE', 'minValue': 0.0001, 'maxValue': 0.001, 'scaleType': 'UNIT_LINEAR_SCALE'}]}}
+      "value": |2
+
+        {
+            "hyperparameters":  {
+                "goal": "MAXIMIZE",
+                "maxTrials": 6,
+                "maxParallelTrials": 3,
+                "hyperparameterMetricTag": "accuracy",
+                "enableTrialEarlyStopping": True,
+                "params": [
+                    {
+                        "parameterName": "max_iter",
+                        "type": "DISCRETE",
+                        "discreteValues": [500, 1000]
+                    },
+                    {
+                        "parameterName": "alpha",
+                        "type": "DOUBLE",
+                        "minValue": 0.0001,
+                        "maxValue": 0.001,
+                        "scaleType": "UNIT_LINEAR_SCALE"
+                    }
+                ]
+            }
+        }
     - "name": |-
         dataset_location
       "value": |-
@@ -1168,7 +1191,7 @@
       - |-
         --master_image_uri
       - |-
-        gcr.io/mlops-workshop/trainer_image:latest
+        gcr.io/mlops-dev-1/trainer_image:latest
       - |-
         --worker_image_uri
       - ""
@@ -1302,7 +1325,7 @@
       - |-
         --master_image_uri
       - |-
-        gcr.io/mlops-workshop/trainer_image:latest
+        gcr.io/mlops-dev-1/trainer_image:latest
       - |-
         --worker_image_uri
       - ""
