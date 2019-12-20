@@ -110,7 +110,8 @@ gcloud container clusters get-credentials mlops-workshop-cluster --zone us-centr
 ```
 4. Run the pipeline
 ```
-kfp run submit -e Covertype_Classifier_Training \
+kfp --endpoint [YOUR_INVERSE_PROXY_HOSTNAME] run submit \
+-e Covertype_Classifier_Training \
 -r Run_201 \
 -f covertype_training_pipeline.yaml \
 project_id=mlops-workshop \
