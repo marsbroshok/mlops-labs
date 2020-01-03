@@ -83,13 +83,17 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
 
 ## Part 1  - Experimentation
-2. Clone this repo in the `home` folder
+1. Clone this repo in the `home` folder
 ```
 cd /home
 git clone https://github.com/jarokaz/mlops-labs.git
 ```
+2. Navigate to the lab folder
+```
+cd mlops-labs/Lab-11-KFP-CAIP/
+```
 
-1. Walk through the `notebooks/covertype_experminentation.ipynb` notebook
+3. Follow the instructor who will walk you through the `notebooks/covertype_experminentation.ipynb` notebook
 ## Part 2 - KFP pipeline authoring
 1. Review code in the `pipelines` folder
 2. Navigate to the `pipelines` folder and compile the pipeline
