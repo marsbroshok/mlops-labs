@@ -42,16 +42,9 @@ You will use the **AI Platform Notebooks** instance configured with a custom con
 This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipeline developed in the lab sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery:
 
 1. Open new terminal in you **JupyterLab**
-2. Clone this repo in the `home` folder
-```
-cd /home
-git clone https://github.com/jarokaz/mlops-labs.git
-```
 
-3. Navigate to the datasets folder and upload the dataset to BigQuery
+2. Create the BigQuery dataset and upload the `covertype.csv` file.
 ```
-cd mlops-labs/datasets/covertype
-
 PROJECT_ID=[YOUR_PROJECT_ID]
 DATASET_LOCATION=US
 DATASET_ID=lab_11
@@ -90,6 +83,12 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
 
 ## Part 1  - Experimentation
+2. Clone this repo in the `home` folder
+```
+cd /home
+git clone https://github.com/jarokaz/mlops-labs.git
+```
+
 1. Walk through the `notebooks/covertype_experminentation.ipynb` notebook
 ## Part 2 - KFP pipeline authoring
 1. Review code in the `pipelines` folder
