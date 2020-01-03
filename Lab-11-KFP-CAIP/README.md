@@ -83,7 +83,7 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
 
 ## Part 1  - Experimentation
-1. Clone this repo in the `home` folder
+1. Clone this repo in the `home` folder of your **AI Platform Notebooks** instance.
 ```
 cd /home
 git clone https://github.com/jarokaz/mlops-labs.git
