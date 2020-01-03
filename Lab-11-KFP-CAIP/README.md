@@ -31,7 +31,7 @@ The source data is in BigQuery. The pipeline uses:
 ### AI Platform Notebook configuration
 You will use the **AI Platform Notebooks** instance configured with a custom container image. To prepare the **AI Platform Notebooks** instance:
 
-1. In **Cloud Shell**, navigate to the `Lab-00-Environment-Setup/notebook-images/kfp136` folder.
+1. In **Cloud Shell**, navigate to the `Lab-00-Environment-Setup/notebook-images/kfp138` folder.
 2. Build the container image
 ```
 ./build.sh
