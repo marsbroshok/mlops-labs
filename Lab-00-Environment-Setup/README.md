@@ -94,9 +94,10 @@ sudo rm kustomize_v3.3.0_linux_amd64.tar.gz
 ```
 3. Install Kubeflow Pipelines.  From the `/Lab-00-EnvironmentSetup/kfp` folder execute.
 ```
-./deploy-kfp.sh  [NAMESPACE] [SQL_PASSWORD]
+./deploy-kfp.sh  [PROJECT_ID] [NAMESPACE] [SQL_PASSWORD]
 ```
 Where:
+- `[PROJECT_ID]` - your project ID
 - `[NAMESPACE]` - the namespace to host KFP components
 - `[SQL_PASSWORD]` - the password for the Cloud SQL `root` user
 
