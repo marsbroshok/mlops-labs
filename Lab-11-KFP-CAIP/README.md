@@ -103,11 +103,7 @@ export PYTHON_VERSION=3.5
 
 dsl-compile --py covertype_training_pipeline.py --output covertype_training_pipeline.yaml
 ```
-3. Configure GKE credentials
-```
-gcloud container clusters get-credentials [YOUR_CLUSTER] --zone us-central1-a
-```
-4. Run the pipeline
+3. Run the pipeline
 ```
 kfp --endpoint [YOUR_INVERSE_PROXY_HOSTNAME] run submit \
 -e Covertype_Classifier_Training \
