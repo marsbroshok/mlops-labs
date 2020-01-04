@@ -48,7 +48,7 @@ steps:
   args:
   - '-c'
   - |
-    kfp --endpoint $_INVERING_PROXY_HOST pipeline upload -p ${_PIPELINE_NAME}_$TAG_NAME $_PIPELINE_PACKAGE
+    kfp --endpoint $_INVERTING_PROXY_HOST pipeline upload -p ${_PIPELINE_NAME}_$TAG_NAME $_PIPELINE_PACKAGE
   dir: $_PIPELINE_FOLDER
 
 
