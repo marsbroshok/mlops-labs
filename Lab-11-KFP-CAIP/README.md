@@ -95,7 +95,7 @@ git clone https://github.com/jarokaz/mlops-labs.git
 2. Navigate to the `pipelines` folder and compile the pipeline
 ```
 export PROJECT_ID=mlops-workshop
-export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.36/components/gcp/
+export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.38/components/gcp/
 export BASE_IMAGE=gcr.io/deeplearning-platform-release/base-cpu
 export TRAINER_IMAGE=gcr.io/$PROJECT_ID/trainer_image:latest
 export RUNTIME_VERSION=1.14
