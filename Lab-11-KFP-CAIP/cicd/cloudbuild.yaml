@@ -44,6 +44,7 @@ steps:
   - 'COMPONENT_URL_SEARCH_PREFIX=$_COMPONENT_URL_SEARCH_PREFIX'
   dir: $_PIPELINE_FOLDER
   
+ # Upload the pipeline
 - name: 'gcr.io/$PROJECT_ID/kfp-cli'
   args:
   - '-c'
