@@ -120,6 +120,8 @@ model_id=covertype_classifier \
 version_id=v0.3 \
 replace_existing_version=True
 ```
+4. Monitor the pipeline run in KFP UI.
+
 ## Part 3 - CI/CD
 ### Developing CI/CD pipeline
 1. Build the *kfp-cli* docker image
@@ -127,7 +129,7 @@ replace_existing_version=True
 cd Lab-11-KFP-CAIP/cicd/kfp-cli
 ./build.sh
 ```
-2. Review the Cloud Build configuration in:
+2. The instructor will walk you through  the Cloud Build configuration in:
 ```
 Lab-11-KFP-CAIP/cicd/cloudbuild.yaml
 ```
