@@ -94,8 +94,8 @@ git clone https://github.com/jarokaz/mlops-labs.git
 1. Review code in the `pipelines` folder
 2. Navigate to the `pipelines` folder and compile the pipeline
 ```
-export PROJECT_ID=mlops-workshop
-export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.36/components/gcp/
+export PROJECT_ID=[YOUR_PROJECT_ID]
+export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.38/components/gcp/
 export BASE_IMAGE=gcr.io/deeplearning-platform-release/base-cpu
 export TRAINER_IMAGE=gcr.io/$PROJECT_ID/trainer_image:latest
 export RUNTIME_VERSION=1.14
@@ -105,7 +105,7 @@ dsl-compile --py covertype_training_pipeline.py --output covertype_training_pipe
 ```
 3. Configure GKE credentials
 ```
-gcloud container clusters get-credentials mlops-workshop-cluster --zone us-central1-a
+gcloud container clusters get-credentials [YOUR_CLUSTER] --zone us-central1-a
 ```
 4. Run the pipeline
 ```
@@ -113,8 +113,8 @@ kfp --endpoint [YOUR_INVERSE_PROXY_HOSTNAME] run submit \
 -e Covertype_Classifier_Training \
 -r Run_201 \
 -f covertype_training_pipeline.yaml \
-project_id=mlops-workshop \
-gcs_root=gs://mlops-workshop-lab-11 \
+project_id=[YOUR_PROJECT_ID] \
+gcs_root=[YOUR_STAGING_BUCKET] \
 region=us-central1 \
 source_table_name=lab_11.covertype \
 dataset_id=splits \
