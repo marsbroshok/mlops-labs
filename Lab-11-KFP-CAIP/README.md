@@ -131,9 +131,9 @@ cd Lab-11-KFP-CAIP/cicd/kfp-cli
 ```
 Lab-11-KFP-CAIP/cicd/cloudbuild.yaml
 ```
-3. Trigger the CI/CD run
+3. Trigger the CI/CD build from the `Lab-11-KFP-CAIP/cicd` folder
 ```
-./build.sh
+./build_pipeline.sh
 ```
 ### Setting up GitHub integration
 1. Fork this repo
