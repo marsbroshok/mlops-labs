@@ -31,32 +31,25 @@ The source data is in BigQuery. The pipeline uses:
 ### AI Platform Notebook configuration
 You will use the **AI Platform Notebooks** instance configured with a custom container image. To prepare the **AI Platform Notebooks** instance:
 
-1. In **Cloud Shell**, navigate to the `Lab-00-Environment-Setup/notebook-images/kfp136` folder.
+1. In **Cloud Shell**, navigate to the `Lab-00-Environment-Setup/notebook-images/kfp138` folder.
 2. Build the container image
 ```
 ./build.sh
 ```
-3. Provision the **AI Platform Notebook** instance based on a custom container image, following the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container). In the **Docker container image** field, enter the following image name: `gcr.io/[YOUR_PROJECT_NAME/kfp136`.
+3. Provision the **AI Platform Notebook** instance based on a custom container image, following the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container). In the **Docker container image** field, enter the following image name: `gcr.io/[YOUR_PROJECT_NAME/kfp-dev:KFP138`.
 
 ### Lab dataset
 This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipeline developed in the lab sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery:
 
 1. Open new terminal in you **JupyterLab**
-2. Clone this repo in the `home` folder
-```
-cd /home
-git clone https://github.com/jarokaz/mlops-labs.git
-```
 
-3. Navigate to the datasets folder and upload the dataset to BigQuery
+2. Create the BigQuery dataset and upload the `covertype.csv` file.
 ```
-cd mlops-labs/datasets/covertype
-
 PROJECT_ID=[YOUR_PROJECT_ID]
 DATASET_LOCATION=US
 DATASET_ID=lab_11
 TABLE_ID=covertype
-DATA_SOURCE=covertype.csv
+DATA_SOURCE=gs://workshop-datasets/covertype/full/covertype.csv
 SCHEMA=Elevation:INTEGER,\
 Aspect:INTEGER,\
 Slope:INTEGER,\
@@ -90,7 +83,13 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
 
 ## Part 1  - Experimentation
-1. Walk through the `notebooks/covertype_experminentation.ipynb` notebook
+1. Clone this repo in the `home` folder of your **AI Platform Notebooks** instance.
+```
+cd /home
+git clone https://github.com/jarokaz/mlops-labs.git
+```
+2. Follow the instructor who will walk you through the `mlops-labs/Lab-11-KFP_CAIP/notebooks/covertype_experminentation.ipynb` notebook
+
 ## Part 2 - KFP pipeline authoring
 1. Review code in the `pipelines` folder
 2. Navigate to the `pipelines` folder and compile the pipeline

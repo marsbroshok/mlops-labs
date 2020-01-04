@@ -42,7 +42,8 @@ TESTING_FILE_PATH = 'datasets/testing/data.csv'
 
 # Parameter defaults
 SPLITS_DATASET_ID = 'splits'
-HYPERTUNE_SETTINGS = {
+HYPERTUNE_SETTINGS = '''
+{
     "hyperparameters":  {
         "goal": "MAXIMIZE",
         "maxTrials": 6,
@@ -65,6 +66,7 @@ HYPERTUNE_SETTINGS = {
         ]
     }
 }
+'''
 
 
 # Helper functions
