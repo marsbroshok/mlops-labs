@@ -133,7 +133,8 @@ cd Lab-11-KFP-CAIP/cicd/kfp-cli
 ```
 Lab-11-KFP-CAIP/cicd/cloudbuild.yaml
 ```
-3. Trigger the CI/CD build from the `Lab-11-KFP-CAIP/cicd` folder
+3. Update the `build_pipeline.sh` script in the `Lab-11-KFP-CAIP/cicd` folder with your KFP inverting proxy host. You can retrieve the inverting proxy host name from the `inverse-proxy-config` ConfigMap. It will be under the `Hostname` key.
+4. Trigger the CI/CD build:
 ```
 ./build_pipeline.sh
 ```
