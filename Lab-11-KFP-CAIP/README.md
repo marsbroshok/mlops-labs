@@ -91,7 +91,7 @@ git clone https://github.com/jarokaz/mlops-labs.git
 2. Follow the instructor who will walk you through the `mlops-labs/Lab-11-KFP_CAIP/notebooks/covertype_experminentation.ipynb` notebook
 
 ## Part 2 - KFP pipeline authoring
-1. Review the code in the `pipelines` folder
+1. The instructor will walk you through the the code in the `pipelines` folder
 2. Navigate to the `pipelines` folder and compile the pipeline
 ```
 export PROJECT_ID=[YOUR_PROJECT_ID]
