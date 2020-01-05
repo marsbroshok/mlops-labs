@@ -17,18 +17,17 @@
 # the pipelines and pipelines components 
 
 SUBSTITUTIONS=\
+_INVERTING_PROXY_HOST=4aeededf303e7d07-dot-us-central1.notebooks.googleusercontent.com,\
 _TRAINER_IMAGE_NAME=trainer_image,\
 _BASE_IMAGE_NAME=base_image,\
-TAG_NAME=latest,\
+TAG_NAME=manual,\
 _PIPELINE_FOLDER=Lab-11-KFP-CAIP/pipelines,\
 _PIPELINE_DSL=covertype_training_pipeline.py,\
 _PIPELINE_PACKAGE=covertype_training_pipeline.yaml,\
 _PIPELINE_NAME=covertype_training_deployment,\
 _RUNTIME_VERSION=1.14,\
 _PYTHON_VERSION=3.5,\
-_COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.36/components/gcp/,\
-_CLUSTER_NAME=mlops-workshop-cluster,\
-_ZONE=us-central1-a
+_COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.38/components/gcp/
 
 
 gcloud builds submit ../.. --config cloudbuild.yaml --substitutions $SUBSTITUTIONS

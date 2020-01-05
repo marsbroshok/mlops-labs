@@ -43,18 +43,15 @@ steps:
   - 'PYTHON_VERSION=$_PYTHON_VERSION'
   - 'COMPONENT_URL_SEARCH_PREFIX=$_COMPONENT_URL_SEARCH_PREFIX'
   dir: $_PIPELINE_FOLDER
-
-# Upload the pipeline to the KFP cluster
-- name: 'gcr.io/cloud-builders/gcloud'
-  args: ['container', 'clusters', 'get-credentials', '$_CLUSTER_NAME', '--zone', '$_ZONE']
   
+ # Upload the pipeline
 - name: 'gcr.io/$PROJECT_ID/kfp-cli'
   args:
   - '-c'
   - |
-    kfp pipeline upload -p ${_PIPELINE_NAME}_$TAG_NAME $_PIPELINE_PACKAGE
+    kfp --endpoint $_INVERTING_PROXY_HOST pipeline upload -p ${_PIPELINE_NAME}_$TAG_NAME $_PIPELINE_PACKAGE
   dir: $_PIPELINE_FOLDER
 
 
-# Push the imagse to Container Registry 
+# Push the images to Container Registry 
 images: ['gcr.io/$PROJECT_ID/$_TRAINER_IMAGE_NAME:$TAG_NAME', 'gcr.io/$PROJECT_ID/$_BASE_IMAGE_NAME:$TAG_NAME']
