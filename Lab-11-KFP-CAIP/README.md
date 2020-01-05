@@ -123,7 +123,7 @@ replace_existing_version=True
 4. Monitor the pipeline run in KFP UI.
 
 ## Part 3 - CI/CD
-### Developing the CI/CD workflow that builds and deploy the KFP training pipeline
+### Authoring the CI/CD workflow that builds and deploy the KFP training pipeline
 1. Create a **Cloud Build** custom builder that encapsulates KFP CLI.
 ```
 cd Lab-11-KFP-CAIP/cicd/kfp-cli
