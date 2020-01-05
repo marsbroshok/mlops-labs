@@ -53,5 +53,5 @@ steps:
   dir: $_PIPELINE_FOLDER
 
 
-# Push the imagse to Container Registry 
+# Push the images to Container Registry 
 images: ['gcr.io/$PROJECT_ID/$_TRAINER_IMAGE_NAME:$TAG_NAME', 'gcr.io/$PROJECT_ID/$_BASE_IMAGE_NAME:$TAG_NAME']
