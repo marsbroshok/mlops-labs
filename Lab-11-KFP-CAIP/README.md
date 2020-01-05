@@ -140,7 +140,7 @@ Lab-11-KFP-CAIP/cicd/cloudbuild.yaml
 ```
 ### Setting up GitHub integration
 1. Fork this repo
-2. Install **Cloud Build App** connect your GitHub repository to your Google Cloud project following the [Installing the Cloud Build App](https://cloud.google.com/cloud-build/docs/create-github-app-triggers) section  of the **Creating GitHub app triggers** article. 
+2. Install **Cloud Build App** and connect your GitHub repository to your Google Cloud project following the [Installing the Cloud Build App](https://cloud.google.com/cloud-build/docs/create-github-app-triggers) section  of the **Creating GitHub app triggers** article. 
 3. Create a new trigger on your repo by selecting the **Add trigger**  from the menu of actions:
 ![Add trigger](../images/add_trigger.png)
 4. Configure your trigger using the below configuration as a template:
