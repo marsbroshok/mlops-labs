@@ -48,7 +48,7 @@ You can use the `enable_apis.sh` script to enable the required services from **C
 ./enable.sh
 ```
 
-*Make sure that the Cloud Build service account (that was created when you enabled the Cloud Build service) is granted the Kubernetes Engine Developer role.*
+*Make sure that the Cloud Build service account (that was created when you enabled the Cloud Build service) is granted the Project Editor role.*
 
 
 
