@@ -12,7 +12,7 @@ In this lab, you simulate this process by walking through the development of a K
 
 2. In Part 2, you will re-factor code snippets developed in the notebook into KFP components and a KFP pipeline.
 
-3. In Part 3, you will develop a CI/CD workflow that automatically builds and deploys the KFP pipeline.
+3. In Part 3, you will develop a **Cloud Build** CI/CD workflow that automatically builds and deploys the KFP pipeline.
 
 
 ## Lab scenario
