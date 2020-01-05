@@ -103,13 +103,13 @@ In this exercise, you refactor the code snippets developed in the previous step 
     - [BigQuery query component](https://github.com/kubeflow/pipelines/tree/0.1.38/components/gcp/bigquery/query)
     - [AI Platform Training component](https://github.com/kubeflow/pipelines/tree/0.1.38/components/gcp/ml_engine/train)
     - [AI Platform Deploy component](https://github.com/kubeflow/pipelines/tree/0.1.38/components/gcp/ml_engine/deploy)
-- Custom components. The pipeline uses two custom helper components that encapsulate functionality not available in any of the pre-build components. The components are implemented using the KFP SDK's [Lightweight Python Components](https://www.kubeflow.org/docs/pipelines/sdk/lightweight-python-components/) mechanism:
+- Custom components. The pipeline uses two custom helper components that encapsulate functionality not available in any of the pre-build components. The components are implemented using the KFP SDK's [Lightweight Python Components](https://www.kubeflow.org/docs/pipelines/sdk/lightweight-python-components/) mechanism. The code for the components is in the `helper_components.py` file:
     - **Retrieve Best Run**. This component retrieves the tuning metric and hyperparameter values for the best run of the AI Platform Training hyperparameter tuning job.
     - **Evaluate Model**. This component evaluates the *sklearn* trained model using a provided metric and a testing dataset. 
 
 
-1. The instructor will walk you through the the code in the `pipelines` folder
-2. Navigate to the `pipelines` folder and compile the pipeline
+1. In the first part of the exercise, the instructor will walk you through the the code in the `pipelines` folder
+2. In the second part you compile the pipeline DSL using **KFP CLI**. Navigate to the `pipelines` folder and compile the pipeline
 ```
 export PROJECT_ID=[YOUR_PROJECT_ID]
 export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.38/components/gcp/
@@ -120,7 +120,7 @@ export PYTHON_VERSION=3.5
 
 dsl-compile --py covertype_training_pipeline.py --output covertype_training_pipeline.yaml
 ```
-3. Run the pipeline
+3. Finally, you manually submit a pipeline run using **KFP CLI**.
 ```
 kfp --endpoint [YOUR_INVERSE_PROXY_HOSTNAME] run submit \
 -e Covertype_Classifier_Training \
