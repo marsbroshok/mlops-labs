@@ -168,6 +168,14 @@ You will set up a trigger that starts the CI/CD workflow when a new tag is appli
 
 ![Configure trigger](../images/configure-trigger.png)
 
+Use the following values for the substitution variables:
+
+|Variable|Value|
+|--------|-----|
+|_BASE_IMAGE_NAME|base_image|
+|_COMPONENT_URL_SEARCH_PREFIX|https://raw.githubusercontent.com/kubeflow/pipelines/0.1.38/components/gcp/|
+|_INVERTING_PROXY_HOST|[Your inverting proxy host]|
+
 3. To start an automated build [create a new release of the repo in GitHub](https://help.github.com/en/github/administering-a-repository/creating-releases).
 
 ### Exercise 5 - Integrating the KFP pipeline with the upstream data management pipeline
