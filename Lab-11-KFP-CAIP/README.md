@@ -124,7 +124,7 @@ replace_existing_version=True
 
 ## Part 3 - CI/CD
 ### Developing CI/CD pipeline
-1. Build the *kfp-cli* docker image
+1. Create a **Cloud Build** custom builder that encapsulates KFP CLI.
 ```
 cd Lab-11-KFP-CAIP/cicd/kfp-cli
 ./build.sh
