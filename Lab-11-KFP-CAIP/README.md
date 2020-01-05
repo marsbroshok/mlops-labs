@@ -108,8 +108,8 @@ In this exercise, you refactor the code snippets developed in the previous step 
     - **Evaluate Model**. This component evaluates the *sklearn* trained model using a provided metric and a testing dataset. 
 
 
-1. In the first part of the exercise, the instructor will walk you through the the code in the `pipelines` folder
-2. In the second part you compile the pipeline DSL using **KFP CLI**. Navigate to the `pipelines` folder and compile the pipeline
+1. To start the exercise, the instructor will walk you through the the code in the `pipelines` folder
+2. Next you compile the pipeline DSL using **KFP CLI**. Navigate to the `pipelines` folder and compile the pipeline
 ```
 export PROJECT_ID=[YOUR_PROJECT_ID]
 export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.38/components/gcp/
@@ -137,25 +137,31 @@ model_id=covertype_classifier \
 version_id=v0.3 \
 replace_existing_version=True
 ```
-4. Monitor the pipeline run in KFP UI.
+4. You can monitor the run using KFP UI.
 
 ### Exercise  3 - Authoring the CI/CD workflow that builds and deploy the KFP training pipeline
+
+In this exercise you walk-through authoring a **Cloud Build** CI/CD workflow that automatically builds and deploys the KFP pipeline. The **Cloud Build** configuration uses both standard and custom [Cloud Build builders](https://cloud.google.com/cloud-build/docs/cloud-builders). The custom builder, which you build in the first part of the exercise, encapsulates **KFP SDK**. 
+
 1. Create a **Cloud Build** custom builder that encapsulates KFP CLI.
 ```
 cd Lab-11-KFP-CAIP/cicd/kfp-cli
 ./build.sh
 ```
-2. The instructor will walk you through  the Cloud Build configuration in:
+2. Follow the instructor who will walk you through  the Cloud Build configuration in:
 ```
 Lab-11-KFP-CAIP/cicd/cloudbuild.yaml
 ```
 3. Update the `build_pipeline.sh` script in the `Lab-11-KFP-CAIP/cicd` folder with your KFP inverting proxy host. You can retrieve the inverting proxy host name from the `inverse-proxy-config` ConfigMap. It will be under the `Hostname` key.
-4. Trigger the CI/CD build:
+4. Manually trigger the CI/CD build:
 ```
 ./build_pipeline.sh
 ```
 ### Exercise 4 - Setting up GitHub integration
-1. Fork this repo
+In this exercise you integrate your CI/CD workflow with **GitHub**, using [Cloud Build GitHub App](https://github.com/marketplace/google-cloud-build). 
+You will set up a trigger that starts the CI/CD workflow when a new tag is applied to the **GitHub** repo managing the KFP pipeline source code. You will use a fork of this repo during the exercise.
+
+1. [Follow the GitHub documentation](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) to fork this repo
 2. Install **Cloud Build App** and connect your GitHub repository to your Google Cloud project following the [Installing the Cloud Build App](https://cloud.google.com/cloud-build/docs/create-github-app-triggers) section  of the **Creating GitHub app triggers** article. 
 3. Create a new trigger on your repo by selecting the **Add trigger**  from the menu of actions:
 ![Add trigger](../images/add_trigger.png)
