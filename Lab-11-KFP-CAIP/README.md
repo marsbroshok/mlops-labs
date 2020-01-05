@@ -164,13 +164,10 @@ In this exercise you integrate your CI/CD workflow with **GitHub**, using [Cloud
 You will set up a trigger that starts the CI/CD workflow when a new tag is applied to the **GitHub** repo managing the KFP pipeline source code. You will use a fork of this repo during the exercise.
 
 1. [Follow the GitHub documentation](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) to fork this repo
-2. Install **Cloud Build App** and connect your GitHub repository to your Google Cloud project following the [Creating GitHub app trigger](https://cloud.google.com/cloud-build/docs/create-github-app-triggers) article. Walk thrugh the **
-3. Create a new trigger on your repo by selecting the **Add trigger**  from the menu of actions:
-![Add trigger](../images/add_trigger.png)
-4. Configure your trigger using the below configuration as a template:
+2. Connect the fork you created in the previous step to your Google Cloud project and create a trigger following the [Creating GitHub app trigger](https://cloud.google.com/cloud-build/docs/create-github-app-triggers) article. Configure your trigger using the below configuration as a template:
 
 ![Configure trigger](../images/configure-trigger.png)
 
-5. Create a new release of the repo in GitHub.
+3. To start an automated build [create a new release of the repo in GitHub](https://help.github.com/en/github/administering-a-repository/creating-releases).
 
 ### Exercise 5 - Integrating the KFP pipeline with the upstream data management pipeline
