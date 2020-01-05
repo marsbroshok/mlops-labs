@@ -166,7 +166,7 @@ You will set up a trigger that starts the CI/CD workflow when a new tag is appli
 1. [Follow the GitHub documentation](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) to fork this repo
 2. Connect the fork you created in the previous step to your Google Cloud project and create a trigger following the [Creating GitHub app trigger](https://cloud.google.com/cloud-build/docs/create-github-app-triggers) article. Configure your trigger using the below configuration as a template:
 
-![Configure trigger](../images/configure-trigger.png)
+![Configure trigger](../images/configure_trigger.png)
 
 Use the following values for the substitution variables:
 
