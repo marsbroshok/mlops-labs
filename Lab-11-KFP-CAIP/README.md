@@ -87,6 +87,8 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
 ## Lab Exercises
 ### Exercise 1  - Experimentation in AI Platform Notebooks
+In this exercise, you work in a Jupyter notebook to explore the data, prepare data extraction routines, and experiment with training and hyperparameter tuning code.
+
 1. Clone this repo in the `home` folder of your **AI Platform Notebooks** instance.
 ```
 cd /home
@@ -95,6 +97,14 @@ git clone https://github.com/jarokaz/mlops-labs.git
 2. Follow the instructor who will walk you through the `mlops-labs/Lab-11-KFP_CAIP/notebooks/covertype_experminentation.ipynb` notebook
 
 ### Exercise 2 - KFP pipeline authoring
+In this exercise, you refactor the code snippets developed in the previous step into KFP components and the KFP pipeline. Your pipeline uses a mix of custom and pre-build components.
+
+- Pre-build components. The pipeline uses the following pre-build components that are included with KFP distribution:
+    - [BigQuery query component](https://github.com/kubeflow/pipelines/tree/0.1.38/components/gcp/bigquery/query)
+    - [AI Platform Training component](https://github.com/kubeflow/pipelines/tree/0.1.38/components/gcp/ml_engine/train)
+    - [AI Platform Deploy component](https://github.com/kubeflow/pipelines/tree/0.1.38/components/gcp/ml_engine/deploy)
+
+
 1. The instructor will walk you through the the code in the `pipelines` folder
 2. Navigate to the `pipelines` folder and compile the pipeline
 ```
