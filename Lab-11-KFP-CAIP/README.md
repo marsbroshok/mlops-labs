@@ -103,6 +103,9 @@ In this exercise, you refactor the code snippets developed in the previous step 
     - [BigQuery query component](https://github.com/kubeflow/pipelines/tree/0.1.38/components/gcp/bigquery/query)
     - [AI Platform Training component](https://github.com/kubeflow/pipelines/tree/0.1.38/components/gcp/ml_engine/train)
     - [AI Platform Deploy component](https://github.com/kubeflow/pipelines/tree/0.1.38/components/gcp/ml_engine/deploy)
+- Custom components. The pipeline uses two custom helper components that encapsulate functionality not available in any of the pre-build components. The components are implemented using the KFP SDK's [Lightweight Python Components](https://www.kubeflow.org/docs/pipelines/sdk/lightweight-python-components/) mechanism:
+    - **Retrieve Best Run**. This component retrieves the tuning metric and hyperparameter values for the best run of the AI Platform Training hyperparameter tuning job.
+    - **Evaluate Model**. This component evaluates the *sklearn* trained model using a provided metric and a testing dataset. 
 
 
 1. The instructor will walk you through the the code in the `pipelines` folder
