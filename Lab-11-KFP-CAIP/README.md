@@ -141,7 +141,9 @@ replace_existing_version=True
 
 ### Exercise  3 - Authoring the CI/CD workflow that builds and deploy the KFP training pipeline
 
-In this exercise you walk-through authoring a **Cloud Build** CI/CD workflow that automatically builds and deploys the KFP pipeline. The **Cloud Build** configuration uses both standard and custom [Cloud Build builders](https://cloud.google.com/cloud-build/docs/cloud-builders). The custom builder, which you build in the first part of the exercise, encapsulates **KFP SDK**. 
+In this exercise you walk-through authoring a **Cloud Build** CI/CD workflow that automatically builds and deploys the KFP pipeline. The **Cloud Build** configuration uses both standard and custom [Cloud Build builders](https://cloud.google.com/cloud-build/docs/cloud-builders). The custom builder, which you build in the first part of the exercise, encapsulates **KFP CLI**. 
+
+The version 1.37 of **KFP** added support for pipeline versions. However, this functionality is only available through **KFP UI**. It is not yet exposed through **KFP SDK**. In the current version of this exercise, you append the **Cloud Build** `$TAG_NAME` default substitution to the name of the pipeline to designate a pipeline version. When the pipeline versioning features is exposed through **KFP SDK** this exercise will be updated to use the feature.
 
 1. Create a **Cloud Build** custom builder that encapsulates KFP CLI.
 ```
