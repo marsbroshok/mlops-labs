@@ -10,11 +10,13 @@ In this lab, you simulate this process by walking through the development of a K
 
 1. In Part 1 of the lab, you will work in a Jupyter notebook to explore the data, prepare data extraction routines, and experiment with training and hyperparameter tuning code.
 
-2. In Part 2, you will re-factor code snippets developed in the notebook into KFP components and a KFP pipeline.
+1. In Part 2, you will re-factor code snippets developed in the notebook into KFP components and a KFP pipeline.
 
-3. In Part 4, you will author a **Cloud Build** CI/CD workflow that automatically builds and deploys the KFP pipeline.
+1. In Part 3, you will author a **Cloud Build** CI/CD workflow that automatically builds and deploys the KFP pipeline.
 
-4. In Part 5, you will integrate your CI/CD workflow with **GitHub** by setting up a trigger that starts the CI/CD workflow when a new tag is applied to your **GitHub** repo.
+1. In Part 4, you will integrate your CI/CD workflow with **GitHub** by setting up a trigger that starts the CI/CD workflow when a new tag is applied to your **GitHub** repo.
+
+1. In Part 5, you will integrate the KFP pipeline with the upstream data management pipeline implemented in **Cloud Composer**.
 
 
 ## Lab scenario
