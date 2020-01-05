@@ -8,15 +8,15 @@ Today, the process of transitioning from an interactive notebook to an operation
 
 In this lab, you simulate this process by walking through the development of a KFP pipeline that orchrestrates BigQuery and Cloud AI Platform services to train and deploy a **scikit-learn model**:
 
-1. In Part 1 of the lab, you will work in a Jupyter notebook to explore the data, prepare data extraction routines, and experiment with training and hyperparameter tuning code.
+1. In Exercise 1 of the lab, you will work in a Jupyter notebook to explore the data, prepare data extraction routines, and experiment with training and hyperparameter tuning code.
 
-1. In Part 2, you will re-factor code snippets developed in the notebook into KFP components and a KFP pipeline.
+1. In Exercise 2, you will re-factor code snippets developed in the notebook into KFP components and a KFP pipeline.
 
-1. In Part 3, you will author a **Cloud Build** CI/CD workflow that automatically builds and deploys the KFP pipeline.
+1. In Exercise 3, you will author a **Cloud Build** CI/CD workflow that automatically builds and deploys the KFP pipeline.
 
-1. In Part 4, you will integrate your CI/CD workflow with **GitHub** by setting up a trigger that starts the CI/CD workflow when a new tag is applied to your **GitHub** repo.
+1. In Exercise 4, you will integrate your CI/CD workflow with **GitHub** by setting up a trigger that starts the CI/CD workflow when a new tag is applied to your **GitHub** repo.
 
-1. In Part 5, you will integrate the KFP pipeline with the upstream data management pipeline implemented in **Cloud Composer**.
+1. In Exercise 5, you will integrate the KFP pipeline with the upstream data management pipeline implemented in **Cloud Composer**.
 
 
 ## Lab scenario
@@ -85,8 +85,8 @@ Create the GCS bucket that will be used as a staging area during the lab.
 BUCKET_NAME=gs://${PROJECT_ID}-lab-11
 gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
-
-## Part 1  - Experimentation
+## Lab Exercises
+### Exercise 1  - Experimentation in AI Platform Notebooks
 1. Clone this repo in the `home` folder of your **AI Platform Notebooks** instance.
 ```
 cd /home
@@ -94,7 +94,7 @@ git clone https://github.com/jarokaz/mlops-labs.git
 ```
 2. Follow the instructor who will walk you through the `mlops-labs/Lab-11-KFP_CAIP/notebooks/covertype_experminentation.ipynb` notebook
 
-## Part 2 - KFP pipeline authoring
+### Exercise 2 - KFP pipeline authoring
 1. The instructor will walk you through the the code in the `pipelines` folder
 2. Navigate to the `pipelines` folder and compile the pipeline
 ```
@@ -126,8 +126,7 @@ replace_existing_version=True
 ```
 4. Monitor the pipeline run in KFP UI.
 
-## Part 3 - CI/CD
-### Authoring the CI/CD workflow that builds and deploy the KFP training pipeline
+### Exercise  3 - Authoring the CI/CD workflow that builds and deploy the KFP training pipeline
 1. Create a **Cloud Build** custom builder that encapsulates KFP CLI.
 ```
 cd Lab-11-KFP-CAIP/cicd/kfp-cli
@@ -142,7 +141,7 @@ Lab-11-KFP-CAIP/cicd/cloudbuild.yaml
 ```
 ./build_pipeline.sh
 ```
-### Setting up GitHub integration
+### Exercise 4 - Setting up GitHub integration
 1. Fork this repo
 2. Install **Cloud Build App** and connect your GitHub repository to your Google Cloud project following the [Installing the Cloud Build App](https://cloud.google.com/cloud-build/docs/create-github-app-triggers) section  of the **Creating GitHub app triggers** article. 
 3. Create a new trigger on your repo by selecting the **Add trigger**  from the menu of actions:
@@ -153,3 +152,4 @@ Lab-11-KFP-CAIP/cicd/cloudbuild.yaml
 
 5. Create a new release of the repo in GitHub.
 
+### Exercise 5 - Integrating the KFP pipeline with the upstream data management pipeline
