@@ -17,7 +17,7 @@
 # the pipelines and pipelines components 
 
 SUBSTITUTIONS=\
-_INVERTING_PROXY_HOST=4aeededf303e7d07-dot-us-central1.notebooks.googleusercontent.com,\
+_INVERTING_PROXY_HOST=[YOUR_INVERTING_PROXY_HOST],\
 _TRAINER_IMAGE_NAME=trainer_image,\
 _BASE_IMAGE_NAME=base_image,\
 TAG_NAME=manual,\
