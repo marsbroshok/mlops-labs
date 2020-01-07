@@ -11,7 +11,7 @@ In this lab, you will learn how to use TensorFlow Data Validation (TFDV) for str
 ### AI Platform Notebook configuration
 You will use the **AI Platform Notebooks** instance configured with a custom container image. To prepare the **AI Platform Notebooks** instance:
 
-1. In **Cloud Shell**, navigate to the `Lab-00-Environment-Setup/notebook-images/tf20-tfx015` folder.
+1. In **Cloud Shell**, navigate to the `lab-00-environment-setup/notebook-images/tf20-tfx015` folder.
 2. Build the container image
 ```
 ./build.sh
