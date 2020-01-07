@@ -7,7 +7,7 @@ In this lab, you will learn how to use TensorFlow Data Validation (TFDV) for str
 - Detecting drift and skew. 
 
 
-## Lab setup
+## Lab Setup
 ### AI Platform Notebook configuration
 You will use the **AI Platform Notebooks** instance configured with a custom container image. To prepare the **AI Platform Notebooks** instance:
 
@@ -29,4 +29,7 @@ PROJECT_ID=[YOUR_PROJECT_ID]
 BUCKET_NAME=gs://${PROJECT_ID}-lab-21
 gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
+
+## Lab Exercises
+Follow the instructor, who will walk you throught the `tfdv-covertype.ipynb` notebook.
 
