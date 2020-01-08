@@ -69,7 +69,7 @@ As described by the instructor, the pipeline in this lab uses a custom docker im
 The pipeline needs to use v1.15 of TensorFlow as AI Platform Prediction service, which is used as a deployment target, does not yet support v2.0 of TensorFlow.
 
 ### Exercise 2 - Compiling and running the pipeline
-You can use **TFX CLI** to compile and deploy TFX pipelines and to submit pipeline runs. As the pipeline uses the custom image, the first step is to build the image and push it your project's **Container Registry**. You will use **Cloud Build** to build the image. Navigate to the `pipeline-dsl` folder and execute the following commands:
+You can use **TFX CLI** to compile and deploy TFX pipelines and to submit pipeline runs. As the pipeline uses the custom image, the first step is to build the image and push it to your project's **Container Registry**. You will use **Cloud Build** to build the image. Navigate to the `pipeline-dsl` folder and execute the following commands:
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
 IMAGE_NAME=lab-14-tfx-image
