@@ -87,12 +87,14 @@ As explained by the instructor, the pipeline's DSL retrieves the settings contro
 export PROJECT_ID=[YOUR_PROJECT_ID]
 export ARTIFACT_STORE_URI=[YOUR_ARTIFACT_STORE_URI]
 export DATA_ROOT_URI=[YOUR_DATA_ROOT_URI]
+export TFX_IMAGE=[YOUR_TFX_IMAGE_URI]
+export KFP_INVERSE_PROXY_HOST=[YOUR_INVERSE_PROXY_HOST]
+
 export PIPELINE_NAME=online_news_model_training
 export GCP_REGION=us-central1
-export TFX_IMAGE=$IMAGE_URI
-export KFP_INVERSE_PROXY_HOST=[YOUR_INVERSE_PROXY_HOST]
 export RUNTIME_VERSION=1.15
 export PYTHON_VERSION=3.7
+
 
 tfx pipeline create --pipeline_path pipeline_dsl.py --endpoint $KFP_INVERSE_PROXY_HOST
 ```
