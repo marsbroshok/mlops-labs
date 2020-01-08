@@ -93,7 +93,6 @@ source activate tfx
 Next, set the required environment variables.
 
 ```
-export PROJECT_ID=[YOUR_PROJECT_ID]
 export PIPELINE_NAME=online_news_model_training'
 export GCP_REGION=us-central1
 export PIPELINE_IMAGE=$IMAGE_URI
