@@ -69,21 +69,32 @@ As described by the instructor, the pipeline in this lab uses a custom docker im
 The pipeline needs to use v1.15 of TensorFlow as AI Platform Prediction service, which is used as a deployment target, does not yet support v2.0 of TensorFlow.
 
 ### Exercise 2 - Compiling and running the pipeline
-You can use **TFX CLI** to compile and deploy pipelines and to submit pipeline runs. 
+You can use **TFX CLI** to compile and deploy TFX pipelines and to submit pipeline runs. As the pipeline uses the custom image, the first step is to build the image and push it your project's **Container Registry**. You will use **Cloud Build** to build the image. Navigate to the `pipeline-dsl` folder and execute the following commands:
+```
+PROJECT_ID=[YOUR_PROJECT_ID]
+IMAGE_NAME=lab-14-tfx-image
+TAG=latest
+IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
+gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
+```
 
+The pipeline's DSL retrieves the environmental settings like GCP project_id and AI Platform Training region from environmental variables. You need to set these variables before you compile the pipeline.
 
-To compile the pipeline:
 ```
 export PROJECT_ID=[YOUR_PROJECT_ID]
-export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.38/components/gcp/
-export BASE_IMAGE=gcr.io/deeplearning-platform-release/base-cpu
-export TRAINER_IMAGE=gcr.io/$PROJECT_ID/trainer_image:latest
-export RUNTIME_VERSION=1.14
-export PYTHON_VERSION=3.5
-
-dsl-compile --py covertype_training_pipeline.py --output covertype_training_pipeline.yaml
+export PIPELINE_NAME=online_news_model_training'
+export GCP_REGION=us-central1
+export PIPELINE_IMAGE=$IMAGE_URI
 ```
+
+To compile the pipeline:
+
+```
+tfx pipeline compile --pipeline_path pipeline_dsl.py --package_path online_news_pipeline.yaml
+```
+
+
 3. Finally, you manually submit a pipeline run using **KFP CLI**.
 ```
 kfp --endpoint [YOUR_INVERSE_PROXY_HOSTNAME] run submit \
