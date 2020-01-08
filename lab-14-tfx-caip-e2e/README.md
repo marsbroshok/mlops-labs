@@ -13,10 +13,7 @@ In this lab you will develop and operationalize a TFX pipeline that uses Kubeflo
 
 You will be working with a variant of the [Online News Popularity](https://archive.ics.uci.edu/ml/datasets/online+news+popularity) dataset, which summarizes a heterogeneous set of features about articles published by Mashable in a period of two years. The goal is to predict how popular the article will be on social networks. Specifically, in the original dataset the objective was to predict the number of times each article will be shared on social networks. In this variant, the goal is to predict the article's popularity percentile. For example, if the model predicts a score of 0.7, then it means it expects the article to be shared more than 70% of all articles.
 
-The source data is in BigQuery. The pipeline uses:
-- BigQuery to prepare training, evaluation, and testing data splits, 
-- AI Platform Training to run a custom container with data preprocessing and training code, and
-- AI Platform Prediction as a deployment target. The below diagram represents the workflow orchestrated by the pipeline.
+The source data in a CSV file format is in the GCS bucket. The pipeline implements a typical TFX workflow as depicted on the below diagram:
 
 ![Lab 14 diagram](../images/lab-14-diagram.png).
 
