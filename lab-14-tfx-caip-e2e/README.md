@@ -97,7 +97,7 @@ export PIPELINE_NAME=online_news_model_training'
 export GCP_REGION=us-central1
 ```
 
-Finally, compile the pipeline using  **TFX CLI**:
+To compile the pipeline using  **TFX CLI**:
 
 ```
 source activate tfx
@@ -105,24 +105,7 @@ tfx pipeline compile --pipeline_path pipeline_dsl.py --package_path online_news_
 ```
 
 
-3. Finally, you manually submit a pipeline run using **KFP CLI**.
-```
-kfp --endpoint [YOUR_INVERSE_PROXY_HOSTNAME] run submit \
--e Covertype_Classifier_Training \
--r Run_201 \
--f covertype_training_pipeline.yaml \
-project_id=[YOUR_PROJECT_ID] \
-gcs_root=[YOUR_STAGING_BUCKET] \
-region=us-central1 \
-source_table_name=lab_11.covertype \
-dataset_id=splits \
-evaluation_metric_name=accuracy \
-evaluation_metric_threshold=0.69 \
-model_id=covertype_classifier \
-version_id=v0.3 \
-replace_existing_version=True
-```
-4. You can monitor the run using KFP UI.
+
 
 ### Exercise  3 - Authoring the CI/CD workflow that builds and deploy the KFP training pipeline
 
