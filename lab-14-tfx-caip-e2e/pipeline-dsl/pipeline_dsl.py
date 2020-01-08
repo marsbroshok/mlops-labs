@@ -130,14 +130,9 @@ if __name__ == '__main__':
   _project_id = os.environ.get('PROJECT_ID')
   _gcp_region = os.environ.get('GCP_REGION')
   _pipeline_image = os.environ.get('TFX_IMAGE')
+  _gcs_data_root = os.environ.get('DATA_ROOT')
   _artifact_store_bucket = os.environ.get('ARTIFACT_STORE_BUCKET')
-
- 
-  # Artifact store settings
-  
-  _pipeline_root = 'gs://{}/{}/'.format(_artifact_store_bucket, _pipeline_name)
-  _gcs_data_root = 'gs://{}/{}/'.format(_artifact_store_bucket, 'data')
- 
+   
   # AI Platform Training settings
   _ai_platform_training_args = {
     'project': _project_id,
@@ -182,6 +177,7 @@ if __name__ == '__main__':
   )
 
   _module_file = 'modules/transform_train.py'
+  _pipeline_root = 'gs://{}/{}/'.format(_artifact_store_bucket, _pipeline_name)
   kubeflow_dag_runner.KubeflowDagRunner(config=runner_config).run(
       _create_online_news_pipeline(
           pipeline_name=_pipeline_name,
