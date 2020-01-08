@@ -117,7 +117,7 @@ tfx run status --pipeline_name online_news_model_training --run_id [YOUR_RUN_ID]
 ```
  To terminate a run:
  ```
- tfx run --run_id [YOUR_RUN_ID] --endpoint $KFP_INVERSE_PROXY_HOST
+ tfx run terminate --run_id [YOUR_RUN_ID] --endpoint $KFP_INVERSE_PROXY_HOST
  ```
 
 
