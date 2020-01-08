@@ -95,6 +95,7 @@ The pipeline's DSL retrieves the settings controlling how the pipeline is compil
 ```
 export PROJECT_ID=[YOUR_PROJECT_ID]
 export ARTIFACT_STORE_BUCKET=[YOUR_ARTIFACT_STORE_BUCKET]
+export DATA_ROOT=$BUCKET_NAME/online_news
 export PIPELINE_NAME=online_news_model_training
 export GCP_REGION=us-central1
 export TFX_IMAGE=$IMAGE_URI
