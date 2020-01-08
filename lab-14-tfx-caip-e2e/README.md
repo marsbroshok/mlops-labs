@@ -32,6 +32,14 @@ You will use the **AI Platform Notebooks** instance configured with a custom con
 ```
 3. Provision the **AI Platform Notebook** instance based on a custom container image, following the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container). In the **Docker container image** field, enter the following image name: `gcr.io/[YOUR_PROJECT_NAME]/tfx-kfp-dev:TF115-TFX015-KFP136`.
 
+4. After the **AI Platform Notebooks** instance is ready, *open JupyterLab*.
+
+5. Open a new terminal in **JupyterLab** and clone this repo under the `home` directory
+```
+cd /home
+git clone https://github.com/jarokaz/mlops-labs.git
+```
+
 ### Lab dataset
 This lab uses the the [Online News Popularity](https://archive.ics.uci.edu/ml/datasets/online+news+popularity) dataset. The pipeline developed in the lab sources the data from the GCS location. To upload the dataset to the GCS bucket in your project:
 
@@ -49,31 +57,20 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 gsutil cp gs://workshop-datasets/online_news/full/data.csv $BUCKET_NAME/online_news/data.csv 
 ```
 
+
+
 ## Lab Exercises
-### Exercise 1  - Experimentation in AI Platform Notebooks
-In this exercise, you work in a Jupyter notebook to explore the data, prepare data extraction routines, and experiment with training and hyperparameter tuning code.
+### Exercise 1  - Pipeline DSL walk-through
 
-1. Clone this repo in the `home` folder of your **AI Platform Notebooks** instance.
-```
-cd /home
-git clone https://github.com/jarokaz/mlops-labs.git
-```
-2. Follow the instructor who will walk you through the `mlops-labs/Lab-11-KFP_CAIP/notebooks/covertype_experminentation.ipynb` notebook
+Follow the instructor who will walk you through the pipeline DSL.
 
-### Exercise 2 - KFP pipeline authoring
-In this exercise, you refactor the code snippets developed in the previous step into KFP components and the KFP pipeline. Your pipeline uses a mix of custom and pre-build components.
+### Exercise 2 - Compiling and running the pipeline
+You can use **TFX CLI** to compile and deploy pipelines and to submit pipeline runs. 
 
-- Pre-build components. The pipeline uses the following pre-build components that are included with KFP distribution:
-    - [BigQuery query component](https://github.com/kubeflow/pipelines/tree/0.1.38/components/gcp/bigquery/query)
-    - [AI Platform Training component](https://github.com/kubeflow/pipelines/tree/0.1.38/components/gcp/ml_engine/train)
-    - [AI Platform Deploy component](https://github.com/kubeflow/pipelines/tree/0.1.38/components/gcp/ml_engine/deploy)
-- Custom components. The pipeline uses two custom helper components that encapsulate functionality not available in any of the pre-build components. The components are implemented using the KFP SDK's [Lightweight Python Components](https://www.kubeflow.org/docs/pipelines/sdk/lightweight-python-components/) mechanism. The code for the components is in the `helper_components.py` file:
-    - **Retrieve Best Run**. This component retrieves the tuning metric and hyperparameter values for the best run of the AI Platform Training hyperparameter tuning job.
-    - **Evaluate Model**. This component evaluates the *sklearn* trained model using a provided metric and a testing dataset. 
+As described by the instructor, the pipeline in this lab uses a custom docker image that is a derivative of a base `tensorflow/tfx:0.15.0` image from [Docker Hub](https://hub.docker.com/r/tensorflow/tfx). The base `tfx` image includes TFX v0.15 and TensorFlow v2.0. The custom image modifies the base image by downgrading TensorFlow to v1.15 and adding the Python module with the data transformation and training code used by the pipeline's `Transform` and `Train` components.
 
 
-1. To start the exercise, the instructor will walk you through the the code in the `pipelines` folder
-2. Next you compile the pipeline DSL using **KFP CLI**. Navigate to the `pipelines` folder and compile the pipeline
+To compile the pipeline:
 ```
 export PROJECT_ID=[YOUR_PROJECT_ID]
 export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.38/components/gcp/
