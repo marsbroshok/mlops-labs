@@ -4,20 +4,22 @@ In this lab you will develop and operationalize a TFX pipeline that uses Kubeflo
 
 1. In Exercise 1, you will review and understand the pipeline's source code - also referred to as the pipeline's DSL.
 
-1. In Exercise 2, you will compile the pipeline's DSL and submit a run of the pipeline.
+1. In Exercise 2, you will use **TFX CLI** to compile the pipeline's DSL and submit pipeline runs.
 
-1. In Exercise 3, you will author a **Cloud Build** CI/CD workflow that automates building and deploying.
+1. In Exercise 3, you will author a **Cloud Build** CI/CD workflow that automates compilation and deployment.
 
-1. In Exercise 4, you will integrate your CI/CD workflow with **GitHub** by setting up a trigger that starts the CI/CD workflow when a new tag is applied to the **GitHub** repo.
+1. In Exercise 4, you will integrate your CI/CD workflow with **GitHub**.
 
 
 ## Lab scenario
 
 You will be working with a variant of the [Online News Popularity](https://archive.ics.uci.edu/ml/datasets/online+news+popularity) dataset, which summarizes a heterogeneous set of features about articles published by Mashable in a period of two years. The goal is to predict how popular the article will be on social networks. Specifically, in the original dataset the objective was to predict the number of times each article will be shared on social networks. In this variant, the goal is to predict the article's popularity percentile. For example, if the model predicts a score of 0.7, then it means it expects the article to be shared more than 70% of all articles.
 
-The source data in a CSV file format is in the GCS bucket. The pipeline implements a typical TFX workflow as depicted on the below diagram:
+The pipeline implements a typical TFX workflow as depicted on the below diagram:
 
 ![Lab 14 diagram](../images/lab-14-diagram.png).
+
+The source data in a CSV file format is in the GCS bucket.
 
 The TFX `ExampleGen`, `StatisticsGen`, `ExampleValidator`, `SchemaGen`, `Transform`, and `Evaluator` components use Cloud Dataflow as an executor. The `Trainer` and `Pusher` components use AI Platform Training and Prediction services.
 
