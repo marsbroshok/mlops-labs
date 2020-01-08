@@ -125,6 +125,8 @@ def _create_pipeline(
 
 if __name__ == '__main__':
     
+  print("In the main")
+  quit()
   # Configure pipeline settings
     
   # Get settings from environment variables
