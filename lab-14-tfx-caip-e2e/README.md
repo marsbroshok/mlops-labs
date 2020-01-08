@@ -1,21 +1,17 @@
 # Orchestrating model training and deployment with TFX and Cloud AI Platform
 
-In this lab you will develop and operationalize a TFX pipeline that uses Kubeflow Pipelines for orchestration and Cloud Dataflow and Cloud AI Platform for data processing and training:
+In this lab you will develop and operationalize a TFX pipeline that uses Kubeflow Pipelines for orchestration and Cloud Dataflow and Cloud AI Platform for data processing, training, and deployment:
 
-1. In Exercise 1 of the lab, you will work in a Jupyter notebook to explore the data, prepare data extraction routines, and experiment with training and hyperparameter tuning code.
+1. In Exercise 1, you will walk through the TFX pipeline DSL, compile the pipeline into a KFP package and submit the pipeline run.
 
-1. In Exercise 2, you will re-factor code snippets developed in the notebook into KFP components and a KFP pipeline.
+1. In Exercise 2, you will author a **Cloud Build** CI/CD workflow that automatically builds and deploys the  pipeline.
 
-1. In Exercise 3, you will author a **Cloud Build** CI/CD workflow that automatically builds and deploys the KFP pipeline.
-
-1. In Exercise 4, you will integrate your CI/CD workflow with **GitHub** by setting up a trigger that starts the CI/CD workflow when a new tag is applied to your **GitHub** repo.
-
-1. In Exercise 5, you will integrate the KFP pipeline with the upstream data management pipeline implemented in **Cloud Composer**.
+1. In Exercise 3, you will integrate your CI/CD workflow with **GitHub** by setting up a trigger that starts the CI/CD workflow when a new tag is applied to the **GitHub** repo.
 
 
 ## Lab scenario
 
-Using the [Covertype Data Set](../datasets/covertype/README.md) you will develop a multi-class classification model that predicts the type of forest cover from cartographic data. 
+You will be working with a variant of the [Online News Popularity](https://archive.ics.uci.edu/ml/datasets/online+news+popularity) dataset, which summarizes a heterogeneous set of features about articles published by Mashable in a period of two years. The goal is to predict how popular the article will be on social networks. Specifically, in the original dataset the objective was to predict the number of times each article will be shared on social networks. In this variant, the goal is to predict the article's popularity percentile. For example, if the model predicts a score of 0.7, then it means it expects the article to be shared more than 70% of all articles.
 
 The source data is in BigQuery. The pipeline uses:
 - BigQuery to prepare training, evaluation, and testing data splits, 
