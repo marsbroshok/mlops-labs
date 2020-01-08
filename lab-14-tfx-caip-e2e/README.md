@@ -95,6 +95,7 @@ The pipeline's DSL retrieves the settings controlling how the pipeline is compil
 ```
 export PIPELINE_NAME=online_news_model_training
 export GCP_REGION=us-central1
+export ARTIFACT_STORE_BUCKET=[YOUR_ARTIFACT_STORE_BUCKET]
 
 tfx pipeline compile --pipeline_path pipeline_dsl.py 
 ```
