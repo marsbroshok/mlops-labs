@@ -4,9 +4,9 @@ In this lab you will develop and operationalize a TFX pipeline that uses Kubeflo
 
 1. In Exercise 1, you will review and understand the pipeline's source code - also referred to as the pipeline's DSL.
 
-1. In Exercise 2, you will use **TFX CLI** to compile the pipeline's DSL and submit pipeline runs.
+1. In Exercise 2, you will use **TFX CLI** to deploy the pipeline and submit pipeline runs.
 
-1. In Exercise 3, you will author a **Cloud Build** CI/CD workflow that automates compilation and deployment.
+1. In Exercise 3, you will author a **Cloud Build** CI/CD workflow that automates deployment.
 
 1. In Exercise 4, you will integrate your CI/CD workflow with **GitHub**.
 
