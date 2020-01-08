@@ -2,11 +2,13 @@
 
 In this lab you will develop and operationalize a TFX pipeline that uses Kubeflow Pipelines for orchestration and Cloud Dataflow and Cloud AI Platform for data processing, training, and deployment:
 
-1. In Exercise 1, you will walk through the TFX pipeline DSL, compile the pipeline into a KFP package and submit the pipeline run.
+1. In Exercise 1, you will review and understand the pipeline's source code - also referred to as the pipeline's DSL.
 
-1. In Exercise 2, you will author a **Cloud Build** CI/CD workflow that automatically builds and deploys the  pipeline.
+1. In Exercise 2, you will compile the pipeline's DSL and submit the pipeline's run.
 
-1. In Exercise 3, you will integrate your CI/CD workflow with **GitHub** by setting up a trigger that starts the CI/CD workflow when a new tag is applied to the **GitHub** repo.
+1. In Exercise 3, you will author a **Cloud Build** CI/CD workflow that automates building and deploying.
+
+1. In Exercise 4, you will integrate your CI/CD workflow with **GitHub** by setting up a trigger that starts the CI/CD workflow when a new tag is applied to the **GitHub** repo.
 
 
 ## Lab scenario
@@ -60,9 +62,9 @@ gsutil cp gs://workshop-datasets/online_news/full/data.csv $BUCKET_NAME/online_n
 
 
 ## Lab Exercises
-### Exercise 1  - Pipeline DSL walk-through
+### Exercise 1  - Understanding the pipeline's DSL.
 
-Follow the instructor who will walk you through the pipeline DSL.
+Follow the instructor who will walk you through the pipeline's DSL.
 
 As described by the instructor, the pipeline in this lab uses a custom docker image that is a derivative of a base `tensorflow/tfx:0.15.0` image from [Docker Hub](https://hub.docker.com/r/tensorflow/tfx). The base `tfx` image includes TFX v0.15 and TensorFlow v2.0. The custom image modifies the base image by downgrading TensorFlow to v1.15 and adding the Python module `transform_train.py` with the data transformation and training code used by the pipeline's `Transform` and `Train` components.
 
@@ -79,7 +81,14 @@ IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 ```
 
-The pipeline's DSL retrieves the environmental settings, like the *Project ID* of the GCP project and the *GCP region* to be used by **AI Platform Training**, from the nvironmental variables. You need to set these variables before you can compile the pipeline.
+The pipeline's DSL retrieves the environmental settings, like the *Project ID* of the GCP project and the *GCP region* to be used by **AI Platform Training**, from the environment variables. You need to set these variables before you can compile the pipeline.
+
+First, activate the `tfx` Python environment that hosts TFX and TFX CLI.
+```
+source activate tfx
+```
+
+Next, set the required environment variables.
 
 ```
 export PROJECT_ID=[YOUR_PROJECT_ID]
@@ -88,9 +97,10 @@ export GCP_REGION=us-central1
 export PIPELINE_IMAGE=$IMAGE_URI
 ```
 
-To compile the pipeline:
+Finally, compile the pipeline using  **TFX CLI**:
 
 ```
+source activate tfx
 tfx pipeline compile --pipeline_path pipeline_dsl.py --package_path online_news_pipeline.yaml
 ```
 
