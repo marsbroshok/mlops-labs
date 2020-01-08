@@ -88,7 +88,7 @@ IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 ```
 
-The pipeline's DSL retrieves the settings controlling how the pipeline is compiled from the environment variables. You need to set these variables before you start the compilation. To compile the pipeline using  **TFX CLI**:
+As explained by the instructor, the pipeline's DSL retrieves the settings controlling how the pipeline is compiled from the environment variables.To set the environment variables and compile the pipeline using  **TFX CLI**:
 
 ```
 export PROJECT_ID=[YOUR_PROJECT_ID]
