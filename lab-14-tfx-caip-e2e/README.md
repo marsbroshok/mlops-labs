@@ -17,6 +17,9 @@ The source data in a CSV file format is in the GCS bucket. The pipeline implemen
 
 ![Lab 14 diagram](../images/lab-14-diagram.png).
 
+The TFX `ExampleGen`, `StatisticsGen`, `ExampleValidator`, `SchemaGen`, `Transform`, and `Evaluator` components use Cloud Dataflow as an executor. The `Trainer` and `Pusher` components use AI Platform Training and Prediction services.
+
+
 ## Lab setup
 
 ### AI Platform Notebook configuration
