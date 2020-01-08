@@ -3,9 +3,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-- github.com/kubeflow/pipelines//manifests/kustomize/namespaced/?ref=0.1.38
-- github.com/kubeflow/pipelines//manifests/kustomize/env/gcp/minio/?ref=0.1.38
-- github.com/kubeflow/pipelines//manifests/kustomize/env/gcp/mysql/?ref=0.1.38
+- github.com/kubeflow/pipelines//manifests/kustomize/namespaced/?ref=0.1.36
+- github.com/kubeflow/pipelines//manifests/kustomize/env/gcp/minio/?ref=0.1.36
+- github.com/kubeflow/pipelines//manifests/kustomize/env/gcp/mysql/?ref=0.1.36
 
 namespace: kfp
 
