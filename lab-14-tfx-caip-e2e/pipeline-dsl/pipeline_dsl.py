@@ -44,7 +44,7 @@ from typing import Dict, List, Text
 from use_mysql_secret import use_mysql_secret
 from kfp import gcp
 
-def _create_pipeline(
+def _create_online_news_pipeline(
     pipeline_name: Text, 
     pipeline_root: Text, 
     data_root: Text,
@@ -125,18 +125,16 @@ def _create_pipeline(
 
 if __name__ == '__main__':
     
-  print("In the main")
-  quit()
-  # Configure pipeline settings
-    
   # Get settings from environment variables
-  _pipeline_name = os.environ.get('PIPELINE_NAME', 'online_news_training_pipeline')
-  _project_id = os.environ.get('PROJECT_ID', 'jk-tfw-demo')
-  _gcp_region = os.environ.get('GCP_REGION', 'us-central1')
-  _pipeline_image = os.environ.get('PIPELINE_IMAGE', 'gcr.io/jk-tfw-demo/online-news-pipeline')
+  _pipeline_name = os.environ.get('PIPELINE_NAME')
+  _project_id = os.environ.get('PROJECT_ID')
+  _gcp_region = os.environ.get('GCP_REGION')
+  _pipeline_image = os.environ.get('TFX_IMAGE')
+  _artifact_store_bucket = os.environ.get('ARTIFACT_STORE_BUCKET')
+
  
   # Artifact store settings
-  _artifact_store_bucket = os.environ.get('ARTIFACT_STORE_BUCKET', 'tfw-demo-pipeline')
+  
   _pipeline_root = 'gs://{}/{}/'.format(_artifact_store_bucket, _pipeline_name)
   _gcs_data_root = 'gs://{}/{}/'.format(_artifact_store_bucket, 'data')
  
@@ -185,7 +183,7 @@ if __name__ == '__main__':
 
   _module_file = 'modules/transform_train.py'
   kubeflow_dag_runner.KubeflowDagRunner(config=runner_config).run(
-      _create_pipeline(
+      _create_online_news_pipeline(
           pipeline_name=_pipeline_name,
           pipeline_root=_pipeline_root,
           data_root=_gcs_data_root,
