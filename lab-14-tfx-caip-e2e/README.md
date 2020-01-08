@@ -18,7 +18,7 @@ The source data is in BigQuery. The pipeline uses:
 - AI Platform Training to run a custom container with data preprocessing and training code, and
 - AI Platform Prediction as a deployment target. The below diagram represents the workflow orchestrated by the pipeline.
 
-![Training pipeline](../images/kfp-caip.png).
+![Lab 14 diagram](../images/lab-14-diagram.png).
 
 ## Lab setup
 
