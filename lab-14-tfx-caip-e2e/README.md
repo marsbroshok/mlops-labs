@@ -45,18 +45,11 @@ git clone https://github.com/jarokaz/mlops-labs.git
 ```
 
 ### Lab dataset
-This lab uses the the [Online News Popularity](https://archive.ics.uci.edu/ml/datasets/online+news+popularity) dataset. The pipeline is designed to ingest the data from the GCS location in your project. To create the GCS bucket and upload the dataset:
+This lab uses the the [Online News Popularity](https://archive.ics.uci.edu/ml/datasets/online+news+popularity) dataset. The pipeline is designed to ingest the data from the GCS location in your project. You will use a sub-folder in the *artifact store* bucket created during the environment setup  - `lab-00-environment-setup` - as a data source for the pipeline. As you recall, the URI of the *artifact store* bucket created during the setup is `gs://[YOUR_PREFIX]-artifact-store`. To upload the *Online News Popularity* dataset, execute the following command from the *JupyterLab* terminal:
 
-1. From the *JupyterLab* terminal create the GCS bucket.
 ```
-PROJECT_ID=[YOUR_PROJECT_ID]
-BUCKET_NAME=gs://${PROJECT_ID}-lab-14
-gsutil mb -p $PROJECT_ID $BUCKET_NAME
-```
-
-2. Upload the `online_news` dataset to the GCS bucket
-```
-gsutil cp gs://workshop-datasets/online_news/full/data.csv $BUCKET_NAME/online_news/data.csv 
+DATA_ROOT=[YOUR_ARTIFACT_STORE_BUCKET_URI]/lab-datasets/online_news/
+gsutil cp gs://workshop-datasets/online_news/full/data.csv $DATA_ROOT 
 ```
 
 
