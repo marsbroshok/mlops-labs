@@ -93,9 +93,11 @@ gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 The pipeline's DSL retrieves the settings controlling how the pipeline is compiled from the environment variables. You need to set these variables before you start the compilation. To compile the pipeline using  **TFX CLI**:
 
 ```
+export PROJECT_ID=[YOUR_PROJECT_ID]
+export ARTIFACT_STORE_BUCKET=[YOUR_ARTIFACT_STORE_BUCKET]
 export PIPELINE_NAME=online_news_model_training
 export GCP_REGION=us-central1
-export ARTIFACT_STORE_BUCKET=[YOUR_ARTIFACT_STORE_BUCKET]
+export TFX_IMAGE=$IMAGE_URI
 
 tfx pipeline compile --pipeline_path pipeline_dsl.py 
 ```
