@@ -66,6 +66,7 @@ Follow the instructor who will walk you through the pipeline DSL.
 
 As described by the instructor, the pipeline in this lab uses a custom docker image that is a derivative of a base `tensorflow/tfx:0.15.0` image from [Docker Hub](https://hub.docker.com/r/tensorflow/tfx). The base `tfx` image includes TFX v0.15 and TensorFlow v2.0. The custom image modifies the base image by downgrading TensorFlow to v1.15 and adding the Python module `transform_train.py` with the data transformation and training code used by the pipeline's `Transform` and `Train` components.
 
+The pipeline needs to use v1.15 of TensorFlow as AI Platform Prediction service, which is used as a deployment target, does not yet support v2.0 of TensorFlow.
 
 ### Exercise 2 - Compiling and running the pipeline
 You can use **TFX CLI** to compile and deploy pipelines and to submit pipeline runs. 
