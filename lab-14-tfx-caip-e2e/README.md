@@ -29,7 +29,7 @@ The TFX `ExampleGen`, `StatisticsGen`, `ExampleValidator`, `SchemaGen`, `Transfo
 ### AI Platform Notebook configuration
 You will use the **AI Platform Notebooks** instance configured with a custom container image. To prepare the **AI Platform Notebooks** instance:
 
-1. In **Cloud Shell**, navigate to the `Lab-00-Environment-Setup/notebook-images/tf115-tfx015-kfp136` folder.
+1. In **Cloud Shell**, navigate to the `lab-00-environment-setup/notebook-images/tf115-tfx015-kfp136` folder.
 2. Build the container image
 ```
 ./build.sh
