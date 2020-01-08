@@ -111,4 +111,5 @@ application_default_credentials.json
 .whl
 .DS_Store
 
+*.tar.gz
 
