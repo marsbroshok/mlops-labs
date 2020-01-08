@@ -68,6 +68,8 @@ The KFP services are deployed to the GKE cluster and configured to use the Cloud
 
 The provisioning of the infrastructure components and installation of Kubeflow Pipelines has been automated with Terraform and Kustomize. The Terraform HCL configurations can be found in the `kfp/terraform` folder. The Kustomize overlays are in the `kfp/kustomize` folder.
 
+*The current versions of the labs have been tested with Kubeflow Pipelines v1.36. KFP v1.37, v1.38, v1.39 introduced [the issue](https://github.com/kubeflow/pipelines/issues/2764) that causes some labs to fail. After the issue is addressed we will update the setup to utilize the newer version of KFP.*
+
 ### Deploying infrastructure services to host Kubeflow Pipelines
 
 1. Open **Cloud Shell**
