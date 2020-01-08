@@ -33,48 +33,22 @@ You will use the **AI Platform Notebooks** instance configured with a custom con
 3. Provision the **AI Platform Notebook** instance based on a custom container image, following the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container). In the **Docker container image** field, enter the following image name: `gcr.io/[YOUR_PROJECT_NAME]/tfx-kfp-dev:TF115-TFX015-KFP136`.
 
 ### Lab dataset
-This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipeline developed in the lab sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery:
+This lab uses the the [Online News Popularity](https://archive.ics.uci.edu/ml/datasets/online+news+popularity) dataset. The pipeline developed in the lab sources the data from the GCS location. To upload the dataset to the GCS bucket in your project:
 
 1. Open new terminal in you **JupyterLab**
 
-2. Create the BigQuery dataset and upload the `covertype.csv` file.
+2. Create the GCS bucket.
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
-DATASET_LOCATION=US
-DATASET_ID=lab_11
-TABLE_ID=covertype
-DATA_SOURCE=gs://workshop-datasets/covertype/full/covertype.csv
-SCHEMA=Elevation:INTEGER,\
-Aspect:INTEGER,\
-Slope:INTEGER,\
-Horizontal_Distance_To_Hydrology:INTEGER,\
-Vertical_Distance_To_Hydrology:INTEGER,\
-Horizontal_Distance_To_Roadways:INTEGER,\
-Hillshade_9am:INTEGER,\
-Hillshade_Noon:INTEGER,\
-Hillshade_3pm:INTEGER,\
-Horizontal_Distance_To_Fire_Points:INTEGER,\
-Wilderness_Area:STRING,\
-Soil_Type:INTEGER,\
-Cover_Type:INTEGER
-
-bq --location=$DATASET_LOCATION --project_id=$PROJECT_ID mk --dataset $DATASET_ID
-
-bq --project_id=$PROJECT_ID --dataset_id=$DATASET_ID load \
---source_format=CSV \
---skip_leading_rows=1 \
---replace \
-$TABLE_ID \
-$DATA_SOURCE \
-$SCHEMA
-```
-
-### GCS bucket
-Create the GCS bucket that will be used as a staging area during the lab.
-```
-BUCKET_NAME=gs://${PROJECT_ID}-lab-11
+BUCKET_NAME=gs://${PROJECT_ID}-lab-14
 gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
+
+3. Upload the dataset to the GCS bucket
+```
+gsutil cp gs://workshop-datasets/online_news/full/data.csv $BUCKET_NAME/online_news/data.csv 
+```
+
 ## Lab Exercises
 ### Exercise 1  - Experimentation in AI Platform Notebooks
 In this exercise, you work in a Jupyter notebook to explore the data, prepare data extraction routines, and experiment with training and hyperparameter tuning code.
