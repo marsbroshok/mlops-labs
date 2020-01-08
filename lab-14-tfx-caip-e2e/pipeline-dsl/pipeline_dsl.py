@@ -116,7 +116,7 @@ def _create_online_news_pipeline(
       pipeline_root=pipeline_root,
       components=[
           example_gen, statistics_gen, infer_schema, validate_stats, transform,
-          trainer, model_analyzer #, model_validator, pusher
+          trainer, model_analyzer, model_validator, pusher
       ],
       # enable_cache=True,
       beam_pipeline_args=beam_pipeline_args
@@ -130,8 +130,8 @@ if __name__ == '__main__':
   _project_id = os.environ.get('PROJECT_ID')
   _gcp_region = os.environ.get('GCP_REGION')
   _pipeline_image = os.environ.get('TFX_IMAGE')
-  _gcs_data_root = os.environ.get('DATA_ROOT')
-  _artifact_store_bucket = os.environ.get('ARTIFACT_STORE_BUCKET')
+  _gcs_data_root_uri = os.environ.get('DATA_ROOT_URI')
+  _artifact_store_uri = os.environ.get('ARTIFACT_STORE_URI')
    
   # AI Platform Training settings
   _ai_platform_training_args = {
@@ -149,7 +149,7 @@ if __name__ == '__main__':
   }
     
   # Dataflow settings.
-  _beam_tmp_folder = 'gs://{}/beam/tmp'.format(_artifact_store_bucket)
+  _beam_tmp_folder = '{}/beam/tmp'.format(_artifact_store_uri)
   _beam_pipeline_args = [
     '--runner=DataflowRunner',
     '--experiments=shuffle_mode=auto',
@@ -177,12 +177,12 @@ if __name__ == '__main__':
   )
 
   _module_file = 'modules/transform_train.py'
-  _pipeline_root = 'gs://{}/{}/'.format(_artifact_store_bucket, _pipeline_name)
+  _pipeline_root = '{}/{}'.format(_artifact_store_uri, _pipeline_name)
   kubeflow_dag_runner.KubeflowDagRunner(config=runner_config).run(
       _create_online_news_pipeline(
           pipeline_name=_pipeline_name,
           pipeline_root=_pipeline_root,
-          data_root=_gcs_data_root,
+          data_root=_gcs_data_root_uri,
           module_file=_module_file,
           ai_platform_training_args=_ai_platform_training_args,
           ai_platform_serving_args=_ai_platform_serving_args,
