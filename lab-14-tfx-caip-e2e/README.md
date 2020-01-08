@@ -79,7 +79,7 @@ IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 ```
 
-The pipeline's DSL retrieves the environmental settings like GCP project_id and AI Platform Training region from environmental variables. You need to set these variables before you compile the pipeline.
+The pipeline's DSL retrieves the environmental settings, like the *Project ID* of the GCP project and the *GCP region* to be used by **AI Platform Training**, from the nvironmental variables. You need to set these variables before you can compile the pipeline.
 
 ```
 export PROJECT_ID=[YOUR_PROJECT_ID]
