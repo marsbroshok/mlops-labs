@@ -25,12 +25,12 @@ The TFX `ExampleGen`, `StatisticsGen`, `ExampleValidator`, `SchemaGen`, `Transfo
 ### AI Platform Notebook configuration
 You will use the **AI Platform Notebooks** instance configured with a custom container image. To prepare the **AI Platform Notebooks** instance:
 
-1. In **Cloud Shell**, navigate to the `Lab-00-Environment-Setup/notebook-images/kfp138` folder.
+1. In **Cloud Shell**, navigate to the `Lab-00-Environment-Setup/notebook-images/tf115-tfx015-kfp136` folder.
 2. Build the container image
 ```
 ./build.sh
 ```
-3. Provision the **AI Platform Notebook** instance based on a custom container image, following the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container). In the **Docker container image** field, enter the following image name: `gcr.io/[YOUR_PROJECT_NAME]/kfp-dev:KFP138`.
+3. Provision the **AI Platform Notebook** instance based on a custom container image, following the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container). In the **Docker container image** field, enter the following image name: `gcr.io/[YOUR_PROJECT_NAME]/tfx-kfp-dev:TF115-TFX015-KFP136`.
 
 ### Lab dataset
 This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipeline developed in the lab sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery:
