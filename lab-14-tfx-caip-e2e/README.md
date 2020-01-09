@@ -129,7 +129,7 @@ tfx run status --pipeline_name online_news_model_training --run_id [YOUR_RUN_ID]
 
 In this exercise you review and trigger a **Cloud Build** CI/CD workflow that automates the process of compiling and deploying the KTFX pipeline. The **Cloud Build** configuration uses both standard and custom [Cloud Build builders](https://cloud.google.com/cloud-build/docs/cloud-builders). The custom builder, which you build in the first part of the exercise, encapsulates **TFX CLI**. 
 
-As of version 1.36 of **KFP** there is no support for pipeline versions. It will be added in future versions, with the intial functionality starting in version 1.37. In the lab, you append the **Cloud Build** `$TAG_NAME` default substitution to the name of the pipeline to designate a pipeline version. When the pipeline versioning features is exposed through **KFP SDK** this exercise will be updated to use the feature.
+As of version 1.36 of **KFP** there is no support for pipeline versions. It will be added in future releases, with the intial functionality introduced in version 1.37. In the lab, you append the **Cloud Build** `$TAG_NAME` default substitution to the name of the pipeline to designate a pipeline version. When the pipeline versioning features is exposed through **KFP SDK** this exercise will be updated to use the feature.
 
 1. Create a **Cloud Build** custom builder that encapsulates TFX CLI.
 ```
