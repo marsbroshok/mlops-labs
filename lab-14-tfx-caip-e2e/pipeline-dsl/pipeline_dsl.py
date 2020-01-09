@@ -132,6 +132,8 @@ if __name__ == '__main__':
   _pipeline_image = os.environ.get('TFX_IMAGE')
   _gcs_data_root_uri = os.environ.get('DATA_ROOT_URI')
   _artifact_store_uri = os.environ.get('ARTIFACT_STORE_URI')
+  _runtime_version = os.environ.get('RUNTIME_VERSION')
+  _python_version = os.environ.get('PYTHON_VERSION')
    
   # AI Platform Training settings
   _ai_platform_training_args = {
@@ -146,6 +148,8 @@ if __name__ == '__main__':
   _ai_platform_serving_args = {
     'model_name': 'model_'+_pipeline_name,
     'project_id': _project_id,
+    'runtimeVersion': _runtime_version,
+    'pythonVersion': _python_version
   }
     
   # Dataflow settings.
