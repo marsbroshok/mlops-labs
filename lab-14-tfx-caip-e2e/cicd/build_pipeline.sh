@@ -17,15 +17,18 @@
 # the pipelines and pipelines components 
 
 SUBSTITUTIONS=\
-_PIPELINE_NAME=online_news_training_pipeline,\
-_PIPELINE_IMAGE=online_news_training_pipeline,\
+_PIPELINE_NAME=onlinenews-predictor,\
+_TFX_IMAGE_NAME=lab-14-tfx-image,\
 _GCP_REGION=us-central1,\
-_ARTIFACT_STORE_BUCKET=mlops-workshop-artifact-store,\
-_PIPELINE_FOLDER=Lab-11-KFP-CAIP/pipelines/online_news,\
+_ARTIFACT_STORE_URI=gs://mlops-workshop-dev-artifact-store,\
+_DATA_ROOT_URI=gs://mlops-workshop-dev-artifact-store/lab-datasets/online_news,\
+_PIPELINE_FOLDER=lab-14-tfx-caip-e2e/pipeline-dsl,\
 _PIPELINE_DSL=pipeline_dsl.py,\
-TAG_NAME=latest,\
-_CLUSTER_NAME=mlops-workshop-cluster,\
-_ZONE=us-central1-a
+_KFP_INVERSE_PROXY_HOST=40a6ff3f4b68ff12-dot-us-central1.notebooks.googleusercontent.com,\
+_PYTHON_VERSION=3.7,\
+_RUNTIME_VERSION=1.15,\
+TAG_NAME=latest
 
 gcloud builds submit ../.. --config cloudbuild.yaml --substitutions $SUBSTITUTIONS
+
 

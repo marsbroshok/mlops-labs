@@ -22,23 +22,24 @@
 steps:
 # Build the image that encapsulates transform and train modules
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/$_PIPELINE_IMAGE:$TAG_NAME', '.']
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/$_TFX_IMAGE_NAME:$TAG_NAME', '.']
   dir: $_PIPELINE_FOLDER
 
-# Compile and upload compiled pipelines to the KFP cluster
-- name: 'gcr.io/cloud-builders/gcloud'
-  args: ['container', 'clusters', 'get-credentials', '$_CLUSTER_NAME', '--zone', '$_ZONE']
+
   
 - name: 'gcr.io/$PROJECT_ID/tfx-cli'
-  args: ['pipeline', 'create', '--engine', 'kubeflow', '--pipeline_path', '$_PIPELINE_DSL']
+  args: ['pipeline', 'create', '--engine', 'kubeflow', '--pipeline_path', '$_PIPELINE_DSL', '--endpoint', '$_KFP_INVERSE_PROXY_HOST']
   env: 
-  - 'PIPELINE_IMAGE=gcr.io/$PROJECT_ID/$_PIPELINE_IMAGE:$TAG_NAME'
+  - 'TFX_IMAGE=gcr.io/$PROJECT_ID/$_TFX_IMAGE_NAME:$TAG_NAME'
   - 'PROJECT_ID=$PROJECT_ID'
-  - 'PIPELINE_NAME=${_PIPELINE_NAME}_${TAG_NAME}'
+  - 'ARTIFACT_STORE_URI=$_ARTIFACT_STORE_URI'
+  - 'DATA_ROOT_URI=$_DATA_ROOT_URI'
+  - 'PIPELINE_NAME=${_PIPELINE_NAME}-${TAG_NAME}'
   - 'GCP_REGION=$_GCP_REGION'
-  - 'ARTIFACT_STORE_BUCKET=$_ARTIFACT_STORE_BUCKET'
+  - 'RUNTIME_VERSION=_$_RUNTIME_VERSION'
+  - 'PYTHON_VERSION=$_PYTHON_VERSION'
   dir: $_PIPELINE_FOLDER
 
 
 # Push the custom image to Container Registry 
-images: ['gcr.io/$PROJECT_ID/$_PIPELINE_IMAGE:$TAG_NAME']
+images: ['gcr.io/$PROJECT_ID/$_TFX_IMAGE_NAME:$TAG_NAME']
