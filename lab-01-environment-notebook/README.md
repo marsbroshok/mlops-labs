@@ -73,7 +73,7 @@ mkdir lab-01-workspace
 cd lab-01-workspace
 ```
 
-3. Create the Dockerfile
+3. Create Dockerfile describing the image
 ```
 cat > Dockerfile << EOF
 FROM gcr.io/deeplearning-platform-release/tf-cpu.1-15
