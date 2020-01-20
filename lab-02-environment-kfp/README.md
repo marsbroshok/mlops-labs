@@ -18,9 +18,7 @@ The core services in the environment are:
 
 In this lab, you will provision a lightweight deployment of **Kubeflow Pipelines**. 
 
-Since you are going to use **AI Platform Notebooks** as your lab environment,  you need to complete the `lab-01-environment-notebook` lab before proceeding.
-
-
+Since other services are configured in the `lab-01-environment-notebook` lab you need to complete that lab before proceeding.
 
 
 
