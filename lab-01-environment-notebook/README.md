@@ -55,7 +55,7 @@ gcloud services enable cloudbuild.googleapis.com \
 	automl.googleapis.com
 ```
 
-3. After the services are enabled, grant the Cloud Build service account the Project Editor role (https://cloud.google.com/cloud-build/docs/securing-builds/set-service-account-permissions) to grant the Cloud Build service account the Project Editor role. 
+3. After the services are enabled, [grant the Cloud Build service account the Project Editor role] (https://cloud.google.com/cloud-build/docs/securing-builds/set-service-account-permissions) to grant the Cloud Build service account the Project Editor role. 
 
 
 
