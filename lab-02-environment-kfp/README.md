@@ -45,13 +45,24 @@ The provisioning of the infrastructure components  has been automated with Terra
 
 Both **Terraform** and **Kustomize** are part of the custom container image used by your **AI Platform Notebook** instance.
 
+
+
 ### Deploying infrastructure services to host Kubeflow Pipelines
 
-1. Open **Cloud Shell**
+1. Connect to **JupyterLab** on the **AI Platform Notebooks** instance created in the `lab-01-environment-notebook` lab.
 
-3. Provision infrastructure. From the `Lab-00-EnvironmentSetup/kfp` folder execute:
+2. Open the **JupyterLab** terminal
+
+3. Clone this repo under the `home` folder.
 ```
-./provision-infra [PROJECT_ID] [REGION] [ZONE] [PREFIX]
+cd /home
+git clone https://github.com/jarokaz/mlops-labs.git
+cd mlops-labs/lab-02-environment-kfp
+```
+
+4. Provision infrastructure:
+```
+./provision-infra.sh [PROJECT_ID] [REGION] [ZONE] [PREFIX]
 ```
 Where 
 - `[PROJECT_ID]` - your project ID
