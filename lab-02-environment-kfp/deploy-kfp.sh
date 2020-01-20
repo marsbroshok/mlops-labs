@@ -25,6 +25,8 @@ NAMESPACE=${2}
 SQL_USERNAME=root
 SQL_PASSWORD=${3}
 
+# Retrieve service names and connection strings
+
 pushd terraform
 
 # Retrieve resource names
@@ -37,8 +39,9 @@ ZONE=$(terraform output cluster_zone)
 
 popd
 
-### Install KFP
+
 pushd kustomize
+
 
 # Create a namespace for KFP components
 gcloud container clusters get-credentials $CLUSTER_NAME --zone $ZONE --project $PROJECT_ID
@@ -46,7 +49,7 @@ kubectl create namespace $NAMESPACE
 kustomize edit set namespace $NAMESPACE
 
 # Configure user-gpc-sa with a private key of the KFP service account
-gcloud iam service-accounts keys create application_default_credentials.json --iam-account=$KFP_SA_EMAIL
+gcloud iam service-accounts keys create application_default_credentials.json --iam-account=$KFP_SA_EMAIL --project $PROJECT_ID
 kubectl create secret -n $NAMESPACE generic user-gcp-sa --from-file=application_default_credentials.json --from-file=user-gcp-sa.json=application_default_credentials.json
 rm application_default_credentials.json
 
