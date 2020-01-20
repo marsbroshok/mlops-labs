@@ -109,7 +109,7 @@ To provision an instance of **AI Platform Notebooks** using the custom image, fo
 
 ### Assigning roles to the default compute engine account
 
-When using the instance, the GCP services will accessed using the [Compute Engine default service account](https://cloud.google.com/compute/docs/access/service-accounts). For the labs to work this account needs to have **Project/Editor** and **IAM/Security Admin** permissions in your project. The **Project/Editor** role is granted to the account by default.
+When using the instance, the GCP services are accessed using the [Compute Engine default service account](https://cloud.google.com/compute/docs/access/service-accounts). For the labs to work this account needs to have **Project/Editor** and **IAM/Security Admin** permissions in your project. The **Project/Editor** role is granted to the account by default.
 
 To grant the **IAM/Security Admin** role follow [this instructions](https://cloud.google.com/iam/docs/granting-roles-to-service-accounts). Recall that your projects' **Compute Engine default service account** is
 ```
