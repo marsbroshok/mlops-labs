@@ -101,6 +101,10 @@ IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 ```
 
+To provision an instance of **AI Platform Notebooks** using the custom image, follow the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container). In the **Docker container image** field, enter the full name of the image (including the tag) you created in the previous step.
 
+```
+
+```
 
 
