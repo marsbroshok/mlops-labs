@@ -62,7 +62,7 @@ gcloud services enable cloudbuild.googleapis.com \
 
 You will use a custom container image configured for KFP/TFX development as an environment for your instance. The image is a derivative of the standard TensorFlow 1.15  [AI Deep Learning Containers](https://cloud.google.com/ai-platform/deep-learning-containers/docs/) image.
 
-To create a Dockerfile describing the image:
+### Creating the custom image's Dockerfile:
 
 1. Start GCP [Cloud Shell](https://cloud.google.com/shell/docs/)
 
@@ -90,7 +90,7 @@ RUN pip install -U six==1.12 apache-beam==2.16 pyarrow==0.14.0 tfx-bsl==0.15.1 \
 EOF
 ```
 
-To build the image and push it to your project's **Container Registry**
+### Building the image and pushing it to your project's **Container Registry**
 
 ```
 PROJECT_ID=$(gcloud config get-value core/project)
@@ -102,9 +102,15 @@ IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 ```
 
+### Provisioning an AI Platform notebook instance
+
 To provision an instance of **AI Platform Notebooks** using the custom image, follow the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container). In the **Docker container image** field, enter the full name of the image (including the tag) you created in the previous step.
 
 After the instance is created, you can connect to [JupyterLab](https://jupyter.org/) IDE by clicking the *OPEN JUPYTERLAB* link.
+
+### Assigning roles to the default compute engine account
+
+### Accessing JupyterLab IDE
 
 You will use [JupyterLab](https://jupyter.org/) IDE as your primary development environment for most of the labs in this repo, including **lab-02-environment-kfp** that guides you through the installation of a lightweight deployment of Kubeflow Pipelines.
 
