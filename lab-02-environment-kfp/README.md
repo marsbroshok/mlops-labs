@@ -36,9 +36,14 @@ The environment includes:
 
 The KFP services are deployed to the GKE cluster and configured to use the Cloud SQL managed MySQL instance. The KFP services access the Cloud SQL through [Cloud SQL Proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy). External clients use [Inverting Proxy](https://github.com/google/inverting-proxy) to interact with the KFP services.
 
-The provisioning of the infrastructure components and installation of Kubeflow Pipelines has been automated with Terraform and Kustomize. The Terraform HCL configurations can be found in the `kfp/terraform` folder. The Kustomize overlays are in the `kfp/kustomize` folder.
 
 *The current versions of the labs have been tested with Kubeflow Pipelines v1.36. KFP v1.37, v1.38, v1.39 introduced [the issue](https://github.com/kubeflow/pipelines/issues/2764) that causes some labs to fail. After the issue is addressed we will update the setup to utilize the newer version of KFP.*
+
+Provisioning of the environment has been broken into two steps. In the first step you provision and configure core infrastructure services required to host **Kubeflow Pipelines**, including GKE, Cloud SQL and Cloud Storage. In the second step you deploy and configure **Kubeflow Pipelines**.
+
+The provisioning of the infrastructure components  has been automated with Terraform  The Terraform HCL configurations can be found in the `kfp/terraform` folder. The deployment of **Kubeflow Pipelines** is facilitated with [Kustomize](https://kustomize.io/). The Kustomize overlays are in the `kfp/kustomize` folder.
+
+Both **Terraform** and **Kustomize** are part of the custom container image used by your **AI Platform Notebook** instance.
 
 ### Deploying infrastructure services to host Kubeflow Pipelines
 
