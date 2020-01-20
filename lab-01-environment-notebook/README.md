@@ -19,17 +19,6 @@ In this lab, you will create an **AI Platform Notebook** instance using a custom
 
 In the reference environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). Before proceeding make sure that your account has access to the project and is assigned to the **Owner** or **Editor** role.
 
-## Creating an **AI Platform Notebooks** instance
-
-### Copy the installation files to Cloud Shell
-Although you can run the installation from any workstation configured with *Google Cloud SDK* and *Terraform*, the following instructions have been based on and tested with [Cloud Shell](https://cloud.google.com/shell/).
-
-In the home directory of your **Cloud Shell**, replicate the folder structure of this lab. If you prefer, you can clone the whole repo using `git clone` command:
-```
-git clone https://github.com/jarokaz/mlops-labs.git
-```
-
-
 ## Enabling the required cloud services
 
 In addition to the [services enabled by default](https://cloud.google.com/service-usage/docs/enabled-service), the following additional services must be enabled in the project hosting an MLOps environment:
@@ -47,12 +36,35 @@ In addition to the [services enabled by default](https://cloud.google.com/servic
 
 Use [GCP Console](https://console.cloud.google.com/) or `gcloud` command line interface in [Cloud Shell](https://cloud.google.com/shell/docs/) to [enable the required services](https://cloud.google.com/service-usage/docs/enable-disable) . 
 
-You can use the `enable_apis.sh` script to enable the required services from **Cloud Shell**.
+To enable the required services using `gcloud`:
 ```
-./enable.sh
+gcloud services enable cloudbuild.googleapis.com \
+	container.googleapis.com \
+	cloudresourcemanager.googleapis.com \
+	iam.googleapis.com \
+	containerregistry.googleapis.com \
+	containeranalysis.googleapis.com \
+	ml.googleapis.com \
+	sqladmin.googleapis.com \
+	dataflow.googleapis.com \
+	automl.googleapis.com
 ```
 
 *Make sure that the Cloud Build service account (that was created when you enabled the Cloud Build service) is granted the Project Editor role.*
+
+
+## Creating an **AI Platform Notebooks** instance
+
+### Copy the installation files to Cloud Shell
+Although you can run the installation from any workstation configured with *Google Cloud SDK* and *Terraform*, the following instructions have been based on and tested with [Cloud Shell](https://cloud.google.com/shell/).
+
+In the home directory of your **Cloud Shell**, replicate the folder structure of this lab. If you prefer, you can clone the whole repo using `git clone` command:
+```
+git clone https://github.com/jarokaz/mlops-labs.git
+```
+
+
+
 
 
 
