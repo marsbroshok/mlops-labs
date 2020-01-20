@@ -60,15 +60,34 @@ gcloud services enable cloudbuild.googleapis.com \
 
 ## Creating an **AI Platform Notebooks** instance
 
-You will use a custom container image configured for KFP/TFX development as an environment for your instance. The image is a derivative of the standard  [Deep Learning Containers](https://cloud.google.com/ai-platform/deep-learning-containers/docs/) image.
+You will use a custom container image configured for KFP/TFX development as an environment for your instance. The image is a derivative of the standard TensorFlow 1.15  [AI Deep Learning Containers](https://cloud.google.com/ai-platform/deep-learning-containers/docs/) image.
 
-### Copy the installation files to Cloud Shell
-Although you can run the installation from any workstation configured with *Google Cloud SDK* and *Terraform*, the following instructions have been based on and tested with [Cloud Shell](https://cloud.google.com/shell/).
+To create a Dockerfile describing the image:
 
-In the home directory of your **Cloud Shell**, replicate the folder structure of this lab. If you prefer, you can clone the whole repo using `git clone` command:
+1. Start GCP [Cloud Shell](https://cloud.google.com/shell/docs/)
+
+2. Create a working folder in your `home` directory
 ```
-git clone https://github.com/jarokaz/mlops-labs.git
+cd
+mkdir lab-01-workspace
+cd lab-01-workspace
 ```
+
+3. Create the Dockerfile
+```
+cat > Dockerfile << EOF
+FROM gcr.io/deeplearning-platform-release/tf-cpu.1-15
+RUN apt-get update -y && apt-get -y install kubectl
+RUN cd /usr/local/bin \
+&& wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.3.0/kustomize_v3.3.0_linux_amd64.tar.gz \
+&& tar xvf kustomize_v3.3.0_linux_amd64.tar.gz \
+&& rm kustomize_v3.3.0_linux_amd64.tar.gz
+RUN pip install -U six==1.12 apache-beam==2.16 pyarrow==0.14.0 tfx-bsl==0.15.1 \
+&& pip install -U tfx==0.15 \
+&& RELEASE=0.1.36 \
+&& pip install https://storage.googleapis.com/ml-pipeline/release/$RELEASE/kfp.tar.gz
+EOF
+
 
 
 
