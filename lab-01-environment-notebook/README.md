@@ -55,7 +55,8 @@ gcloud services enable cloudbuild.googleapis.com \
 	automl.googleapis.com
 ```
 
-*Make sure that the Cloud Build service account (that was created when you enabled the Cloud Build service) is granted the Project Editor role.*
+3. After the services are enabled, follow [these instructions](https://cloud.google.com/cloud-build/docs/securing-builds/set-service-account-permissions) to grant the Cloud Build service account the Project Editor role. 
+
 
 
 ## Creating an **AI Platform Notebooks** instance
