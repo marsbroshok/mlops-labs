@@ -19,6 +19,8 @@ In this lab, you will create an **AI Platform Notebook** instance using a custom
 
 In the reference environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). Before proceeding make sure that your account has access to the project and is assigned to the **Owner** or **Editor** role.
 
+Although you can run the below commands from any workstation configured with *Google Cloud SDK*, the following instructions have been based on and tested with [Cloud Shell](https://cloud.google.com/shell/).
+
 ## Enabling the required cloud services
 
 In addition to the [services enabled by default](https://cloud.google.com/service-usage/docs/enabled-service), the following additional services must be enabled in the project hosting an MLOps environment:
@@ -37,6 +39,9 @@ In addition to the [services enabled by default](https://cloud.google.com/servic
 Use [GCP Console](https://console.cloud.google.com/) or `gcloud` command line interface in [Cloud Shell](https://cloud.google.com/shell/docs/) to [enable the required services](https://cloud.google.com/service-usage/docs/enable-disable) . 
 
 To enable the required services using `gcloud`:
+1. Start [GCP Cloud Shell](https://cloud.google.com/shell/docs/)
+
+2. Execute the below command.
 ```
 gcloud services enable cloudbuild.googleapis.com \
 	container.googleapis.com \
