@@ -60,6 +60,8 @@ gcloud services enable cloudbuild.googleapis.com \
 
 ## Creating an **AI Platform Notebooks** instance
 
+You will use a custom container image configured for KFP/TFX development as an environment for your instance. The image is a derivative of the standard  [Deep Learning Containers](https://cloud.google.com/ai-platform/deep-learning-containers/docs/) image.
+
 ### Copy the installation files to Cloud Shell
 Although you can run the installation from any workstation configured with *Google Cloud SDK* and *Terraform*, the following instructions have been based on and tested with [Cloud Shell](https://cloud.google.com/shell/).
 
