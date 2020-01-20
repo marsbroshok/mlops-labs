@@ -1,17 +1,18 @@
 # Production ML workflows on Google Cloud
 
-This repo manages a set of labs designed to demonstrate best practices and patterns for implementing and operationalizing production grade ML workflows on Google Cloud Platform.
+This repo manages a set of labs designed to demonstrate best practices and patterns for implementing and operationalizing production grade ML workflows on Google Cloud Platform. The goal is to create a portoflio of labs that can be utilized in development and delivery of scenario specific demos and workshops. 
 
-With a few exceptions the labs are self-contained - they don't rely on other labs. The goal is to create a portoflio of labs that can be utilized in development and delivery of scenario specific demos and workshops. 
+- **Series 0x labs**. These lab guides you through the process of provisioning and configuring a reference MLOps environment on GCP. Most other labs rely on the environment configured in this lab. The **lab-01** lab walks you through the process of creating an **AI Platform Notebooks** instance based on a custom container image optimized for KFP/TFX development. In the **lab-02** lab, you provision a lightweight deployment of **Kubeflow Pipelines**. 
 
-- **lab-00-environment-setup**. This lab guides you through the process of provisioning and configuring a reference MLOps environment on GCP. Most other labs rely on the environment configured in this lab. . 
+- **Series 1x labs**. These lab walks you through the process of authoring and operationalizing the KFP pipeline that utilizes BigQuery and Cloud AI Platform Training and Prediction to train and deploy an **sklearn** model. During the labs you will:
+    - **lab-11** - Develop a custom container image for **AI Platform Training**
+    - **lab-12** - Create, deploy, and run a KFP pipeline that utilizes **AI Platform** for training and model deployment
+    - **lab-13** - Author the CI/CD workflow to build and deploy the KFP pipeline using **Cloud Build**
+    - **lab-14** - Create, deploy, and run a KFP pipeline that utilized **AutoML Tables** for training and model deployment
+    
+- **Series 2x labs**. These labs teach you how to develop and operationalize **Tensorflow Extended (TFX)** pipelines
 
-- **lab-11-kfp-caip-e2e**. This lab walks you through the process of authoring and operationalizing the KFP pipeline that utilizes BigQuery and Cloud AI Platform Training and Prediction to train and deploy an **sklearn** model. During the lab you will:
-    - Analyze the data and develop data processing and training code snippets in Jupyter Lab
-    - Refactor the code into KFP components and a KFP pipeline
-    - Author the CI/CD workflow to build and deploy the KFP pipeline using **Cloud Build**
-    - Integrate the CI/CD workflow with GitHub
-    - Integrate the machine learning KFP pipeline with the upstream data management pipeline
+- **Series 3x labs**. In these labs, you deep-dive into **TensorFlow Data Validation**, **TensorFlow Transform**, and **TensorFlow Model Analysis** libraries.
 
 
 
