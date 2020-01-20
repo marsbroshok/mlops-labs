@@ -87,7 +87,7 @@ RUN pip install -U six==1.12 apache-beam==2.16 pyarrow==0.14.0 tfx-bsl==0.15.1 \
 && RELEASE=0.1.36 \
 && pip install https://storage.googleapis.com/ml-pipeline/release/$RELEASE/kfp.tar.gz
 EOF
-
+```
 
 
 
