@@ -7,7 +7,7 @@ In this lab, you will develop, deploy, and run a KFP pipeline that orchestrates 
 
 This lab uses the same scenario and training application as `lab-11-caip-containers`. Since the focus of this lab is on developing and deploying a KFP pipeline rather than on specifics of the training code, the `lab-11-caip-containers` lab is not a required pre-requisite. However, it is highly recommend to walk through `lab-11-caip-container` before starting this lab, especially if you don't have previous experience with using custom containers with AI Platform Training.
 
-During the lab, the instructor will walk you through key parts of a typical KFP pipeline, including pre-built components, custom components and a pipeline definition in KFP Domain Specific Language (DSL). You will also use KFP CLI to upload the pipeline to the KFP environment and trigger pipeline runs.
+During the lab, the instructor will walk you through key parts of a typical KFP pipeline, including pre-built components, custom components and a pipeline definition in KFP Domain Specific Language (DSL). You will also use KFP compiler and KFP CLI to compile the pipeline's DSL, upload the pipeline package to the KFP environment, and trigger pipeline runs.
 
 
 The pipeline you develop in the lab orchestrates GCP managed services. The source data is in BigQuery. The pipeline uses:
