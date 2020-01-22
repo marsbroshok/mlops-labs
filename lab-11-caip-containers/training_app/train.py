@@ -20,6 +20,7 @@ def train_evaluate(job_dir, training_dataset_path, validation_dataset_path, alph
     
   df_train = pd.read_csv(training_dataset_path)
   df_validation = pd.read_csv(validation_dataset_path)
+    
   if not hptune:
     df_train = pd.concat([df_train, df_validation])
 
@@ -40,12 +41,15 @@ def train_evaluate(job_dir, training_dataset_path, validation_dataset_path, alph
     ('preprocessor', preprocessor),
     ('classifier', SGDClassifier(loss='log'))
   ])
+    
+  num_features_type_map = {feature: 'float64' for feature in numeric_features}
+  df_train = df_train.astype(num_features_type_map)
+  df_validation = df_validation.astype(num_features_type_map) 
 
   print('Starting training: alpha={}, max_iter={}'.format(alpha, max_iter))
   X_train = df_train.drop('Cover_Type', axis=1)
   y_train = df_train['Cover_Type']
   
-    
   pipeline.set_params(classifier__alpha=alpha, classifier__max_iter=max_iter)
   pipeline.fit(X_train, y_train)
   
