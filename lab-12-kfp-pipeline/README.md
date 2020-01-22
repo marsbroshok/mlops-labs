@@ -72,7 +72,7 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 Follow the instructor who will explain how to author, deploy, and run a KFP pipeline. The high level summary of the topics that will be covered in detail by the instructor is as follows.
 
 
-### Authoring a KFP pipeline
+### Authoring the pipeline
 
 Your pipeline uses a mix of custom and pre-build components.
 
@@ -173,13 +173,20 @@ You can trigger pipeline runs using an API from the KFP SDK or using KFP CLI. To
 
 
 ```
+PROJECT_ID=[YOUR_PROJECT_ID]
+EXPERIMENT_NAME=Covertype_Classifier_Training
+RUN_ID=Run_001
+PIPELINE_ID=[YOUR_PIPELINE_ID]
+GCS_STAGING_BUCKET=[YOUR_GCS_STAGING_BUCKET]
+REGION=[YOUR_REGION]
+
 kfp --endpoint [YOUR_INVERSE_PROXY_HOSTNAME] run submit \
 -e Covertype_Classifier_Training \
 -r Run_201 \
 -p $PIPELINE_ID \
-project_id=[YOUR_PROJECT_ID] \
-gcs_root=[YOUR_STAGING_BUCKET] \
-region=us-central1 \
+project_id=$PROJECT_ID \
+gcs_root=$GCS_STAGING_BUCKET \
+region=$REGION \
 source_table_name=lab_11.covertype \
 dataset_id=splits \
 evaluation_metric_name=accuracy \
@@ -188,6 +195,17 @@ model_id=covertype_classifier \
 version_id=v0.3 \
 replace_existing_version=True
 ```
+
+where
+
+- EXPERIMENT_NAME is set to the experiment used to run the pipeline. You can choose any name you want. If the experiment does not exist it will be created by the command
+- RUN_ID is the name of the run. You can use an arbitrary name
+- PIPELINE_ID is the id of your pipeline. Use the value retrieved by the   `kfp pipeline list` command
+- GCS_STAGING_BUCKET is the GCS bucket used by the pipeline to store intermediate files. Use the bucket created during the lab setup
+- REGION is the compute region for AI Platform Training and Prediction. We recommend using the same region where your KFP environment was deployed.
+
+You should be already familiar with these and other parameters passed to the command. If not go back and review the pipeline code.
+
 
 ### Monitoring the run
 
