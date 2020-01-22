@@ -144,8 +144,21 @@ The result is the `covertype_training_pipeline.yaml` file. This file needs to de
 To upload the pipeline package using **KFP CLI**:
 
 ```
-```
+PIPELINE_NAME=covertype_classifier_training
+INVERSE_PROXY_HOSTNAME=[YOUR_INVERSE_PROXY_HOSTNAME]
 
+kfp --endpoint $INVERSE_PROXY_HOSTNMAE pipeline upload \
+-p $PIPELINE_NAME \
+covertype_training_pipeline.yaml
+```
+Where [YOUR_INVERSE_PROXY_HOST] is the hostname of the inverse proxy providing access to your KFP environment. The hostname is stored in the `inverse-proxy-config` ConfigMap in the Kubernetes namespace where you deployed KFP in `lab-02-environment-kfp`.
+
+You can retrieve the hostname using the following commands.
+
+```
+gcloud container clusters get-credentials [YOUR_GKE_CLUSTER] --zone [YOUR_ZONE]
+kubectl describe configmap inverse-proxy-config -n [YOUR_NAMESPACE] | grep "googleusercontent.com"
+```
 
 
 3. Finally, you manually submit a pipeline run using **KFP CLI**.
