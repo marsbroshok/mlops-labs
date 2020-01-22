@@ -167,14 +167,16 @@ kfp --endpoint $INVERSE_PROXY_HOSTNAME pipeline list
 ```
 
 
+### Submitting pipeline runs
+
+You can trigger pipeline runs using an API from the KFP SDK or using KFP CLI. To submit the run using KFP CLI execute the following commands. Notice how the pipeline's parameters are passed to the pipeline run.
 
 
-3. Finally, you manually submit a pipeline run using **KFP CLI**.
 ```
 kfp --endpoint [YOUR_INVERSE_PROXY_HOSTNAME] run submit \
 -e Covertype_Classifier_Training \
 -r Run_201 \
--f covertype_training_pipeline.yaml \
+-p $PIPELINE_ID \
 project_id=[YOUR_PROJECT_ID] \
 gcs_root=[YOUR_STAGING_BUCKET] \
 region=us-central1 \
@@ -186,5 +188,14 @@ model_id=covertype_classifier \
 version_id=v0.3 \
 replace_existing_version=True
 ```
-4. You can monitor the run using KFP UI.
+
+### Monitoring the run
+
+You can monitor the run using KFP UI. Follow the instructor who will walk you through the KFP UI and monitoring techniques.
+
+To access the KFP UI in your environment use the following URI:
+
+https://[YOUR_INVERSE_PROXY_HOSTNAME]
+
+
 
