@@ -217,4 +217,5 @@ To access the KFP UI in your environment use the following URI:
 https://[YOUR_INVERSE_PROXY_HOSTNAME]
 
 
+*Note that your pipeline may fail due to the bug in a BigQuery component that does not handle certain race conditions. If you observe the pipeline failure retry the run from the KFP UI*
 
