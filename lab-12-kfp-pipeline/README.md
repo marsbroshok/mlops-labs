@@ -89,11 +89,34 @@ The workflow implemented by the pipeline is defined using a Python based KFP Dom
 
 ### Building the training image
 
-The training step in the pipeline employes the AI Platform Training component to schedule a  AI Platform Training job in a custom container. If you walked through the `lab-11-caip-trainer` lab the trainer image was already pushed to your project's Container Registry. If you did not, you can build and push the image using the below commands. From the `trainer_image` folder:
+The training step in the pipeline employes the AI Platform Training component to schedule a  AI Platform Training job in a custom container. If you walked through the `lab-11-caip-trainer` lab the trainer image was already pushed to your project's Container Registry. If you did not, you can build and push the image using the below commands.  
+
 ```
+PROJECT_ID=$(gcloud config get-value core/project)
+IMAGE_NAME=trainer_image
+TAG=latest
+
+IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
+
+gcloud builds submit --timeout 15m --tag ${IMAGE_URI} trainer_image
 
 ```
 
+### Building the base image for custom components
+The custom components used by the pipeline are run in the context of a base image. To maintain the consistency between the development environment (AI Platform Notebooks) and the components' runtime environment the component base image is a derivative of the image used by the AI Platform Notebooks instance - `gcr.io/[YOUR_PROJECT_ID]/mlops-dev:TF115-TFX015-KFP136`. 
+
+To build and push the base image execute the below commands. Make sure to update the Dockerfile in the `base_image` folder with the URI pointing to your Container Registry.
+
+```
+```
+PROJECT_ID=$(gcloud config get-value core/project)
+IMAGE_NAME=base_image
+TAG=latest
+
+IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
+
+gcloud builds submit --timeout 15m --tag ${IMAGE_URI} base_image
+```
 
 
 
