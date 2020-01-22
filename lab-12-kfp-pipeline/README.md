@@ -160,6 +160,14 @@ gcloud container clusters get-credentials [YOUR_GKE_CLUSTER] --zone [YOUR_ZONE]
 kubectl describe configmap inverse-proxy-config -n [YOUR_NAMESPACE] | grep "googleusercontent.com"
 ```
 
+You can double check that the pipeline was uploaded by listing the pipelines in your KFP environment.
+
+```
+kfp --endpoint $INVERSE_PROXY_HOSTNAME pipeline list
+```
+
+
+
 
 3. Finally, you manually submit a pipeline run using **KFP CLI**.
 ```
