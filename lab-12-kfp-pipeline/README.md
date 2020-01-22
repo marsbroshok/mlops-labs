@@ -69,7 +69,8 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
 ## Lab Exercises
 
-Follow the instructor who will explain how to author, deploy, and run a KFP pipeline. The high level summary of the topics that will be covered in detail by the instructor is as follows:
+Follow the instructor who will explain how to author, deploy, and run a KFP pipeline. The high level summary of the topics that will be covered in detail by the instructor is as follows.
+
 
 ### Authoring a KFP pipeline
 
@@ -85,6 +86,15 @@ Your pipeline uses a mix of custom and pre-build components.
 
 
 The workflow implemented by the pipeline is defined using a Python based KFP Domain Specific Language (DSL). The pipeline's DSL is in the `covertype_training_pipeline.py` file.
+
+### Building the training image
+
+The training step in the pipeline employes the AI Platform Training component to schedule a  AI Platform Training job in a custom container. If you walked through the `lab-11-caip-trainer` lab the trainer image was already pushed to your project's Container Registry. If you did not, you can build and push the image using the below commands. From the `trainer_image` folder:
+```
+
+```
+
+
 
 
 ### Compiling and deploying the pipeline
