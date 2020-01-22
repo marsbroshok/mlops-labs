@@ -1,5 +1,4 @@
-
-FROM gcr.io/deeplearning-platform-release/base-cpu
+FROM gcr.io/mlops-workshop/mlops-dev:TF115-TFX015-KFP136
 RUN pip install -U fire cloudml-hypertune
 WORKDIR /app
 COPY train.py .
