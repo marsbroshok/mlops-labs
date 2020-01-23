@@ -62,7 +62,16 @@ Follow the instructor who will walk you through the lab. The high level summary 
 
 ###  Authoring the CI/CD workflow that builds and deploys a KFP  pipeline
 
-In this exercise you walk-through authoring a **Cloud Build** CI/CD workflow that automatically builds and deploys a KFP pipeline. The **Cloud Build** configuration uses both standard and custom [Cloud Build builders](https://cloud.google.com/cloud-build/docs/cloud-builders). The custom builder, which you build in the first part of the exercise, encapsulates **KFP CLI**. 
+In this exercise you walk-through authoring a **Cloud Build** CI/CD workflow that automatically builds and deploys a KFP pipeline. 
+
+The CI/CD workflow automates the steps you walked through manually during `lab-12-kfp-pipeline`:
+1. Builds the trainer image
+1. Builds the base image for custom components
+1. Compiles the pipeline
+1. Uploads the pipeline to the KFP environment
+1. Pushes the trainer and base images to your project's **Container Registry**
+
+The **Cloud Build** workflow configuration uses both standard and custom [Cloud Build builders](https://cloud.google.com/cloud-build/docs/cloud-builders). The custom builder, which you build in the first part of the exercise, encapsulates **KFP CLI**. 
 
 *The current version of the lab has been developed and tested with v1.36 of KFP. There is a number of issues with post 1.36 versions of KFP that prevent us from upgrading to the newer version of KFP. KFP v1.36 does not have support for pipeline versions. As an interim measure, the **Cloud Build**  workflow appends `$TAG_NAME` default substitution to the name of the pipeline to designate a pipeline version.*
 
@@ -89,15 +98,14 @@ IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 ```
 
+To manually trigger the CI/CD run :
 
-
-
-3. Update the `build_pipeline.sh` script in the `Lab-11-KFP-CAIP/cicd` folder with your KFP inverting proxy host. You can retrieve the inverting proxy host name from the `inverse-proxy-config` ConfigMap. It will be under the `Hostname` key.
-4. Manually trigger the CI/CD build:
+1. Update the `build_pipeline.sh` script  with your KFP inverting proxy host. 
+1. Start the run:
 ```
 ./build_pipeline.sh
 ```
-### Exercise 4 - Setting up GitHub integration
+### Setting up GitHub integration
 In this exercise you integrate your CI/CD workflow with **GitHub**, using [Cloud Build GitHub App](https://github.com/marketplace/google-cloud-build). 
 You will set up a trigger that starts the CI/CD workflow when a new tag is applied to the **GitHub** repo managing the KFP pipeline source code. You will use a fork of this repo as your source GitHub repository.
 
