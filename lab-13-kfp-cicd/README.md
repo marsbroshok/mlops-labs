@@ -72,8 +72,7 @@ To create a **Cloud Build** custom builder that encapsulates KFP CLI.
 ```
 cat > Dockerfile << EOF
 FROM gcr.io/deeplearning-platform-release/base-cpu
-RUN RELEASE=0.1.36 \
-&& pip install https://storage.googleapis.com/ml-pipeline/release/$RELEASE/kfp.tar.gz 
+RUN pip install https://storage.googleapis.com/ml-pipeline/release/0.1.36/kfp.tar.gz 
 
 ENTRYPOINT ["/bin/bash"]
 EOF
