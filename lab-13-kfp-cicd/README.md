@@ -53,7 +53,7 @@ $SCHEMA
 ### GCS bucket
 Create the GCS bucket that will be used as a staging area during the lab.
 ```
-BUCKET_NAME=gs://${PROJECT_ID}-lab-11
+BUCKET_NAME=gs://${PROJECT_ID}-lab-13
 gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
 ## Lab Exercises
@@ -100,8 +100,13 @@ gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 
 To manually trigger the CI/CD run :
 
-1. Update the `build_pipeline.sh` script  with your KFP inverting proxy host. 
-1. Start the run:
+1. Update the `build_pipeline.sh` script  with your KFP inverting proxy host. Recall that you can retrieve the inverting proxy hostname using the following commands:
+```
+gcloud container clusters get-credentials [YOUR_GKE_CLUSTER] --zone [YOUR_ZONE]
+kubectl describe configmap inverse-proxy-config -n [YOUR_NAMESPACE] | grep "googleusercontent.com"
+```
+
+2. Start the run:
 ```
 ./build_pipeline.sh
 ```
