@@ -1,8 +1,6 @@
 # CI/CD for KFP pipelines
 
-In this lab you will walk through authoring of a **Cloud Build** CI/CD workflow that automatically builds and deploys a KFP pipeline.
-
-you will also integrate your workflow with **GitHub** by setting up a trigger that starts the  workflow when a new tag is applied to the **GitHub** repo hosting the pipeline's code.
+In this lab you will walk through authoring of a **Cloud Build** CI/CD workflow that automatically builds and deploys a KFP pipeline. You will also integrate your workflow with **GitHub** by setting up a trigger that starts the  workflow when a new tag is applied to the **GitHub** repo hosting the pipeline's code.
 
 ## Lab scenario
 
@@ -62,11 +60,11 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 
 Follow the instructor who will walk you through the lab. The high level summary of the lab exercises is as follows.
 
-###  Authoring the CI/CD workflow that builds and deploy a KFP  pipeline
+###  Authoring the CI/CD workflow that builds and deploys a KFP  pipeline
 
 In this exercise you walk-through authoring a **Cloud Build** CI/CD workflow that automatically builds and deploys a KFP pipeline. The **Cloud Build** configuration uses both standard and custom [Cloud Build builders](https://cloud.google.com/cloud-build/docs/cloud-builders). The custom builder, which you build in the first part of the exercise, encapsulates **KFP CLI**. 
 
-*The current version of the lab has been developed and tested with v1.36 of KFP. There is a number of issues with post 1.36 versions of KFP that prevent us from upgrading to the newer version of KFP. KFP v1.36 does not have support for pipeline versions. As an interim measure, the **Cloud Build**  workflow appends ``$TAG_NAME` default substitution to the name of the pipeline to designate a pipeline version. 
+*The current version of the lab has been developed and tested with v1.36 of KFP. There is a number of issues with post 1.36 versions of KFP that prevent us from upgrading to the newer version of KFP. KFP v1.36 does not have support for pipeline versions. As an interim measure, the **Cloud Build**  workflow appends `$TAG_NAME` default substitution to the name of the pipeline to designate a pipeline version.*
 
 To create a **Cloud Build** custom builder that encapsulates KFP CLI.
 
@@ -74,8 +72,6 @@ To create a **Cloud Build** custom builder that encapsulates KFP CLI.
 ```
 cat > Dockerfile << EOF
 FROM gcr.io/deeplearning-platform-release/base-cpu
-SHELL ["/bin/bash", "-c"]
-RUN apt-get update -y && apt-get -y install kubectl
 RUN RELEASE=0.1.36 \
 && pip install https://storage.googleapis.com/ml-pipeline/release/$RELEASE/kfp.tar.gz 
 
@@ -83,9 +79,9 @@ ENTRYPOINT ["/bin/bash"]
 EOF
 ```
 
-2. Build the image and push it to your project's Container Registry
+2. Build the image and push it to your project's Container Registry. 
 ```
-PROJECT_ID=$(gcloud config get-value core/project)
+PROJECT_ID=[YOUR_PROJECT_ID]
 IMAGE_NAME=kfp-cli
 TAG=latest
 
