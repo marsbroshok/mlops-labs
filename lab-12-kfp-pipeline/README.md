@@ -69,7 +69,7 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
 ## Lab Exercises
 
-Follow the instructor who will explain how to author, deploy, and run a KFP pipeline. The high level summary of the topics that will be covered in detail by the instructor is as follows.
+Follow the instructor who will walk you through the lab. The high level summary of the lab flow is as follows.
 
 
 ### Authoring the pipeline
