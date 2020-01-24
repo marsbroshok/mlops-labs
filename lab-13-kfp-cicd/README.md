@@ -143,5 +143,10 @@ Use the following values for the substitution variables:
 |_TRAINER_IMAGE_NAME|trainer_image|
 
 
-3. To start an automated build [create a new release of the repo in GitHub](https://help.github.com/en/github/administering-a-repository/creating-releases).
+3. To start an automated build [create a new release of the repo in GitHub](https://help.github.com/en/github/administering-a-repository/creating-releases). Alternatively, you can start the build by applying a tag using `git`. 
+```
+git tag [TAG NAME]
+git push origin --tags
+```
+
 
