@@ -17,10 +17,10 @@
 # the pipelines and pipelines components 
 
 SUBSTITUTIONS=\
-_INVERTING_PROXY_HOST=2b5348af86734350-dot-us-central1.notebooks.googleusercontent.com,\
+_INVERTING_PROXY_HOST=[YOUR_INVERTING_PROXY],\
 _TRAINER_IMAGE_NAME=trainer_image,\
 _BASE_IMAGE_NAME=base_image,\
-TAG_NAME=manual,\
+TAG_NAME=test,\
 _PIPELINE_FOLDER=lab-13-kfp-cicd/pipeline,\
 _PIPELINE_DSL=covertype_training_pipeline.py,\
 _PIPELINE_PACKAGE=covertype_training_pipeline.yaml,\
