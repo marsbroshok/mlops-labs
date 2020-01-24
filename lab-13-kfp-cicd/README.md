@@ -115,16 +115,24 @@ In this exercise you integrate your CI/CD workflow with **GitHub**, using [Cloud
 You will set up a trigger that starts the CI/CD workflow when a new tag is applied to the **GitHub** repo managing the KFP pipeline source code. You will use a fork of this repo as your source GitHub repository.
 
 1. [Follow the GitHub documentation](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) to fork this repo
-2. Connect the fork you created in the previous step to your Google Cloud project and create a trigger following the [Creating GitHub app trigger](https://cloud.google.com/cloud-build/docs/create-github-app-triggers) article. Configure your trigger using the below configuration as a template:
+2. Connect the fork you created in the previous step to your Google Cloud project and create a trigger following the [Creating GitHub app trigger](https://cloud.google.com/cloud-build/docs/create-github-app-triggers) article. Use the following values on the **Edit trigger** form:
 
-![Configure trigger](../images/configure_trigger.png)
+|Field|Value|
+|-----|-----|
+|Name|[YOUR TRIGGER NAME]|
+|Description|[YOUR TRIGGER DESCRIPTION]|
+|Trigger type| Tag|
+|Tag (regex)|.\*|
+|Build Configuration|Cloud Build configuration file (yaml or json)|
+|Cloud Build configuration file location|/ lab-13-kfp-cicd/pipeline/cloudbuild.yaml|
+
 
 Use the following values for the substitution variables:
 
 |Variable|Value|
 |--------|-----|
 |_BASE_IMAGE_NAME|base_image|
-|_COMPONENT_URL_SEARCH_PREFIX|https://raw.githubusercontent.com/kubeflow/pipelines/0.1.38/components/gcp/|
+|_COMPONENT_URL_SEARCH_PREFIX|https://raw.githubusercontent.com/kubeflow/pipelines/0.1.36/components/gcp/|
 |_INVERTING_PROXY_HOST|[Your inverting proxy host]|
 |_PIPELINE_DSL|covertype_training_pipeline.py|
 |_PIPELINE_FOLDER|Lab-11-KFP-CAIP/pipelines|
@@ -137,4 +145,3 @@ Use the following values for the substitution variables:
 
 3. To start an automated build [create a new release of the repo in GitHub](https://help.github.com/en/github/administering-a-repository/creating-releases).
 
-### Exercise 5 - Integrating the KFP pipeline with the upstream data management pipeline
