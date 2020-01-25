@@ -144,8 +144,8 @@ The result is the `covertype_training_pipeline.yaml` file. This file needs to de
 To upload the pipeline package using **KFP CLI**:
 
 ```
-PIPELINE_NAME=covertype_classifier_training
 INVERSE_PROXY_HOSTNAME=[YOUR_INVERSE_PROXY_HOSTNAME]
+PIPELINE_NAME=covertype_classifier_training
 
 kfp --endpoint $INVERSE_PROXY_HOSTNAME pipeline upload \
 -p $PIPELINE_NAME \
