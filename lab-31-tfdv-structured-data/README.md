@@ -40,6 +40,7 @@ IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 ```
 4. Provision the **AI Platform Notebook** instance based on a custom container image, following the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container). In the **Docker container image** field, enter the following image name: `gcr.io/[YOUR_PROJECT_ID]/tfx-dev:TF115-TFX015`.
+5. Connect to **JupyterLab** and clone this repo under the `/home` directory
 
 ### Lab dataset
 This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). 
