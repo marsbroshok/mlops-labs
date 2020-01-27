@@ -15,6 +15,8 @@ CATEGORICAL_FEATURE_KEYS = ['Wilderness_Area', 'Soil_Type']
 LABEL_KEY = 'Cover_Type'
 NUM_CLASSES = 7
 
+EXPORTED_MODEL_NAME='covertype-classifier'
+
 # Define helper functions
 def _transformed_name(key):
     return key + '_xf'
@@ -41,24 +43,6 @@ def _build_estimator(config, numeric_feature_keys, categorical_feature_keys, hid
   Returns:
     The estimator that will be used for training and eval.
   """
-  #feature_columns = [
-  #    tf.feature_column.numeric_column(key, shape=())
-  #    for key in numeric_features_keys
-  #]
-  #feature_columns += [
-  #    tf.feature_column.indicator_column(
-  #        tf.feature_column.categorical_column_with_identity(
-  #            key, num_buckets=num_buckets, default_value=0))
-  #    for key, num_buckets in categorical_features_keys
-  #]
-  
-  #return tf.estimator.DNNClassifier(
-  #    config=config,
-  #    feature_columns=feature_columns,
-  #    n_classes=NUM_CLASSES,
-  #    hidden_units=hidden_units,
-  #    warm_start_from=warm_start_from)
-    
 
   num_feature_columns = [
       tf.feature_column.numeric_column(key)
@@ -161,17 +145,6 @@ def _eval_input_receiver_fn(tf_transform_output, schema, label_key):
 
 
 def trainer_fn(hparams, schema):
-    print('************************')
-    print('************************')
-    
-    print(hparams.train_files)
-    print(hparams.eval_files)
-    print(hparams.transform_output)
-    print(hparams.serving_model_dir)
-   
-    print(hparams.schema_file)
-    print(hparams.train_steps)
-    print(hparams.eval_steps)
     
     train_batch_size = 40
     eval_batch_size = 40
@@ -218,13 +191,13 @@ def trainer_fn(hparams, schema):
     # Create an evaluation specifaction
     serving_receiver_fn = lambda: _example_serving_receiver_fn(
       tf_transform_output, schema, LABEL_KEY)
-    exporter = tf.estimator.FinalExporter('covertype-classifier', serving_receiver_fn)
+    exporter = tf.estimator.FinalExporter(EXPORTED_MODEL_NAME, serving_receiver_fn)
     
     eval_spec = tf.estimator.EvalSpec(
       eval_input_fn,
       steps=hparams.eval_steps,
       exporters=[exporter],
-      name='covertype-classifier-eval')
+      name=EXPORTED_MODEL_NAME)
     
     # Create runtime config
     run_config = tf.estimator.RunConfig(
