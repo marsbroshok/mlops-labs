@@ -86,6 +86,7 @@ RUN cd /usr/local/bin \
 && unzip terraform_0.12.19_linux_amd64.zip
 RUN pip install -U six==1.12 apache-beam==2.16 pyarrow==0.14.0 tfx-bsl==0.15.1 \
 && pip install -U tfx==0.15 \
+&& pip install -U tensorboard \
 && pip install https://storage.googleapis.com/ml-pipeline/release/0.1.36/kfp.tar.gz
 EOF
 ```
