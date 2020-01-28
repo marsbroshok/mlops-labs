@@ -171,12 +171,20 @@ You can trigger pipeline runs using an API from the KFP SDK or using KFP CLI. To
 
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
-EXPERIMENT_NAME=Covertype_Classifier_Training
-RUN_ID=Run_001
 PIPELINE_ID=[YOUR_PIPELINE_ID]
 GCS_STAGING_BUCKET=[YOUR_GCS_STAGING_BUCKET]
 REGION=[YOUR_REGION]
 INVERSE_PROXY_HOSTNAME=[YOUR_INVERSE_PROXY_HOSTNAME]
+
+EXPERIMENT_NAME=Covertype_Classifier_Training
+RUN_ID=Run_001
+SOURCE_TABLE=lab_11.covertype
+DATASET_ID=splits
+EVALUATION_METRIC=accuracy
+EVALUATION_METRIC_THRESHOLD=accuracy
+MODEL_ID=covertype_classifier
+VERSION_ID=0.1
+REPLACE_EXISTING_VERSION=True
 
 kfp --endpoint $INVERSE_PROXY_HOSTNAME run submit \
 -e Covertype_Classifier_Training \
@@ -185,13 +193,13 @@ kfp --endpoint $INVERSE_PROXY_HOSTNAME run submit \
 project_id=$PROJECT_ID \
 gcs_root=$GCS_STAGING_BUCKET \
 region=$REGION \
-source_table_name=lab_11.covertype \
-dataset_id=splits \
-evaluation_metric_name=accuracy \
-evaluation_metric_threshold=0.69 \
-model_id=covertype_classifier \
-version_id=v0.3 \
-replace_existing_version=True
+source_table_name=$SOURCE_TABLE \
+dataset_id=$DATASET_ID \
+evaluation_metric_name=$EVALUATION_METRIC \
+evaluation_metric_threshold=$EVALUATION_METRIC_THRESHOLD \
+model_id=$MODEL_ID \
+version_id=$VERSION_DI \
+replace_existing_version=$REPLACE_EXISTING_VERSION
 ```
 
 where
