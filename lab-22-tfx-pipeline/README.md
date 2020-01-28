@@ -1,19 +1,11 @@
 # Orchestrating model training and deployment with TFX and Cloud AI Platform
 
-In this lab you will develop and operationalize a TFX pipeline that uses Kubeflow Pipelines for orchestration and Cloud Dataflow and Cloud AI Platform for data processing, training, and deployment:
-
-1. In Exercise 1, you will review and understand the pipeline's source code - also referred to as the pipeline's DSL.
-
-1. In Exercise 2, you will use **TFX CLI** to deploy the pipeline to KFP environment
-
-1. In Exercise 3, you will use **TFX CLI** and **KFP UI** to submit and monitor pipeline runs.
-
-1. In Exercise 4, you will author a **Cloud Build** CI/CD workflow that automates pipeline deployment.
+In this lab you will develop, deploy and run a TFX pipeline that uses Kubeflow Pipelines for orchestration and Cloud Dataflow and Cloud AI Platform for data processing, training, and deployment:
 
 
 ## Lab scenario
 
-You will be working with a variant of the [Online News Popularity](https://archive.ics.uci.edu/ml/datasets/online+news+popularity) dataset, which summarizes a heterogeneous set of features about articles published by Mashable in a period of two years. The goal is to predict how popular the article will be on social networks. Specifically, in the original dataset the objective was to predict the number of times each article will be shared on social networks. In this variant, the goal is to predict the article's popularity percentile. For example, if the model predicts a score of 0.7, then it means it expects the article to be shared more than 70% of all articles.
+You will be working with the [Covertype Data Set](https://github.com/jarokaz/mlops-labs/blob/master/datasets/covertype/README.md) dataset. 
 
 The pipeline implements a typical TFX workflow as depicted on the below diagram:
 
