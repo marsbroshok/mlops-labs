@@ -21,6 +21,20 @@ The TFX `ExampleGen`, `StatisticsGen`, `ExampleValidator`, `SchemaGen`, `Transfo
 
 ### Lab dataset
 
+The TFX pipeline in the lab is designed to ingest the *Covertype Data Set* in the CSV format from the GCS location. To prepare for the lab create a GCS bucket in your project and upload the file to a subfolder in the bucket.
+
+1. Create a GCS bucket
+```
+PROJECT_ID=[YOUR_PROJECT_ID]
+BUCKET_NAME=gs://${PROJECT_ID}-staging
+gsutil mb -p $PROJECT_ID $BUCKET_NAME
+```
+
+2. Upload the *Covertype Data Set* CSV file
+```
+COVERTYPE_GCS_PATH=${BUCKET_NAME}/covertype_dataset/
+gsutil cp gs://workshop-datasets/covertype/full/dataset.csv $COVERTYPE_GCS_PATH
+```
 
 
 ## Lab Exercises
