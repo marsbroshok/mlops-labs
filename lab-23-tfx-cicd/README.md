@@ -65,7 +65,7 @@ To manually trigger the CI/CD run :
 ```
 ### Setting up GitHub integration
 In this exercise you integrate your CI/CD workflow with **GitHub**, using [Cloud Build GitHub App](https://github.com/marketplace/google-cloud-build). 
-You will set up a trigger that starts the CI/CD workflow when a new tag is applied to the **GitHub** repo managing the KFP pipeline source code. You will use a fork of this repo as your source GitHub repository.
+You will set up a trigger that starts the CI/CD workflow when a new tag is applied to the **GitHub** repo managing the pipeline's source code. You will use a fork of this repo as your source GitHub repository.
 
 1. [Follow the GitHub documentation](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) to fork this repo
 2. Connect the fork you created in the previous step to your Google Cloud project and create a trigger following the steps in the [Creating GitHub app trigger](https://cloud.google.com/cloud-build/docs/create-github-app-triggers) article. Use the following values on the **Edit trigger** form:
@@ -77,7 +77,7 @@ You will set up a trigger that starts the CI/CD workflow when a new tag is appli
 |Trigger type| Tag|
 |Tag (regex)|.\*|
 |Build Configuration|Cloud Build configuration file (yaml or json)|
-|Cloud Build configuration file location|/ lab-13-kfp-cicd/cloudbuild.yaml|
+|Cloud Build configuration file location|/ lab-23-tfx-cicd/cloudbuild.yaml|
 
 
 Use the following values for the substitution variables:
