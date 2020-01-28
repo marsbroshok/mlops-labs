@@ -24,7 +24,7 @@ PROJECT_ID=[YOUR_PROJECT_ID]
 DATASET_LOCATION=US
 DATASET_ID=lab_11
 TABLE_ID=covertype
-DATA_SOURCE=gs://workshop-datasets/covertype/full/covertype.csv
+DATA_SOURCE=gs://workshop-datasets/covertype/full/dataset.csv
 SCHEMA=Elevation:INTEGER,\
 Aspect:INTEGER,\
 Slope:INTEGER,\
@@ -36,7 +36,7 @@ Hillshade_Noon:INTEGER,\
 Hillshade_3pm:INTEGER,\
 Horizontal_Distance_To_Fire_Points:INTEGER,\
 Wilderness_Area:STRING,\
-Soil_Type:INTEGER,\
+Soil_Type:STRING,\
 Cover_Type:INTEGER
 
 bq --location=$DATASET_LOCATION --project_id=$PROJECT_ID mk --dataset $DATASET_ID
