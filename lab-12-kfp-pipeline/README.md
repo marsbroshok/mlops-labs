@@ -47,7 +47,7 @@ Hillshade_Noon:INTEGER,\
 Hillshade_3pm:INTEGER,\
 Horizontal_Distance_To_Fire_Points:INTEGER,\
 Wilderness_Area:STRING,\
-Soil_Type:INTEGER,\
+Soil_Type:STRING,\
 Cover_Type:INTEGER
 
 bq --location=$DATASET_LOCATION --project_id=$PROJECT_ID mk --dataset $DATASET_ID
