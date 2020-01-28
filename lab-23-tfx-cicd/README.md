@@ -84,16 +84,17 @@ Use the following values for the substitution variables:
 
 |Variable|Value|
 |--------|-----|
-|_BASE_IMAGE_NAME|base_image|
-|_COMPONENT_URL_SEARCH_PREFIX|https://raw.githubusercontent.com/kubeflow/pipelines/0.1.36/components/gcp/|
-|_INVERTING_PROXY_HOST|[Your inverting proxy host]|
-|_PIPELINE_DSL|covertype_training_pipeline.py|
-|_PIPELINE_FOLDER|lab-13-kfp-cicd/pipeline|
-|_PIPELINE_NAME|covertype_training_deployment|
-|_PIPELINE_PACKAGE|covertype_training_pipeline.yaml|
-|_PYTHON_VERSION|3.5|
-|_RUNTIME_VERSION|1.14|
-|_TRAINER_IMAGE_NAME|trainer_image|
+|_TFX_IMAGE_NAME|custom-tfx-image|
+|_INVERTING_PROXY_HOST|[YOUR_INVERTING_PROXY]|
+|_PIPELINE_DSL|pipeline_dsl.py|
+|_PIPELINE_FOLDER|lab-23-tfx-cicd/pipeline-dsl|
+|_PIPELINE_NAME|tfx_covertype_training_deployment|
+|_PYTHON_VERSION|3.7|
+|_RUNTIME_VERSION|1.15|
+|_ARTIFACT_STORE_URI|[YOUR_ARTIFACT_STORE|
+|_DATA_ROOT_URI|[YOUR_DATA_ROOT]|
+|_GCP_REGION|[YOUR_REGION]|
+
 
 
 3. To start an automated build [create a new release of the repo in GitHub](https://help.github.com/en/github/administering-a-repository/creating-releases). Alternatively, you can start the build by applying a tag using `git`. 
