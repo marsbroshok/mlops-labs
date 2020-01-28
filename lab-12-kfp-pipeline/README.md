@@ -92,7 +92,7 @@ The workflow implemented by the pipeline is defined using a Python based KFP Dom
 The training step in the pipeline employes the AI Platform Training component to schedule a  AI Platform Training job in a custom container. If you walked through the `lab-11-caip-trainer` lab the trainer image was already pushed to your project's Container Registry. If you did not, you can build and push the image using the below commands.   Make sure to update the Dockerfile in the `trainer_image` folder with the URI pointing to your Container Registry.
 
 ```
-PROJECT_ID=$(gcloud config get-value core/project)
+PROJECT_ID=[YOUR_PROJECT_ID]
 IMAGE_NAME=trainer_image
 TAG=latest
 
@@ -109,7 +109,6 @@ To build and push the base image execute the below commands. Make sure to update
 
 
 ```
-PROJECT_ID=$(gcloud config get-value core/project)
 IMAGE_NAME=base_image
 TAG=latest
 
