@@ -42,7 +42,7 @@ gsutil ls $COVERTYPE_GCS_PATH
 
 ## Lab Exercises
 
-Follow the instructor who will walk you through the lab. The high level summary of the lab flow is as follows.
+Follow the instructor who will walk you through the lab. The high level summary of the lab flow is as follows:
 
 ### Understanding the pipeline's DSL.
 
@@ -84,13 +84,24 @@ export DATA_ROOT_URI=[YOUR_DATA_ROOT_URI]
 export TFX_IMAGE=[YOUR_TFX_IMAGE_URI]
 export KFP_INVERSE_PROXY_HOST=[YOUR_INVERSE_PROXY_HOST]
 
-export PIPELINE_NAME=online_news_model_training
+export PIPELINE_NAME=covertype_classifier_training
 export GCP_REGION=us-central1
 export RUNTIME_VERSION=1.15
 export PYTHON_VERSION=3.7
 
 
 tfx pipeline create --engine kubeflow --pipeline_path pipeline_dsl.py --endpoint $KFP_INVERSE_PROXY_HOST
+```
+
+Where 
+- [YOUR_ARTIFACT_STORE_URI] is the URI to the bucket created during the KFP lightweight deployment setup - `lab-02-environment-kfp`.
+- [YOUR_DATA_ROOT_URI] is the GCS location where you uploaded the *Covertype Data Set* CSV file
+- [YOUR_TFX_IMAGE_URI] is the URI of the image you created in the previous step. Make sure to specify a full URI including the tag
+- [YOUR_INVERSE_PROXY_HOST] is the hostname of the inverse proxy to your KFP installation. Recall that you can retrieve the inverse proxy hostname using the below command
+
+```
+gcloud container clusters get-credentials [YOUR_GKE_CLUSTER] --zone [YOUR_ZONE]
+kubectl describe configmap inverse-proxy-config -n [YOUR_NAMESPACE] | grep "googleusercontent.com"
 ```
 
 The `tfx pipeline create` command compiled the pipeline's DSL into a KFP package.  
