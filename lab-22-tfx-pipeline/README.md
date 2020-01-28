@@ -84,7 +84,7 @@ export DATA_ROOT_URI=[YOUR_DATA_ROOT_URI]
 export TFX_IMAGE=[YOUR_TFX_IMAGE_URI]
 export KFP_INVERSE_PROXY_HOST=[YOUR_INVERSE_PROXY_HOST]
 
-export PIPELINE_NAME=covertype_classifier_training
+export PIPELINE_NAME=tfx_covertype_classifier_training
 export GCP_REGION=us-central1
 export RUNTIME_VERSION=1.15
 export PYTHON_VERSION=3.7
