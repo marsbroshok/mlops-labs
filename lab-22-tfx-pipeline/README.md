@@ -103,7 +103,11 @@ gcloud container clusters get-credentials [YOUR_GKE_CLUSTER] --zone [YOUR_ZONE]
 kubectl describe configmap inverse-proxy-config -n [YOUR_NAMESPACE] | grep "googleusercontent.com"
 ```
 
-The `tfx pipeline create` command compiled the pipeline's DSL into a KFP package.  
+The `tfx pipeline create` command compiled the pipeline's DSL into the KFP package file - `tfx_covertype_classifier_training.tar.gz`. The package file contains the description of the pipeline in the YAML format. If you want to examine the file, extract from the tarball file and use the JupyterLab editor.
+
+```
+tar xvf tfx_covertype_classifier_training.tar.gz
+```
 
 ### Submitting and monitoring pipeline runs
 
