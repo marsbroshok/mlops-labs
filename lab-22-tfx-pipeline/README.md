@@ -109,6 +109,9 @@ The `tfx pipeline create` command compiled the pipeline's DSL into the KFP packa
 tar xvf tfx_covertype_classifier_training.tar.gz
 ```
 
+The name of the extracted file is `pipeline.yaml`.
+
+
 ### Submitting and monitoring pipeline runs
 
 After the pipeline has been deployed, you can trigger and monitor pipeline runs using **TFX CLI** or **KFP UI**.
