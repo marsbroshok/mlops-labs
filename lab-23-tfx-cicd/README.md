@@ -57,11 +57,7 @@ gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 
 To manually trigger the CI/CD run :
 
-1. Update the `build_pipeline.sh` script  with your KFP inverting proxy host. Recall that you can retrieve the inverting proxy hostname using the following commands:
-```
-gcloud container clusters get-credentials [YOUR_GKE_CLUSTER] --zone [YOUR_ZONE]
-kubectl describe configmap inverse-proxy-config -n [YOUR_NAMESPACE] | grep "googleusercontent.com"
-```
+1. Update the `build_pipeline.sh` script  with the values representing your environment:
 
 2. Start the run:
 ```
