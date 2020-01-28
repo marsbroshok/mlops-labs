@@ -93,7 +93,7 @@ tfx pipeline create --engine kubeflow --pipeline_path pipeline_dsl.py --endpoint
 ```
 
 Where 
-- [YOUR_ARTIFACT_STORE_URI] is the URI to the bucket created during the KFP lightweight deployment setup - `lab-02-environment-kfp`.
+- [YOUR_ARTIFACT_STORE_URI] is the URI of the bucket created during the KFP lightweight deployment setup - `lab-02-environment-kfp`.
 - [YOUR_DATA_ROOT_URI] is the GCS location where you uploaded the *Covertype Data Set* CSV file
 - [YOUR_TFX_IMAGE_URI] is the URI of the image you created in the previous step. Make sure to specify a full URI including the tag
 - [YOUR_INVERSE_PROXY_HOST] is the hostname of the inverse proxy to your KFP installation. Recall that you can retrieve the inverse proxy hostname using the below command
