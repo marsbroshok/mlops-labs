@@ -92,10 +92,9 @@ The workflow implemented by the pipeline is defined using a Python based KFP Dom
 The training step in the pipeline employes the AI Platform Training component to schedule a  AI Platform Training job in a custom container. If you walked through the `lab-11-caip-trainer` lab the trainer image was already pushed to your project's Container Registry. If you did not, you can build and push the image using the below commands.   Make sure to update the Dockerfile in the `trainer_image` folder with the URI pointing to your Container Registry.
 
 ```
-PROJECT_ID=$(gcloud config get-value core/project)
+PROJECT_ID=[YOUR_PROJECT_ID]
 IMAGE_NAME=trainer_image
 TAG=latest
-
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} trainer_image
@@ -109,10 +108,8 @@ To build and push the base image execute the below commands. Make sure to update
 
 
 ```
-PROJECT_ID=$(gcloud config get-value core/project)
 IMAGE_NAME=base_image
 TAG=latest
-
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} base_image
@@ -130,9 +127,9 @@ To compile the pipeline DSL using **KFP** compiler. From the root folder of this
 
 ```
 export PROJECT_ID=[YOUR_PROJECT_ID]
-export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.36/components/gcp/
 export BASE_IMAGE=gcr.io/$PROJECT_ID/base_image:latest
 export TRAINER_IMAGE=gcr.io/$PROJECT_ID/trainer_image:latest
+export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.36/components/gcp/
 export RUNTIME_VERSION=1.14
 export PYTHON_VERSION=3.5
 
@@ -174,12 +171,20 @@ You can trigger pipeline runs using an API from the KFP SDK or using KFP CLI. To
 
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
-EXPERIMENT_NAME=Covertype_Classifier_Training
-RUN_ID=Run_001
 PIPELINE_ID=[YOUR_PIPELINE_ID]
 GCS_STAGING_BUCKET=[YOUR_GCS_STAGING_BUCKET]
 REGION=[YOUR_REGION]
 INVERSE_PROXY_HOSTNAME=[YOUR_INVERSE_PROXY_HOSTNAME]
+
+EXPERIMENT_NAME=Covertype_Classifier_Training
+RUN_ID=Run_001
+SOURCE_TABLE=lab_11.covertype
+DATASET_ID=splits
+EVALUATION_METRIC=accuracy
+EVALUATION_METRIC_THRESHOLD=accuracy
+MODEL_ID=covertype_classifier
+VERSION_ID=0.1
+REPLACE_EXISTING_VERSION=True
 
 kfp --endpoint $INVERSE_PROXY_HOSTNAME run submit \
 -e Covertype_Classifier_Training \
@@ -188,13 +193,13 @@ kfp --endpoint $INVERSE_PROXY_HOSTNAME run submit \
 project_id=$PROJECT_ID \
 gcs_root=$GCS_STAGING_BUCKET \
 region=$REGION \
-source_table_name=lab_11.covertype \
-dataset_id=splits \
-evaluation_metric_name=accuracy \
-evaluation_metric_threshold=0.69 \
-model_id=covertype_classifier \
-version_id=v0.3 \
-replace_existing_version=True
+source_table_name=$SOURCE_TABLE \
+dataset_id=$DATASET_ID \
+evaluation_metric_name=$EVALUATION_METRIC \
+evaluation_metric_threshold=$EVALUATION_METRIC_THRESHOLD \
+model_id=$MODEL_ID \
+version_id=$VERSION_DI \
+replace_existing_version=$REPLACE_EXISTING_VERSION
 ```
 
 where
