@@ -18,36 +18,16 @@ The TFX `ExampleGen`, `StatisticsGen`, `ExampleValidator`, `SchemaGen`, `Transfo
 
 ## Lab setup
 
-### AI Platform Notebook configuration
-You will use the **AI Platform Notebooks** instance configured with a custom container image. To prepare the **AI Platform Notebooks** instance:
-
-1. In **Cloud Shell**, navigate to the `lab-00-environment-setup/notebook-images/tf115-tfx015-kfp136` folder.
-2. Build the container image
-```
-./build.sh
-```
-3. Provision the **AI Platform Notebook** instance based on a custom container image, following the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container). In the **Docker container image** field, enter the following image name: `gcr.io/[YOUR_PROJECT_NAME]/tfx-kfp-dev:TF115-TFX015-KFP136`.
-
-4. After the **AI Platform Notebooks** instance is ready, *open JupyterLab*.
-
-5. Open a new terminal in **JupyterLab** and clone this repo under the `home` directory
-```
-cd /home
-git clone https://github.com/jarokaz/mlops-labs.git
-```
 
 ### Lab dataset
-This lab uses the the [Online News Popularity](https://archive.ics.uci.edu/ml/datasets/online+news+popularity) dataset. The pipeline is designed to ingest the dataset from the GCS location inr in the *artifact store* bucket created during the environment setup  - `lab-00-environment-setup`. As you recall, the URI of the *artifact store* bucket created during the setup is `gs://[YOUR_PREFIX]-artifact-store`. To upload the *Online News Popularity* dataset, execute the following command from the *JupyterLab* terminal:
-
-```
-DATA_ROOT_URI=[YOUR_ARTIFACT_STORE_BUCKET_URI]/lab-datasets/online_news
-gsutil cp gs://workshop-datasets/online_news/full/data.csv $DATA_ROOT_URI/data.csv 
-```
 
 
 
 ## Lab Exercises
-### Exercise 1  - Understanding the pipeline's DSL.
+
+Follow the instructor who will walk you through the lab. The high level summary of the lab flow is as follows.
+
+### Understanding the pipeline's DSL.
 
 Follow the instructor who will walk you through the pipeline's DSL.
 
