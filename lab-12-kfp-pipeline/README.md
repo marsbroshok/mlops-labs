@@ -35,7 +35,7 @@ PROJECT_ID=[YOUR_PROJECT_ID]
 DATASET_LOCATION=US
 DATASET_ID=lab_11
 TABLE_ID=covertype
-DATA_SOURCE=gs://workshop-datasets/covertype/full/covertype.csv
+DATA_SOURCE=gs://workshop-datasets/covertype/full/dataset.csv
 SCHEMA=Elevation:INTEGER,\
 Aspect:INTEGER,\
 Slope:INTEGER,\
