@@ -18,6 +18,8 @@ The TFX `ExampleGen`, `StatisticsGen`, `ExampleValidator`, `SchemaGen`, `Transfo
 
 ## Lab setup
 
+### AI Platform Notebook and KFP environment
+Before proceeding with the lab, you must set up an **AI Platform Notebooks** instance and a **KFP** environment as detailed in lab-01-environment-notebook and lab-02-environment-kfp
 
 ### Lab dataset
 
