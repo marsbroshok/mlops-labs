@@ -95,7 +95,6 @@ The training step in the pipeline employes the AI Platform Training component to
 PROJECT_ID=[YOUR_PROJECT_ID]
 IMAGE_NAME=trainer_image
 TAG=latest
-
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} trainer_image
@@ -111,7 +110,6 @@ To build and push the base image execute the below commands. Make sure to update
 ```
 IMAGE_NAME=base_image
 TAG=latest
-
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} base_image
