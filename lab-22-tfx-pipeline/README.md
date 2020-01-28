@@ -108,7 +108,7 @@ The `tfx pipeline create` command compiled the pipeline's DSL into a KFP package
 
 ### Submitting and monitoring pipeline runs
 
-After the pipeline has been deployed, you can trigger and monitor pipeline runs using **TFX CLI** and/or **KFP UI**.
+After the pipeline has been deployed, you can trigger and monitor pipeline runs using **TFX CLI** or **KFP UI**.
 
 To submit the pipeline run using **TFX CLI**:
 ```
