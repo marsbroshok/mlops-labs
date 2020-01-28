@@ -35,15 +35,11 @@ To create a **Cloud Build** custom builder that encapsulates **TFX CLI**.
 1. Create the Dockerfile describing the TFX CLI builder
 ```
 cat > Dockerfile << EOF
-FROM tensorflow/tfx:0.15.0
-SHELL ["/bin/bash", "-c"]
-WORKDIR /
-RUN wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-275.0.0-linux-x86_64.tar.gz \
-&& tar xvf google-cloud-sdk-275.0.0-linux-x86_64.tar.gz \
-&& ./google-cloud-sdk/install.sh -q 
-ENV PATH="/google-cloud-sdk/bin:${PATH}" 
-RUN pip install google-resumable-media==0.4.1 https://storage.googleapis.com/ml-pipeline/release/0.1.36/kfp.tar.gz 
-ENV LC_ALL=C.UTF-8 LANG=C.UTF-8
+FROM gcr.io/deeplearning-platform-release/tf-cpu.1-15
+RUN pip install -U six==1.12 apache-beam==2.16 pyarrow==0.14.0 tfx-bsl==0.15.1 \
+&& pip install -U tfx==0.15 \
+&& pip install -U https://storage.googleapis.com/ml-pipeline/release/0.1.36/kfp.tar.gz 
+
 ENTRYPOINT ["tfx"]
 EOF
 ```
