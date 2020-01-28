@@ -89,7 +89,6 @@ export GCP_REGION=us-central1
 export RUNTIME_VERSION=1.15
 export PYTHON_VERSION=3.7
 
-
 tfx pipeline create --engine kubeflow --pipeline_path pipeline_dsl.py --endpoint $KFP_INVERSE_PROXY_HOST
 ```
 
