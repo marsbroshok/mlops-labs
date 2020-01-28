@@ -29,11 +29,14 @@ PROJECT_ID=[YOUR_PROJECT_ID]
 BUCKET_NAME=gs://${PROJECT_ID}-staging
 gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
-
 2. Upload the *Covertype Data Set* CSV file
 ```
 COVERTYPE_GCS_PATH=${BUCKET_NAME}/covertype_dataset/
 gsutil cp gs://workshop-datasets/covertype/full/dataset.csv $COVERTYPE_GCS_PATH
+```
+3. Verify that the file was uploaded 
+```
+gsutil ls $COVERTYPE_GCS_PATH
 ```
 
 
