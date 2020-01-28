@@ -17,37 +17,44 @@ Before proceeding with the lab, you must set up an AI Platform Notebook instance
 
 ## Lab Exercises
 
+Follow the instructor who will walk you through the lab. The high level summary of the lab exercises is as follows:
+
 ### Authoring the CI/CD workflow that builds and deploy the TFX training pipeline
 
-In this exercise you walk-through authoring a **Cloud Build** CI/CD workflow that automatically builds and deploys a KFP pipeline. 
+The **Cloud Build** CI/CD workflow automates the steps you walked through manually during `lab-22-tfx-pipeline`:
+1. Builds the custom TFX image to be used as a runtime execution environment for TFX components and as the AI Platform Training training container.
+1. Compiles the pipeline and uploads the pipeline to the KFP environment
+1. Pushes the custom TFX image to your project's **Container Registry**
 
-The CI/CD workflow automates the steps you walked through manually during `lab-12-kfp-pipeline`:
-1. Builds the trainer image
-1. Builds the base image for custom components
-1. Compiles the pipeline
-1. Uploads the pipeline to the KFP environment
-1. Pushes the trainer and base images to your project's **Container Registry**
-
-The **Cloud Build** workflow configuration uses both standard and custom [Cloud Build builders](https://cloud.google.com/cloud-build/docs/cloud-builders). The custom builder encapsulates **KFP CLI**. 
+The **Cloud Build** workflow configuration uses both standard and custom [Cloud Build builders](https://cloud.google.com/cloud-build/docs/cloud-builders). The custom builder encapsulates **TFX CLI**. 
 
 *The current version of the lab has been developed and tested with v1.36 of KFP. There is a number of issues with post 1.36 versions of KFP that prevent us from upgrading to the newer version of KFP. KFP v1.36 does not have support for pipeline versions. As an interim measure, the **Cloud Build**  workflow appends `$TAG_NAME` default substitution to the name of the pipeline to designate a pipeline version.*
 
-To create a **Cloud Build** custom builder that encapsulates KFP CLI.
+To create a **Cloud Build** custom builder that encapsulates **TFX CLI**.
 
-1. Create the Dockerfile describing the KFP CLI builder
+1. Create the Dockerfile describing the TFX CLI builder
 ```
 cat > Dockerfile << EOF
-FROM gcr.io/deeplearning-platform-release/base-cpu
-RUN pip install https://storage.googleapis.com/ml-pipeline/release/0.1.36/kfp.tar.gz 
+FROM tensorflow/tfx:0.15.0
+SHELL ["/bin/bash", "-c"]
+WORKDIR /
+RUN wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-275.0.0-linux-x86_64.tar.gz \
+&& tar xvf google-cloud-sdk-275.0.0-linux-x86_64.tar.gz \
+&& ./google-cloud-sdk/install.sh -q 
+ENV PATH="/google-cloud-sdk/bin:${PATH}" 
+RUN RELEASE=0.1.36 \
+&& pip install google-resumable-media==0.4.1 https://storage.googleapis.com/ml-pipeline/release/$RELEASE/kfp.tar.gz 
 
-ENTRYPOINT ["/bin/bash"]
+ENV LC_ALL=C.UTF-8 LANG=C.UTF-8
+
+ENTRYPOINT ["tfx"]
 EOF
 ```
 
 2. Build the image and push it to your project's Container Registry. 
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
-IMAGE_NAME=kfp-cli
+IMAGE_NAME=tfx-cli
 TAG=latest
 
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
