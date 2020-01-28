@@ -6,7 +6,7 @@ In this lab you will walk through the configuration and execution of core TFX Co
 
 Using the [Covertype Data Set](https://github.com/jarokaz/mlops-labs/blob/master/datasets/covertype/README.md) you will develop a multi-class classification model that predicts the type of forest cover from cartographic data.
 
-You will work in a Jupyter notebook using TFX Components in an interactive mode to analyze and prepared data, and to train and deploy a TensorFlow model.
+You will work in a Jupyter notebook using TFX Components in an interactive mode to analyze and prepare data, and to train and deploy a TensorFlow model.
 
 
 ## Lab setup
