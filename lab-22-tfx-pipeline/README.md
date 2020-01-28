@@ -118,17 +118,17 @@ After the pipeline has been deployed, you can trigger and monitor pipeline runs 
 
 To submit the pipeline run using **TFX CLI**:
 ```
-tfx run create --pipeline_name online_news_model_training --endpoint $KFP_INVERSE_PROXY_HOST
+tfx run create --pipeline_name tfx_covertype_classifier_training --endpoint $KFP_INVERSE_PROXY_HOST
 ```
 
 To list all the active runs of the pipeline:
 ```
-tfx run list --pipeline_name online_news_model_training --endpoint $KFP_INVERSE_PROXY_HOST
+tfx run list --pipeline_name tfx_covertype_classifier_training --endpoint $KFP_INVERSE_PROXY_HOST
 ```
 
 To retrieve the status of a given run:
 ```
-tfx run status --pipeline_name online_news_model_training --run_id [YOUR_RUN_ID] --endpoint $KFP_INVERSE_PROXY_HOST
+tfx run status --pipeline_name tfx_covertype_classifier_training --run_id [YOUR_RUN_ID] --endpoint $KFP_INVERSE_PROXY_HOST
 ```
  To terminate a run:
  ```
@@ -136,24 +136,3 @@ tfx run status --pipeline_name online_news_model_training --run_id [YOUR_RUN_ID]
  ```
 
 
-### Exercise  4 - Authoring the CI/CD workflow that builds and deploy the KFP training pipeline
-
-In this exercise you review and trigger a **Cloud Build** CI/CD workflow that automates the process of compiling and deploying the KTFX pipeline. The **Cloud Build** configuration uses both standard and custom [Cloud Build builders](https://cloud.google.com/cloud-build/docs/cloud-builders). The custom builder, which you build in the first part of the exercise, encapsulates **TFX CLI**. 
-
-As of version 1.36 of **KFP** there is no support for pipeline versions. It will be added in future releases, with the intial functionality introduced in version 1.37. In the lab, you append the **Cloud Build** `$TAG_NAME` default substitution to the name of the pipeline to designate a pipeline version. When the pipeline versioning features is exposed through **KFP SDK** this exercise will be updated to use the feature.
-
-1. Create a **Cloud Build** custom builder that encapsulates TFX CLI.
-```
-cd cicd/tfx-cli
-./build.sh
-```
-2. Follow the instructor who will walk you through  the Cloud Build configuration in:
-```
-cicd/cloudbuild.yaml
-```
-3. Update the `build_pipeline.sh` script in the `cicd` folder with your KFP inverting proxy host.
-
-4. Manually trigger the CI/CD build:
-```
-./build_pipeline.sh
-```
