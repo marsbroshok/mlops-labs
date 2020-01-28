@@ -1,19 +1,11 @@
 # Orchestrating model training and deployment with TFX and Cloud AI Platform
 
-In this lab you will develop and operationalize a TFX pipeline that uses Kubeflow Pipelines for orchestration and Cloud Dataflow and Cloud AI Platform for data processing, training, and deployment:
-
-1. In Exercise 1, you will review and understand the pipeline's source code - also referred to as the pipeline's DSL.
-
-1. In Exercise 2, you will use **TFX CLI** to deploy the pipeline to KFP environment
-
-1. In Exercise 3, you will use **TFX CLI** and **KFP UI** to submit and monitor pipeline runs.
-
-1. In Exercise 4, you will author a **Cloud Build** CI/CD workflow that automates pipeline deployment.
+In this lab you will develop, deploy and run a TFX pipeline that uses Kubeflow Pipelines for orchestration and Cloud Dataflow and Cloud AI Platform for data processing, training, and deployment:
 
 
 ## Lab scenario
 
-You will be working with a variant of the [Online News Popularity](https://archive.ics.uci.edu/ml/datasets/online+news+popularity) dataset, which summarizes a heterogeneous set of features about articles published by Mashable in a period of two years. The goal is to predict how popular the article will be on social networks. Specifically, in the original dataset the objective was to predict the number of times each article will be shared on social networks. In this variant, the goal is to predict the article's popularity percentile. For example, if the model predicts a score of 0.7, then it means it expects the article to be shared more than 70% of all articles.
+You will be working with the [Covertype Data Set](https://github.com/jarokaz/mlops-labs/blob/master/datasets/covertype/README.md) dataset. 
 
 The pipeline implements a typical TFX workflow as depicted on the below diagram:
 
@@ -26,62 +18,64 @@ The TFX `ExampleGen`, `StatisticsGen`, `ExampleValidator`, `SchemaGen`, `Transfo
 
 ## Lab setup
 
-### AI Platform Notebook configuration
-You will use the **AI Platform Notebooks** instance configured with a custom container image. To prepare the **AI Platform Notebooks** instance:
-
-1. In **Cloud Shell**, navigate to the `lab-00-environment-setup/notebook-images/tf115-tfx015-kfp136` folder.
-2. Build the container image
-```
-./build.sh
-```
-3. Provision the **AI Platform Notebook** instance based on a custom container image, following the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container). In the **Docker container image** field, enter the following image name: `gcr.io/[YOUR_PROJECT_NAME]/tfx-kfp-dev:TF115-TFX015-KFP136`.
-
-4. After the **AI Platform Notebooks** instance is ready, *open JupyterLab*.
-
-5. Open a new terminal in **JupyterLab** and clone this repo under the `home` directory
-```
-cd /home
-git clone https://github.com/jarokaz/mlops-labs.git
-```
 
 ### Lab dataset
-This lab uses the the [Online News Popularity](https://archive.ics.uci.edu/ml/datasets/online+news+popularity) dataset. The pipeline is designed to ingest the dataset from the GCS location inr in the *artifact store* bucket created during the environment setup  - `lab-00-environment-setup`. As you recall, the URI of the *artifact store* bucket created during the setup is `gs://[YOUR_PREFIX]-artifact-store`. To upload the *Online News Popularity* dataset, execute the following command from the *JupyterLab* terminal:
 
-```
-DATA_ROOT_URI=[YOUR_ARTIFACT_STORE_BUCKET_URI]/lab-datasets/online_news
-gsutil cp gs://workshop-datasets/online_news/full/data.csv $DATA_ROOT_URI/data.csv 
-```
+The TFX pipeline in the lab is designed to ingest the *Covertype Data Set* in the CSV format from the GCS location. To prepare for the lab create a GCS bucket in your project and upload the file to a subfolder in the bucket.
 
+1. Create a GCS bucket
+```
+PROJECT_ID=[YOUR_PROJECT_ID]
+BUCKET_NAME=gs://${PROJECT_ID}-staging
+gsutil mb -p $PROJECT_ID $BUCKET_NAME
+```
+2. Upload the *Covertype Data Set* CSV file
+```
+COVERTYPE_GCS_PATH=${BUCKET_NAME}/covertype_dataset/
+gsutil cp gs://workshop-datasets/covertype/full/dataset.csv $COVERTYPE_GCS_PATH
+```
+3. Verify that the file was uploaded 
+```
+gsutil ls $COVERTYPE_GCS_PATH
+```
 
 
 ## Lab Exercises
-### Exercise 1  - Understanding the pipeline's DSL.
 
-Follow the instructor who will walk you through the pipeline's DSL.
+Follow the instructor who will walk you through the lab. The high level summary of the lab flow is as follows:
 
-As described by the instructor, the pipeline in this lab uses a custom docker image that is a derivative of a base `tensorflow/tfx:0.15.0` image from [Docker Hub](https://hub.docker.com/r/tensorflow/tfx). The base `tfx` image includes TFX v0.15 and TensorFlow v2.0. The custom image modifies the base image by downgrading to TensorFlow to v1.15 and adding the `modules` folder with the `transform_train.py` file that contains data transformation and training code used by the pipeline's `Transform` and `Train` components.
+### Understanding the pipeline's DSL.
 
-The pipeline needs to use v1.15 of TensorFlow as AI Platform Prediction service, which is used as a deployment target, does not yet support v2.0 of TensorFlow.
+The pipeline uses a custom docker image, which is a derivative of the [tensorflow/tfx:0.15.0 image](https://hub.docker.com/r/tensorflow/tfx), as a runtime execution environment for the pipeline's components. The same image is also used as a a training image used by **AI Platform Training**
 
-### Exercise 2 - Deploying the pipeline
+The base `tfx` image includes TFX v0.15 and TensorFlow v2.0. The custom image modifies the base image by downgrading to TensorFlow v1.15 and adding the `modules` folder with the `transform_train.py` file that contains data transformation and training code used by the pipeline's `Transform` and `Train` components.
+
+The pipeline needs to use v1.15 of TensorFlow as the AI Platform Prediction service, which is used as a deployment target, does not yet support v2.0 of TensorFlow.
+
+### Building and deploying the pipeline
 You can use **TFX CLI** to compile and deploy the pipeline to the KFP environment. As the pipeline uses the custom image, the first step is to build the image and push it to your project's **Container Registry**. You will use **Cloud Build** to build the image.
 
-First, activate the `tfx` Python environment that hosts TFX and TFX CLI.
+1. Create the Dockerfile describing the custom image
 ```
-source activate tfx
+cat > Dockerfile << EOF
+FROM tensorflow/tfx:0.15.0
+RUN pip install -U tensorflow-serving-api==1.15 tensorflow==1.15
+RUN mkdir modules
+COPY  transform_train.py modules/
+EOF
 ```
 
-To create the image, navigate to the `pipeline-dsl` folder and execute the following commands:
+2. Submit the **Cloud Build** job
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
-IMAGE_NAME=lab-14-tfx-image
+IMAGE_NAME=lab-22-tfx-image
 TAG=latest
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 ```
 
-As explained by the instructor, the pipeline's DSL retrieves the settings controlling how the pipeline is compiled from the environment variables.To set the environment variables and compile and deploy the pipeline using  **TFX CLI**:
+The pipeline's DSL retrieves the settings controlling how the pipeline is compiled from the environment variables.To set the environment variables and compile and deploy the pipeline using  **TFX CLI**:
 
 ```
 export PROJECT_ID=[YOUR_PROJECT_ID]
@@ -90,34 +84,51 @@ export DATA_ROOT_URI=[YOUR_DATA_ROOT_URI]
 export TFX_IMAGE=[YOUR_TFX_IMAGE_URI]
 export KFP_INVERSE_PROXY_HOST=[YOUR_INVERSE_PROXY_HOST]
 
-export PIPELINE_NAME=online_news_model_training
+export PIPELINE_NAME=tfx_covertype_classifier_training
 export GCP_REGION=us-central1
 export RUNTIME_VERSION=1.15
 export PYTHON_VERSION=3.7
 
-
-tfx pipeline create --pipeline_path pipeline_dsl.py --endpoint $KFP_INVERSE_PROXY_HOST
+tfx pipeline create --engine kubeflow --pipeline_path pipeline_dsl.py --endpoint $KFP_INVERSE_PROXY_HOST
 ```
 
-The instructor will walk you through the pipeline package file generated by the compiler and the pipeline deployment on KFP GKE cluster.
+Where 
+- [YOUR_ARTIFACT_STORE_URI] is the URI of the bucket created during the KFP lightweight deployment setup - `lab-02-environment-kfp`.
+- [YOUR_DATA_ROOT_URI] is the GCS location where you uploaded the *Covertype Data Set* CSV file
+- [YOUR_TFX_IMAGE_URI] is the URI of the image you created in the previous step. Make sure to specify a full URI including the tag
+- [YOUR_INVERSE_PROXY_HOST] is the hostname of the inverse proxy to your KFP installation. Recall that you can retrieve the inverse proxy hostname using the below command
 
-### Exercise 3 - Submitting and monitoring pipeline runs
+```
+gcloud container clusters get-credentials [YOUR_GKE_CLUSTER] --zone [YOUR_ZONE]
+kubectl describe configmap inverse-proxy-config -n [YOUR_NAMESPACE] | grep "googleusercontent.com"
+```
 
-After the pipeline has been deployed, you can trigger and monitor pipeline runs using **TFX CLI** and/or **KFP UI**.
+The `tfx pipeline create` command compiled the pipeline's DSL into the KFP package file - `tfx_covertype_classifier_training.tar.gz`. The package file contains the description of the pipeline in the YAML format. If you want to examine the file, extract from the tarball file and use the JupyterLab editor.
+
+```
+tar xvf tfx_covertype_classifier_training.tar.gz
+```
+
+The name of the extracted file is `pipeline.yaml`.
+
+
+### Submitting and monitoring pipeline runs
+
+After the pipeline has been deployed, you can trigger and monitor pipeline runs using **TFX CLI** or **KFP UI**.
 
 To submit the pipeline run using **TFX CLI**:
 ```
-tfx run create --pipeline_name online_news_model_training --endpoint $KFP_INVERSE_PROXY_HOST
+tfx run create --pipeline_name tfx_covertype_classifier_training --endpoint $KFP_INVERSE_PROXY_HOST
 ```
 
 To list all the active runs of the pipeline:
 ```
-tfx run list --pipeline_name online_news_model_training --endpoint $KFP_INVERSE_PROXY_HOST
+tfx run list --pipeline_name tfx_covertype_classifier_training --endpoint $KFP_INVERSE_PROXY_HOST
 ```
 
 To retrieve the status of a given run:
 ```
-tfx run status --pipeline_name online_news_model_training --run_id [YOUR_RUN_ID] --endpoint $KFP_INVERSE_PROXY_HOST
+tfx run status --pipeline_name tfx_covertype_classifier_training --run_id [YOUR_RUN_ID] --endpoint $KFP_INVERSE_PROXY_HOST
 ```
  To terminate a run:
  ```
@@ -125,24 +136,3 @@ tfx run status --pipeline_name online_news_model_training --run_id [YOUR_RUN_ID]
  ```
 
 
-### Exercise  4 - Authoring the CI/CD workflow that builds and deploy the KFP training pipeline
-
-In this exercise you review and trigger a **Cloud Build** CI/CD workflow that automates the process of compiling and deploying the KTFX pipeline. The **Cloud Build** configuration uses both standard and custom [Cloud Build builders](https://cloud.google.com/cloud-build/docs/cloud-builders). The custom builder, which you build in the first part of the exercise, encapsulates **TFX CLI**. 
-
-As of version 1.36 of **KFP** there is no support for pipeline versions. It will be added in future releases, with the intial functionality introduced in version 1.37. In the lab, you append the **Cloud Build** `$TAG_NAME` default substitution to the name of the pipeline to designate a pipeline version. When the pipeline versioning features is exposed through **KFP SDK** this exercise will be updated to use the feature.
-
-1. Create a **Cloud Build** custom builder that encapsulates TFX CLI.
-```
-cd cicd/tfx-cli
-./build.sh
-```
-2. Follow the instructor who will walk you through  the Cloud Build configuration in:
-```
-cicd/cloudbuild.yaml
-```
-3. Update the `build_pipeline.sh` script in the `cicd` folder with your KFP inverting proxy host.
-
-4. Manually trigger the CI/CD build:
-```
-./build_pipeline.sh
-```

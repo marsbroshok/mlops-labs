@@ -44,7 +44,7 @@ from typing import Dict, List, Text
 from use_mysql_secret import use_mysql_secret
 from kfp import gcp
 
-def _create_online_news_pipeline(
+def _create__pipeline(
     pipeline_name: Text, 
     pipeline_root: Text, 
     data_root: Text,
@@ -183,7 +183,7 @@ if __name__ == '__main__':
   _module_file = 'modules/transform_train.py'
   _pipeline_root = '{}/{}'.format(_artifact_store_uri, _pipeline_name)
   kubeflow_dag_runner.KubeflowDagRunner(config=runner_config).run(
-      _create_online_news_pipeline(
+      _create__pipeline(
           pipeline_name=_pipeline_name,
           pipeline_root=_pipeline_root,
           data_root=_gcs_data_root_uri,
