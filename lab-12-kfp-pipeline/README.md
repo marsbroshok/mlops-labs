@@ -207,7 +207,7 @@ where
 - EXPERIMENT_NAME is set to the experiment used to run the pipeline. You can choose any name you want. If the experiment does not exist it will be created by the command
 - RUN_ID is the name of the run. You can use an arbitrary name
 - PIPELINE_ID is the id of your pipeline. Use the value retrieved by the   `kfp pipeline list` command
-- GCS_STAGING_BUCKET is the GCS bucket used by the pipeline to store intermediate files. Use the bucket created during the lab setup
+- GCS_STAGING_BUCKET is the GCS bucket used by the pipeline to store intermediate files. Use the bucket created during the lab setup. Make sure to specify a full URI starting with`gs://`.
 - REGION is the compute region for AI Platform Training and Prediction. We recommend using the same region where your KFP environment is deployed.
 
 You should be already familiar with these and other parameters passed to the command. If not go back and review the pipeline code.
