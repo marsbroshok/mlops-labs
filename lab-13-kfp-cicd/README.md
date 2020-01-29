@@ -18,7 +18,7 @@ This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipe
 
 1. Open new terminal in you **JupyterLab**
 
-2. Create the BigQuery dataset and upload the `covertype.csv` file.
+2. Create the BigQuery dataset and upload the Cover Type CSV file.
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
 DATASET_LOCATION=US
