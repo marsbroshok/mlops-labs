@@ -33,7 +33,7 @@ This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipe
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
 DATASET_LOCATION=US
-DATASET_ID=lab_11
+DATASET_ID=lab_12
 TABLE_ID=covertype
 DATA_SOURCE=gs://workshop-datasets/covertype/full/dataset.csv
 SCHEMA=Elevation:INTEGER,\
@@ -178,7 +178,7 @@ INVERSE_PROXY_HOSTNAME=[YOUR_INVERSE_PROXY_HOSTNAME]
 
 EXPERIMENT_NAME=Covertype_Classifier_Training
 RUN_ID=Run_001
-SOURCE_TABLE=lab_11.covertype
+SOURCE_TABLE=lab_12.covertype
 DATASET_ID=splits
 EVALUATION_METRIC=accuracy
 EVALUATION_METRIC_THRESHOLD=0.69
