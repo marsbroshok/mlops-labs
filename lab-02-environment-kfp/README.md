@@ -20,7 +20,48 @@ In this lab, you will provision a lightweight deployment of **Kubeflow Pipelines
 
 Since other services are configured in the `lab-01-environment-notebook` lab you need to complete that lab before proceeding.
 
+## Enabling the required cloud services
 
+In addition to the [services enabled by default](https://cloud.google.com/service-usage/docs/enabled-service), the following additional services must be enabled in the project hosting an MLOps environment:
+
+1. Compute Engine
+1. Container Registry
+1. AI Platform Training and Prediction
+1. IAM
+1. Dataflow
+1. Kubernetes Engine
+1. Cloud SQL
+1. Cloud SQL Admin
+1. Cloud Build
+1. Cloud Resource Manager
+
+If you completed `lab-01-environment-notebook` the service are already enabled so you can skip to the next section.
+
+Use [GCP Console](https://console.cloud.google.com/) or `gcloud` command line interface in [Cloud Shell](https://cloud.google.com/shell/docs/) to [enable the required services](https://cloud.google.com/service-usage/docs/enable-disable) . 
+
+To enable the required services using `gcloud`:
+1. Start GCP [Cloud Shell](https://cloud.google.com/shell/docs/)
+
+2. Execute the below command.
+```
+PROJECT_ID=[YOUR_PROJECT_ID]
+
+gcloud config set project $PROJECT_ID
+
+gcloud services enable \
+cloudbuild.googleapis.com \
+container.googleapis.com \
+cloudresourcemanager.googleapis.com \
+iam.googleapis.com \
+containerregistry.googleapis.com \
+containeranalysis.googleapis.com \
+ml.googleapis.com \
+sqladmin.googleapis.com \
+dataflow.googleapis.com \
+automl.googleapis.com
+```
+
+3. After the services are enabled, [grant the Cloud Build service account the Project Editor role](https://cloud.google.com/cloud-build/docs/securing-builds/set-service-account-permissions).
 
 ## Deploying Kubeflow Pipelines 
 
