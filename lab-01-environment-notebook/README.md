@@ -44,7 +44,6 @@ To enable the required services using `gcloud`:
 2. Execute the below command.
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
-
 gcloud config set project $PROJECT_ID
 
 gcloud services enable \
@@ -94,6 +93,7 @@ EOF
 
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
+gcloud config set project $PROJECT_ID
 
 IMAGE_NAME=mlops-dev
 TAG=TF115-TFX015-KFP136
