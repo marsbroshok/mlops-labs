@@ -46,7 +46,6 @@ To enable the required services using `gcloud`:
 PROJECT_ID=[YOUR_PROJECT_ID]
 
 gcloud config set project $PROJECT_ID
-
 gcloud services enable \
 cloudbuild.googleapis.com \
 container.googleapis.com \
@@ -83,12 +82,6 @@ cd lab-workspace
 cat > Dockerfile << EOF
 FROM gcr.io/deeplearning-platform-release/tf-cpu.1-15:m39
 RUN apt-get update -y && apt-get -y install kubectl
-RUN cd /usr/local/bin \
-&& wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.3.0/kustomize_v3.3.0_linux_amd64.tar.gz \
-&& tar xvf kustomize_v3.3.0_linux_amd64.tar.gz \
-&& rm kustomize_v3.3.0_linux_amd64.tar.gz \
-&& wget https://releases.hashicorp.com/terraform/0.12.19/terraform_0.12.19_linux_amd64.zip \
-&& unzip terraform_0.12.19_linux_amd64.zip
 RUN pip install -U six==1.12 apache-beam==2.16 pyarrow==0.14.0 tfx-bsl==0.15.1 \
 && pip install -U tfx==0.15 \
 && pip install -U tensorboard \
@@ -101,10 +94,10 @@ EOF
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
 
+gcloud config set project $PROJECT_ID
 IMAGE_NAME=mlops-dev
 TAG=TF115-TFX015-KFP136
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
-
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 ```
 
@@ -113,14 +106,6 @@ gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 To provision an instance of **AI Platform Notebooks** using the custom image, follow the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container). In the **Docker container image** field, enter the full name of the image (including the tag) you created in the previous step.
 
 
-### Assigning roles to the default Compute Engine account
-
-When using the instance, the GCP services are accessed using the [Compute Engine default service account](https://cloud.google.com/compute/docs/access/service-accounts). For the labs to work this account needs to have **Project/Editor**, **Kubernetes Engine/Kubernetes Engine Admin**, and **IAM/Security Admin** permissions in your project. The **Project/Editor** role is granted to the account by default.
-
-To grant the **IAM/Security Admin** and **Kubernetes Engine/Kubernetes Engine Admin** roles follow these [instructions](https://cloud.google.com/iam/docs/granting-roles-to-service-accounts). Recall that your projects' **Compute Engine default service account** is
-```
-[PROJECT_NUMBER]-compute@developer.gserviceaccount.com
-```
 
 ### Accessing JupyterLab IDE
 
