@@ -76,7 +76,7 @@ cd lab-01-workspace
 3. Create Dockerfile 
 ```
 cat > Dockerfile << EOF
-FROM gcr.io/deeplearning-platform-release/tf-cpu.1-15
+FROM gcr.io/deeplearning-platform-release/tf-cpu.1-15:m39
 RUN apt-get update -y && apt-get -y install kubectl
 RUN cd /usr/local/bin \
 && wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.3.0/kustomize_v3.3.0_linux_amd64.tar.gz \
