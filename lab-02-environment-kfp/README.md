@@ -18,8 +18,6 @@ The core services in the environment are:
 
 In this lab, you will provision a lightweight deployment of **Kubeflow Pipelines**. 
 
-Since other services are configured in the `lab-01-environment-notebook` lab you need to complete that lab before proceeding.
-
 ## Enabling the required cloud services
 
 In addition to the [services enabled by default](https://cloud.google.com/service-usage/docs/enabled-service), the following additional services must be enabled in the project hosting an MLOps environment:
