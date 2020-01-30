@@ -59,13 +59,10 @@ The above command installs **Kustomize** to the `bin` folder in your home direct
 
 ### Deploying infrastructure services to host Kubeflow Pipelines
 
-1. Connect to **JupyterLab** on the **AI Platform Notebooks** instance created in the `lab-01-environment-notebook` lab.
 
-2. Open the **JupyterLab** terminal
-
-3. Clone this repo under the `home` folder.
+1. Clone this repo under the `home` folder.
 ```
-cd /home
+cd 
 git clone https://github.com/jarokaz/mlops-labs.git
 cd mlops-labs/lab-02-environment-kfp
 ```
