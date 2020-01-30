@@ -72,8 +72,8 @@ You will use a custom container image configured for KFP/TFX development as an e
 2. Create a working folder in your `home` directory
 ```
 cd
-mkdir lab-01-workspace
-cd lab-01-workspace
+mkdir lab-workspace
+cd lab-workspace
 ```
 
 3. Create Dockerfile 
