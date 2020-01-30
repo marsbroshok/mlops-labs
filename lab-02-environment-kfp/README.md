@@ -87,7 +87,7 @@ Where:
 - `[NAMESPACE]` - the namespace to host KFP components
 - `[SQL_PASSWORD]` - the password for the Cloud SQL `root` user
 
-*Note: The `deploy-kfp.sh` script does not allow you to specify a SQL username. The reason is that in the current versions of KFP the SQL username must be `root`*.
+*Note: The `deploy-kfp.sh` script does not allow you to specify a SQL username. The reason is that in the 1.36 versions of KFP the SQL username must be `root`*.
 
 ## Accessing KFP UI
 
