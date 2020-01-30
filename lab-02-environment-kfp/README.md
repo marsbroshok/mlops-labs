@@ -37,7 +37,7 @@ The environment includes:
 The KFP services are deployed to the GKE cluster and configured to use the Cloud SQL managed MySQL instance. The KFP services access the Cloud SQL through [Cloud SQL Proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy). External clients use [Inverting Proxy](https://github.com/google/inverting-proxy) to interact with the KFP services.
 
 
-*The current versions of the labs have been tested with Kubeflow Pipelines v1.36. KFP v1.37, v1.38, v1.39 introduced [the issue](https://github.com/kubeflow/pipelines/issues/2764) that causes some labs to fail. After the issue is addressed we will update the setup to utilize the newer version of KFP.*
+*The current versions of the labs have been tested with Kubeflow Pipelines 0.1.36. KFP 0.1.37, 0.1.38, 0.1.39 introduced [the issue](https://github.com/kubeflow/pipelines/issues/2764) that causes some labs to fail. After the issue is addressed we will update the setup to utilize the newer version of KFP.*
 
 Provisioning of the environment has been broken into two steps. In the first step you provision and configure core infrastructure services required to host **Kubeflow Pipelines**, including GKE, Cloud SQL and Cloud Storage. In the second step you deploy and configure **Kubeflow Pipelines**.
 
@@ -87,7 +87,7 @@ Where:
 - `[NAMESPACE]` - the namespace to host KFP components
 - `[SQL_PASSWORD]` - the password for the Cloud SQL `root` user
 
-*Note: The `deploy-kfp.sh` script does not allow you to specify a SQL username. The reason is that in the 1.36 versions of KFP the SQL username must be `root`*.
+*Note: The `deploy-kfp.sh` script does not allow you to specify a SQL username. The reason is that in the 0.1.36 versions of KFP the SQL username must be `root`*.
 
 ## Accessing KFP UI
 
