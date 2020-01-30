@@ -24,7 +24,7 @@ Since other services are configured in the `lab-01-environment-notebook` lab you
 
 ## Deploying Kubeflow Pipelines 
 
-The below diagrame shows an MVP environment for a lightweight deployment of Kubeflow Pipelines on GCP:
+The below diagram shows an MVP environment for a lightweight deployment of Kubeflow Pipelines on GCP:
 
 ![KFP Deployment](/images/kfp.png)
 
