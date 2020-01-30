@@ -21,27 +21,6 @@ The TFX `ExampleGen`, `StatisticsGen`, `ExampleValidator`, `SchemaGen`, `Transfo
 ### AI Platform Notebook and KFP environment
 Before proceeding with the lab, you must set up an **AI Platform Notebooks** instance and a **KFP** environment as detailed in lab-01-environment-notebook and lab-02-environment-kfp
 
-### Lab dataset
-
-The TFX pipeline in the lab is designed to ingest the *Covertype Data Set* in the CSV format from the GCS location. To prepare for the lab create a GCS bucket in your project and upload the file to a subfolder in the bucket.
-
-1. Create a GCS bucket
-```
-PROJECT_ID=[YOUR_PROJECT_ID]
-BUCKET_NAME=gs://${PROJECT_ID}-staging
-gsutil mb -p $PROJECT_ID $BUCKET_NAME
-```
-2. Upload the *Covertype Data Set* CSV file
-```
-COVERTYPE_GCS_PATH=${BUCKET_NAME}/covertype_dataset/
-gsutil cp gs://workshop-datasets/covertype/full/dataset.csv $COVERTYPE_GCS_PATH
-```
-3. Verify that the file was uploaded 
-```
-gsutil ls $COVERTYPE_GCS_PATH
-```
-
-
 ## Lab Exercises
 
 Follow the instructor who will walk you through the lab. The high level summary of the lab flow is as follows:
@@ -70,7 +49,7 @@ EOF
 2. Submit the **Cloud Build** job
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
-IMAGE_NAME=lab-22-tfx-image
+IMAGE_NAME=tfx-image
 TAG=latest
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
@@ -82,10 +61,10 @@ The pipeline's DSL retrieves the settings controlling how the pipeline is compil
 ```
 export PROJECT_ID=[YOUR_PROJECT_ID]
 export ARTIFACT_STORE_URI=[YOUR_ARTIFACT_STORE_URI]
-export DATA_ROOT_URI=[YOUR_DATA_ROOT_URI]
 export TFX_IMAGE=[YOUR_TFX_IMAGE_URI]
 export KFP_INVERSE_PROXY_HOST=[YOUR_INVERSE_PROXY_HOST]
 
+export DATA_ROOT_URI=gs://workshop-datasets/covertype/full
 export PIPELINE_NAME=tfx_covertype_classifier_training
 export GCP_REGION=us-central1
 export RUNTIME_VERSION=1.15
