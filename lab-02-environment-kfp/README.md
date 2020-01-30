@@ -43,9 +43,18 @@ Provisioning of the environment has been broken into two steps. In the first ste
 
 The provisioning of the infrastructure components  has been automated with [Terraform](https://www.terraform.io/).  The Terraform HCL configurations can be found in the [terraform folder](terraform). The deployment of **Kubeflow Pipelines** is facilitated with [Kustomize](https://kustomize.io/). The Kustomize overlays are in the [kustomize folder](kustomize).
 
-Both **Terraform** and **Kustomize** are part of the custom container image used by your **AI Platform Notebook** instance.
+You will run provisioning scripts using **Cloud Shell**. 
 
+**Terraform** is pre-installed in **Cloud Shell**. Before running the scripts you need to install **Kustomize**.
 
+To install **Kustomize** in **Cloud Shell**:
+```
+cd /usr/local/bin
+wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.3.0/kustomize_v3.3.0_linux_amd64.tar.gz
+tar xvf kustomize_v3.3.0_linux_amd64.tar.gz
+```
+
+*Note that the `/usr/local/bin` folder will be reset when you exit **Cloud Shell**.*
 
 ### Deploying infrastructure services to host Kubeflow Pipelines
 
