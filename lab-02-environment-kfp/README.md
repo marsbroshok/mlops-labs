@@ -53,6 +53,7 @@ cd ~/bin
 wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.3.0/kustomize_v3.3.0_linux_amd64.tar.gz
 tar xvf kustomize_v3.3.0_linux_amd64.tar.gz
 rm kustomize_v3.3.0_linux_amd64.tar.gz
+cd
 ```
 The above command installs **Kustomize** to the `bin` folder in your home directory, which by default is on the `PATH`. **Kustomzie** is a single executable. If you don't need it anymore you can delete the file.
 
