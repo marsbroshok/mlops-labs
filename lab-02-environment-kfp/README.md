@@ -94,7 +94,7 @@ sudo tar xvf kustomize_v3.3.0_linux_amd64.tar.gz
 sudo rm kustomize_v3.3.0_linux_amd64.tar.gz
 cd
 ```
-The above command installs **Kustomize** to the `/usr/local/bin` folder, which by default is on the `PATH`. **Kustomzie** is a single executable. Note that this folder will be reset if you disconnect from **Cloud Shell**. 
+The above command installs **Kustomize** to the `/usr/local/bin` folder, which by default is on the `PATH`. **Kustomize** is a single executable. Note that this folder will be reset if you disconnect from **Cloud Shell**. 
 
 ### Deploying infrastructure services to host Kubeflow Pipelines
 
