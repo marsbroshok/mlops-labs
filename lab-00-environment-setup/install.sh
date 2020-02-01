@@ -28,14 +28,14 @@ ZONE=${4:-us-central1-a}
 # Enable services
 echo INFO: Enabling required services
 
-gcloud services enable \
-cloudbuild.googleapis.com \
-container.googleapis.com \
-cloudresourcemanager.googleapis.com \
-iam.googleapis.com \
-containerregistry.googleapis.com \
-containeranalysis.googleapis.com \
-ml.googleapis.com 
+#gcloud services enable \
+#cloudbuild.googleapis.com \
+#container.googleapis.com \
+#cloudresourcemanager.googleapis.com \
+#iam.googleapis.com \
+#containerregistry.googleapis.com \
+#containeranalysis.googleapis.com \
+#ml.googleapis.com 
 
 if [ $? -eq 0 ]; then
     echo INFO: Required services enabled
@@ -49,12 +49,15 @@ pushd terraform
 # Start terraform build
 echo INFO: Starting Terraform config
 
+NOTEBOOK_IMAGE=gcr.io/mlops-workshop/mlops-dev:TF115-TFX015-KFP136
+
 terraform init
 terraform apply  \
 -var "project_id=$PROJECT_ID" \
 -var "region=$REGION" \
 -var "zone=$ZONE" \
--var "name_prefix=$NAME_PREFIX"
+-var "name_prefix=$NAME_PREFIX" \
+-var "notebook_image=$NOTEBOOK_IMAGE"
 
 popd
 
