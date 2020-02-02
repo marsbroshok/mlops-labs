@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Provision infrastructure to host KFP components
+# Provision KFP environment
 
 # Set up a global error handler
 err_handler() {
@@ -85,8 +85,7 @@ else
     --metadata=$METADATA
 fi
 
-
-### Configure KPF infrastructure
+# Configure KFP infrastructure
 pushd terraform
 
 # Start terraform build
