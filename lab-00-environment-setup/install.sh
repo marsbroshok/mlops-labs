@@ -32,18 +32,23 @@ if [[ $# < 2 ]]; then
   exit 1
 fi
 
+# Set script constants
+
 PROJECT_ID=${1}
 NAME_PREFIX=${2}
 REGION=${3:-us-central1} 
 ZONE=${4:-us-central1-a}
 NAMESPACE=${5:-kubeflow}
 
+IMAGE_NAME=mlops-labs-image
+TAG=TF115-TFX015-KFP136
+IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
+
 INSTANCE_NAME=${NAME_PREFIX}-notebook
 IMAGE_FAMILY="common-container"
 IMAGE_PROJECT="deeplearning-platform-release"
 INSTANCE_TYPE="n1-standard-4"
-CONTAINER_IMAGE="gcr.io/mlops-workshop/mlops-dev:TF115-TFX015-KFP136"
-METADATA="proxy-mode=service_account,container=$CONTAINER_IMAGE"
+METADATA="proxy-mode=service_account,container=$IMAGE_URI"
 
 SQL_USERNAME=root
 
@@ -52,16 +57,20 @@ echo INFO: Enabling required services
 
 gcloud config set project $PROJECT_ID
 
-#gcloud services enable \
-#cloudbuild.googleapis.com \
-#container.googleapis.com \
-#cloudresourcemanager.googleapis.com \
-#iam.googleapis.com \
-#containerregistry.googleapis.com \
-#containeranalysis.googleapis.com \
-#ml.googleapis.com 
+gcloud services enable \
+cloudbuild.googleapis.com \
+container.googleapis.com \
+cloudresourcemanager.googleapis.com \
+iam.googleapis.com \
+containerregistry.googleapis.com \
+containeranalysis.googleapis.com \
+ml.googleapis.com 
 
 echo INFO: Required services enabled
+
+# Build AI Platform Notebook image
+echo INFO: Building AI Platform Notebooks container image: $IMAGE_URI
+gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 
 # Provision an AI Platform Notebook instance
 
