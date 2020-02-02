@@ -15,6 +15,18 @@
 
 # Provision infrastructure to host KFP components
 
+# Set up a global error handler
+err_handler() {
+    echo "Error on line: $1"
+    echo "Caused by: $2"
+    echo "That returned exit status: $3"
+    echo "Aborting..."
+    exit $3
+}
+
+trap 'err_handler "$LINENO" "$BASH_COMMAND" "$?"' ERR
+
+# Check command line parameters
 if [[ $# < 2 ]]; then
   echo 'USAGE:  ./install.sh PROJECT_ID NAME_PREFIX [REGION=us-central1] [ZONE=us-central1-a] [NAMESPACE=kubeflow]'
   exit 1
@@ -49,11 +61,7 @@ gcloud config set project $PROJECT_ID
 #containeranalysis.googleapis.com \
 #ml.googleapis.com 
 
-if [ $? -eq 0 ]; then
-    echo INFO: Required services enabled
-else
-    exit $?
-fi
+echo INFO: Required services enabled
 
 # Provision an AI Platform Notebook instance
 
@@ -77,15 +85,12 @@ else
     --metadata=$METADATA
 fi
 
-if [ $? -ne 0 ]; then
-    exit $?
-fi
 
 ### Configure KPF infrastructure
 pushd terraform
 
 # Start terraform build
-echo INFO: Starting Terraform 
+echo INFO: Provisioning KFP infrastructure 
 
 terraform init
 terraform apply  \
@@ -95,14 +100,11 @@ terraform apply  \
 -var "zone=$ZONE" \
 -var "name_prefix=$NAME_PREFIX" 
 
-if [ $? -eq 0 ]; then
-    echo INFO: Terraform config completed successfully
-else
-    exit $?
-fi
+echo INFO: KFP infrastructure provisioned successfully
 
 # Deploy KFP
-# Retrieve resource names
+echo INFO: Deploying KFP to ${NAME_PREFIX}-cluster GKE cluster
+
 CLUSTER_NAME=$(terraform output cluster_name)
 KFP_SA_EMAIL=$(terraform output kfp_sa_email)
 SQL_INSTANCE_NAME=$(terraform output sql_name)
@@ -138,6 +140,11 @@ EOF
 kustomize build . | kubectl apply -f -
 
 popd
+
+echo INFO: KFP deployed successfully
+echo INFO: Sleeping for 120 seconds to allow for KFP services to start
+
+sleep 120
 
 echo INFO: KFP UI can be accessed at the below URI:
 echo "https://"$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
