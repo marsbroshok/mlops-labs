@@ -28,6 +28,8 @@ ZONE=${4:-us-central1-a}
 # Enable services
 echo INFO: Enabling required services
 
+gcloud config set project $PROJECT_ID
+
 #gcloud services enable \
 #cloudbuild.googleapis.com \
 #container.googleapis.com \
@@ -43,21 +45,51 @@ else
     exit $?
 fi
 
+# Provision an AI Platform Notebook instance
+
+INSTANCE_NAME=${NAME_PREFIX}-notebook
+
+
+if [ $(gcloud compute instances list --filter="name=$INSTANCE_NAME" --zones $ZONE --format="value(name)") ]; then
+    echo INFO: Instance $INSTANCE_NAME exists in $ZONE. Skipping provisioning
+else
+    echo INFO: Starting provisioning of $INSTANCE_NAME in $ZONE
+
+    IMAGE_FAMILY="common-container"
+    IMAGE_PROJECT="deeplearning-platform-release"
+    INSTANCE_TYPE="n1-standard-4"
+    CONTAINER_IMAGE="gcr.io/mlops-workshop/mlops-dev:TF115-TFX015-KFP136"
+    METADATA="proxy-mode=service_account,container=$CONTAINER_IMAGE"
+
+    gcloud compute instances create $INSTANCE_NAME \
+    --zone=$ZONE \
+    --image-family=$IMAGE_FAMILY \
+    --machine-type=$INSTANCE_TYPE \
+    --image-project=$IMAGE_PROJECT \
+    --maintenance-policy=TERMINATE \
+    --boot-disk-device-name=$INSTANCE_NAME-disk \
+    --boot-disk-size=500GB \
+    --boot-disk-type=pd-ssd \
+    --scopes=cloud-platform,userinfo-email \
+    --metadata=$METADATA
+fi
+
+if [ $? -ne 0 ]; then
+    exit $?
+fi
+
 ### Configure KPF infrastructure
 pushd terraform
 
 # Start terraform build
-echo INFO: Starting Terraform config
-
-NOTEBOOK_IMAGE=gcr.io/mlops-workshop/mlops-dev:TF115-TFX015-KFP136
+echo INFO: Starting Terraform 
 
 terraform init
 terraform apply  \
 -var "project_id=$PROJECT_ID" \
 -var "region=$REGION" \
 -var "zone=$ZONE" \
--var "name_prefix=$NAME_PREFIX" \
--var "notebook_image=$NOTEBOOK_IMAGE"
+-var "name_prefix=$NAME_PREFIX" 
 
 popd
 

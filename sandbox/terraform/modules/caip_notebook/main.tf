@@ -1,9 +1,10 @@
 # Create an AI Platform Notebooks instance 
 
 resource "google_compute_instance" "caip_notebook" {
-  name               = var.name
-  zone               = var.zone
-  machine_type       = var.machine_type
+  name                      = var.name
+  zone                      = var.zone
+  machine_type              = var.machine_type
+  allow_stopping_for_update = true
   
   network_interface {
       network = "default"
@@ -18,21 +19,19 @@ resource "google_compute_instance" "caip_notebook" {
 
   service_account {
     scopes = [
-        "https://www.googleapis.com/auth/cloud-platform",
-        "https://www.googleapis.com/auth/userinfo.email"
+        "cloud-platform"
     ]
   }
 
   metadata = {
-      proxy_mode = "service_account",
-      container = var.container_image
+      proxy_mode = "project_editors"
+ #     container  = var.container_image
   }
 
   boot_disk {
       auto_delete  = true
       initialize_params {
-          image = var.base_vm_image
+          image = "deeplearning-platform-release/tf-1-15-cpu"
     }
   }
-
 }

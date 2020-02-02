@@ -17,7 +17,3 @@ variable "container_image" {
     description = "The custom container image for the instance"
 }
 
-variable "base_vm_image" {
-    description = "The base image for the VM hosting the CAIP instance"
-    default = "https://www.googleapis.com/compute/v1/projects/deeplearning-platform-release/global/images/family/common-container"
-}

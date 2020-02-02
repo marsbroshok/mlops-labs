@@ -63,10 +63,12 @@ resource "google_storage_bucket" "artifact_store" {
 }
 
 # Create a CAIP Notebook instance
-module "caip_notebook" {
-  source          = "./modules/caip_notebook"
-  name            = "${var.name_prefix}-notebook"
-  zone            = var.zone
-  machine_type    = var.notebook_machine_type
-  container_image = var.notebook_image
-}
+# There are issues with provisioning AI Platform Notebook using Terraform
+# As a mitigation we provision the instance using gcloud in install.sh
+#module "caip_notebook" {
+#  source          = "./modules/caip_notebook"
+#  name            = "${var.name_prefix}-notebook"
+#  zone            = var.zone
+#  machine_type    = var.notebook_machine_type
+#  container_image = var.notebook_image
+#}

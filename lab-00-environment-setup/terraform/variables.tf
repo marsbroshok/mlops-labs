@@ -32,9 +32,9 @@ variable "notebook_machine_type" {
     default     = "n1-standard-4"
 }
 
-variable "notebook_image" {
-    description = "The container image for AI Platform notebook instance"
-}
+#variable "notebook_image" {
+#    description = "The container image for AI Platform notebook instance"
+#}
 
 variable "gke_service_account_roles" {
   description = "The roles to assign to the GKE service account"
