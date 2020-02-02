@@ -15,6 +15,30 @@
 
 # Destory KFP environment
 
+if [[ $# < 2 ]]; then
+  echo 'USAGE:  ./destroy.sh PROJECT_ID NAME_PREFIX [REGION=us-central1] [ZONE=us-central1-a]'
+  exit 1
+fi
+
+PROJECT_ID=${1}
+NAME_PREFIX=${2}
+REGION=${3:-us-central1} 
+ZONE=${4:-us-central1-a}
+
+INSTANCE_NAME=${NAME_PREFIX}-notebook
+
+if [ $(gcloud compute instances list --filter="name=$INSTANCE_NAME" --zones $ZONE --format="value(name)") ]; then
+    echo INFO: Instance $INSTANCE_NAME exists in $ZONE. Destroying ...
+    gcloud compute instances delete $INSTANCE_NAME --zone $ZONE
+else
+    echo INFO: No $INSTANCE_NAME instance in $ZONE
+fi
+
+echo INFO: Starting Terraform destroy
 pushd terraform
-terraform destroy 
+terraform destroy \
+-var "project_id=$PROJECT_ID" \
+-var "region=$REGION" \
+-var "zone=$ZONE" \
+-var "name_prefix=$NAME_PREFIX" 
 popd
