@@ -10,60 +10,15 @@ The core services in the environment are:
 - AI Platform Prediction - scalable, serverless model serving
 - Dataflow - distributed data processing
 - BigQuery - analytics data warehouse
-- Cloud Storage - unified object storage
+- Cloud Storage - unified object storage used to manage artifact store
 - TensorFlow Extended/Kubeflow Pipelines (TFX/KFP) - machine learning pipelines
 - Cloud SQL - machine learning metadata  management
 - Cloud Build - CI/CD
     
 
-In this lab, you will provision a lightweight deployment of **Kubeflow Pipelines**. 
+In the lab environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). 
 
-## Enabling the required cloud services
-
-In addition to the [services enabled by default](https://cloud.google.com/service-usage/docs/enabled-service), the following additional services must be enabled in the project hosting an MLOps environment:
-
-1. Compute Engine
-1. Container Registry
-1. AI Platform Training and Prediction
-1. IAM
-1. Dataflow
-1. Kubernetes Engine
-1. Cloud SQL
-1. Cloud SQL Admin
-1. Cloud Build
-1. Cloud Resource Manager
-
-If you completed `lab-01-environment-notebook` the service are already enabled so you can skip to the next section.
-
-Use [GCP Console](https://console.cloud.google.com/) or `gcloud` command line interface in [Cloud Shell](https://cloud.google.com/shell/docs/) to [enable the required services](https://cloud.google.com/service-usage/docs/enable-disable) . 
-
-To enable the required services using `gcloud`:
-1. Start GCP [Cloud Shell](https://cloud.google.com/shell/docs/)
-
-2. Execute the below command.
-```
-PROJECT_ID=[YOUR_PROJECT_ID]
-
-gcloud config set project $PROJECT_ID
-
-gcloud services enable \
-cloudbuild.googleapis.com \
-container.googleapis.com \
-cloudresourcemanager.googleapis.com \
-iam.googleapis.com \
-containerregistry.googleapis.com \
-containeranalysis.googleapis.com \
-ml.googleapis.com \
-sqladmin.googleapis.com \
-dataflow.googleapis.com \
-automl.googleapis.com
-```
-
-3. After the services are enabled, [grant the Cloud Build service account the Project Editor role](https://cloud.google.com/cloud-build/docs/securing-builds/set-service-account-permissions).
-
-## Deploying Kubeflow Pipelines 
-
-The below diagram shows an MVP environment for a lightweight deployment of Kubeflow Pipelines on GCP:
+The below diagram drills down to the lightweight deployment of Kubeflow Pipelines on GKE:
 
 ![KFP Deployment](/images/kfp.png)
 
@@ -75,8 +30,9 @@ The environment includes:
 
 The KFP services are deployed to the GKE cluster and configured to use the Cloud SQL managed MySQL instance. The KFP services access the Cloud SQL through [Cloud SQL Proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy). External clients use [Inverting Proxy](https://github.com/google/inverting-proxy) to interact with the KFP services.
 
-
 *The current versions of the labs have been tested with Kubeflow Pipelines 0.1.36. KFP 0.1.37, 0.1.38, 0.1.39 introduced [the issue](https://github.com/kubeflow/pipelines/issues/2764) that causes some labs to fail. After the issue is addressed we will update the setup to utilize the newer version of KFP.*
+
+## Provisioning the lab environment
 
 Provisioning of the environment has been broken into two steps. In the first step you provision and configure core infrastructure services required to host **Kubeflow Pipelines**, including GKE, Cloud SQL and Cloud Storage. In the second step you deploy and configure **Kubeflow Pipelines**.
 
