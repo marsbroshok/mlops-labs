@@ -56,6 +56,7 @@ SQL_USERNAME=root
 echo INFO: Enabling required services
 
 gcloud config set project $PROJECT_ID
+
 gcloud services enable \
 cloudbuild.googleapis.com \
 container.googleapis.com \
