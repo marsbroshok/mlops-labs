@@ -44,12 +44,15 @@ Use [GCP Console](https://console.cloud.google.com/) or `gcloud` command line in
 
 To enable the required services using `gcloud`:
 1. Start GCP [Cloud Shell](https://cloud.google.com/shell/docs/)
-
-2. Execute the below command.
+2. Make sure that **Cloud Shell** is configured to use your project
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
 
 gcloud config set project $PROJECT_ID
+```
+
+3. Enable services
+```
 gcloud services enable \
 cloudbuild.googleapis.com \
 container.googleapis.com \
@@ -59,8 +62,8 @@ containerregistry.googleapis.com \
 containeranalysis.googleapis.com \
 ml.googleapis.com \
 sqladmin.googleapis.com \
-dataflow.googleapis.com \
-automl.googleapis.com
+dataflow.googleapis.com 
+#automl.googleapis.com
 ```
 
 3. After the services are enabled, [grant the Cloud Build service account the Project Editor role](https://cloud.google.com/cloud-build/docs/securing-builds/set-service-account-permissions).
@@ -96,12 +99,10 @@ EOF
 ### Building the image and pushing it to your project's **Container Registry**
 
 ```
-PROJECT_ID=[YOUR_PROJECT_ID]
-
-gcloud config set project $PROJECT_ID
 IMAGE_NAME=mlops-dev
 TAG=TF115-TFX015-KFP136
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
+
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 ```
 
