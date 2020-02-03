@@ -51,7 +51,7 @@ module "kfp_gke_cluster" {
 
 # Create the MySQL instance for ML Metadata
 module "ml_metadata_mysql" {
-  source  = "github.com/jarokaz/terraform-gcp-kfp//modules/mysql"
+  source  = "../../lab-00-environment-setup/terraform//modules/mysql"
   region  = var.region
   name    = "${var.name_prefix}-metadata"
 }
