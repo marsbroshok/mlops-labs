@@ -1,6 +1,6 @@
 # Setting up an MLOps environment on GCP.
 
-The labs in this repo are designed to run in a reference MLOps environment. The environment is configured to support effective development and operationalization of production grade ML workflows.
+The labs in this repo are designed to run in the reference MLOps environment. The environment is configured to support effective development and operationalization of production grade ML workflows.
 
 ![Reference topolgy](/images/lab_300.png)
 
