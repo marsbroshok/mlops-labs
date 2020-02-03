@@ -78,6 +78,8 @@ cd mlops-labs/lab-00-environment-setup
 
 3. Start installation
 ```
+PROJECT_ID=[YOUR_PROJECT_ID]
+
 ./install.sh $PROJECT_ID 
 ```
 By default, the script uses the [PROJECT_ID]-[RESOURCE-NAME] format to name the provisioned resources. For example, if your project's ID was `mlops-workshop` the script would provision the resources with the following names:
