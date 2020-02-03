@@ -21,7 +21,7 @@ if [[ $# < 1 ]]; then
 fi
 
 PROJECT_ID=${1}
-NAME_PREFIX=${2:$PROJECT_ID}
+NAME_PREFIX=${2:-$PROJECT_ID}
 REGION=${3:-us-central1} 
 ZONE=${4:-us-central1-a}
 
