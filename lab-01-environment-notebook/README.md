@@ -1,25 +1,29 @@
-# Setting up an MLOps environment on GCP.
+# Setting up an MLOps environment on GCP - Part 1 - Creating an AI Platform Notebooks instance
 
-The labs in this repo are designed to run in a reference MLOps environment. The environment is configured to support effective development and operationalization of production grade ML workflows.
+The labs in this repo are designed to run in the reference MLOps environment. The environment is configured to support effective development and operationalization of production grade ML workflows.
 
 ![Reference topolgy](/images/lab_300.png)
 
 The core services in the environment are:
-- AI Platform Notebooks - ML experimentation and development
-- AI Platform Training - scalable, serverless model training
-- AI Platform Prediction - scalable, serverless model serving
-- Dataflow - distributed data processing
-- BigQuery - analytics data warehouse
-- Cloud Storage - unified object storage
-- TensorFlow Extended/Kubeflow Pipelines (TFX/KFP) - machine learning pipelines
-- Cloud SQL - machine learning metadata  management
-- Cloud Build - CI/CD
+- ML experimentation and development - AI Platform Notebooks 
+- Scalable, serverless model training - AI Platform Training  
+- Scalable, serverless model serving - AI Platform Prediction 
+- Distributed data processing - Dataflow  
+- Analytics data warehouse BigQuery 
+- Artifact store - Google Cloud Storage 
+- Machine learning pipelines - TensorFlow Extended (TFX) and Kubeflow Pipelines (KFP)
+- Machine learning metadata  management - Cloud SQL
+- CI/CD tooling - Cloud Build
     
-In this lab, you will create an **AI Platform Notebook** instance using a custom container image optimized for TFX/KFP development. In the **lab-02-environment-kfp** lab, you will provision a lightweight deployment of **Kubeflow Pipelines**.
+In the reference lab environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). 
 
-In the reference environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). Before proceeding make sure that your account has access to the project and is assigned to the **Owner** or **Editor** role.
+The provisioning of the environment has been fully automated as described in `lab-00-environment-setup`.  
 
-Although you can run the below commands from any workstation configured with *Google Cloud SDK*, the following instructions have been tested on GCP [Cloud Shell](https://cloud.google.com/shell/).
+As an alternative to a fully automated setup, `lab-01-environment-notebook` and `lab-02-environment-kfp` describe semi-manual process to individually provision components of the environment.
+
+This lab - `lab-01-environment-notebook` - walks you through the steps required to provision  an AI Platfom Notebooks instance configured based on a custom container image optimized for TFX/KFP development.
+
+The accompanying lab - `lab-02-environment` - describe the steps to provision Cloud SQL, GKE and GCS and deploying Kubeflow Pipelines
 
 ## Enabling the required cloud services
 
