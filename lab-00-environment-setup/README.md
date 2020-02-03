@@ -5,15 +5,15 @@ The labs in this repo are designed to run in a reference MLOps environment. The 
 ![Reference topolgy](/images/lab_300.png)
 
 The core services in the environment are:
-- AI Platform Notebooks - ML experimentation and development
-- AI Platform Training - scalable, serverless model training
-- AI Platform Prediction - scalable, serverless model serving
-- Dataflow - distributed data processing
-- BigQuery - analytics data warehouse
-- Cloud Storage - unified object storage used to manage artifact store
-- TensorFlow Extended/Kubeflow Pipelines (TFX/KFP) - machine learning pipelines
-- Cloud SQL - machine learning metadata  management
-- Cloud Build - CI/CD
+- ML experimentation and development - AI Platform Notebooks 
+- Scalable, serverless model training - AI Platform Training  
+- Scalable, serverless model serving - AI Platform Prediction 
+- Distributed data processing - Dataflow  
+- Analytics data warehouse BigQuery - 
+- Artifact store - Google Cloud Storage -
+- Machine learning pipelines - TensorFlow Extended (TFX) and Kubeflow Pipelines (KFP)
+- Machine learning metadata  management - Cloud SQL
+- CI/CD tooling - Cloud Build
     
 
 In the lab environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). 
