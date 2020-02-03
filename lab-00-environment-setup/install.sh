@@ -52,10 +52,12 @@ METADATA="proxy-mode=service_account,container=$IMAGE_URI"
 
 SQL_USERNAME=root
 
+# Set project
+echo INFO: Setting the project to: $PROJECT_ID
+gcloud config set project $PROJECT_ID
+
 # Enable services
 echo INFO: Enabling required services
-
-gcloud config set project $PROJECT_ID
 
 gcloud services enable \
 cloudbuild.googleapis.com \
