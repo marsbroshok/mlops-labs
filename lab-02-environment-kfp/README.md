@@ -71,7 +71,7 @@ git clone https://github.com/jarokaz/mlops-labs.git
 cd mlops-labs/lab-02-environment-kfp
 ```
 
-4. Provision infrastructure:
+2. Run installation script
 ```
 ./provision-infra.sh [PROJECT_ID] [PREFIX] [REGION] [ZONE] 
 ```
