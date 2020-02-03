@@ -15,7 +15,7 @@ You will work in a Jupyter notebook to analyze data, create training, validation
 ## Lab Setup
 
 ### AI Platform Notebook configuration
-You will use the **AI Platform Notebooks** instance created in **lab-01-environment-notebook**. For this lab you don't need the KFP environment.
+You will use the **AI Platform Notebooks** instance created when setting up the lab environment. For this lab you don't need the KFP environment.
 
 
 ## Lab Exercises
