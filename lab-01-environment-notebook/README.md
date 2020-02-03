@@ -19,7 +19,7 @@ In the reference lab environment, all services are provisioned in the same [Goog
 
 The provisioning of the environment has been fully automated as described in `lab-00-environment-setup`.  
 
-As an alternative to a fully automated setup, `lab-01-environment-notebook` and `lab-02-environment-kfp` describe semi-manual process to individually provision components of the environment.
+As an alternative to a fully automated setup, `lab-01-environment-notebook` and `lab-02-environment-kfp` describe the semi-manual process to individually provision components of the environment.
 
 This lab - `lab-01-environment-notebook` - walks you through the steps required to provision  an AI Platfom Notebooks instance configured based on a custom container image optimized for TFX/KFP development.
 
