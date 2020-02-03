@@ -19,7 +19,7 @@ In the reference lab environment, all services are provisioned in the same [Goog
 
 The provisioning of the environment has been fully automated as described in `lab-00-environment-setup`.  
 
-As an alternative to a fully automated setup, `lab-01-environment-notebook` and `lab-02-environment-kfp` describe semi-manual process to individually provision components of the environment.
+As an alternative to a fully automated setup, `lab-01-environment-notebook` and `lab-02-environment-kfp` describe the semi-manual process to individually provision components of the environment.
 
 This lab - `lab-02-environment` - describe the steps to provision Cloud SQL, GKE and GCS and deploying Kubeflow Pipelines
 
