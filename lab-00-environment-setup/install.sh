@@ -27,7 +27,7 @@ err_handler() {
 trap 'err_handler "$LINENO" "$BASH_COMMAND" "$?"' ERR
 
 # Check command line parameters
-if [[ $# < 2 ]]; then
+if [[ $# < 1 ]]; then
   echo 'USAGE:  ./install.sh PROJECT_ID NAME_PREFIX [REGION=us-central1] [ZONE=us-central1-a] [NAMESPACE=kubeflow]'
   exit 1
 fi
@@ -35,7 +35,7 @@ fi
 # Set script constants
 
 PROJECT_ID=${1}
-NAME_PREFIX=${2}
+NAME_PREFIX=${2:-$PROJECT_ID}
 REGION=${3:-us-central1} 
 ZONE=${4:-us-central1-a}
 NAMESPACE=${5:-kubeflow}
@@ -56,7 +56,6 @@ SQL_USERNAME=root
 echo INFO: Enabling required services
 
 gcloud config set project $PROJECT_ID
-
 gcloud services enable \
 cloudbuild.googleapis.com \
 container.googleapis.com \
@@ -64,7 +63,10 @@ cloudresourcemanager.googleapis.com \
 iam.googleapis.com \
 containerregistry.googleapis.com \
 containeranalysis.googleapis.com \
-ml.googleapis.com 
+ml.googleapis.com \
+sqladmin.googleapis.com \
+dataflow.googleapis.com \
+automl.googleapis.com
 
 echo INFO: Required services enabled
 
@@ -72,6 +74,14 @@ echo INFO: Required services enabled
 echo INFO: Building AI Platform Notebooks container image: $IMAGE_URI
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 
+# Give Cloud Build service account the project editor role
+echo INFO:Assigning the Cloud Build service account to the project editor role
+PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
+CLOUD_BUILD_SERVICE_ACCOUNT="${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com"
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member serviceAccount:$CLOUD_BUILD_SERVICE_ACCOUNT \
+  --role roles/editor
+  
 # Provision an AI Platform Notebook instance
 
 INSTANCE_NAME=${NAME_PREFIX}-notebook
@@ -79,8 +89,12 @@ INSTANCE_NAME=${NAME_PREFIX}-notebook
 if [ $(gcloud compute instances list --filter="name=$INSTANCE_NAME" --zones $ZONE --format="value(name)") ]; then
     echo INFO: Instance $INSTANCE_NAME exists in $ZONE. Skipping provisioning
 else
+    # Build the AI Platform Notebook image
+    echo INFO: Building AI Platform Notebooks container image: $IMAGE_URI
+    gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
+    
+    # Provision the AI Platform Notebook instance
     echo INFO: Starting provisioning of $INSTANCE_NAME in $ZONE
-
     gcloud compute instances create $INSTANCE_NAME \
     --zone=$ZONE \
     --image-family=$IMAGE_FAMILY \
@@ -150,9 +164,9 @@ kustomize build . | kubectl apply -f -
 popd
 
 echo INFO: KFP deployed successfully
-echo INFO: Sleeping for 120 seconds to allow for KFP services to start
+echo INFO: Sleeping for 180 seconds to allow for KFP services to start
 
-sleep 120
+sleep 180
 
 echo INFO: KFP UI can be accessed at the below URI:
 echo "https://"$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
