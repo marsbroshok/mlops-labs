@@ -63,6 +63,7 @@ The above command installs **Kustomize** to the `/usr/local/bin` folder, which b
 
 ### Provisioning infrastructure to host Kubeflow Pipelines
 
+The 
 
 1. Clone this repo under the `home` folder.
 ```
@@ -71,7 +72,9 @@ git clone https://github.com/jarokaz/mlops-labs.git
 cd mlops-labs/lab-02-environment-kfp
 ```
 
-2. Run installation script
+2. Review the `provision-infra.sh` installation script
+
+3. Run the installation script
 ```
 ./provision-infra.sh [PROJECT_ID] [PREFIX] [REGION] [ZONE] 
 ```
@@ -90,7 +93,8 @@ We recommend using the defaults for the region and the zone.
 
 ### Deploying Kubeflow Pipelines 
 
-From the `lab-02-environment-kfp` folder execute:
+1. Review the `deploy-kfp.sh` deployment script
+2. Run the deployment script
 
 ```
 ./deploy-kfp.sh  [PROJECT_ID] [SQL_PASSWORD] [NAMESPACE] 
