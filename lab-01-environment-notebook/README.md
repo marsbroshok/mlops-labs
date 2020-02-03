@@ -73,18 +73,16 @@ dataflow.googleapis.com
 
 You will use a custom container image configured for KFP/TFX development as an environment for your instance. The image is a derivative of the standard TensorFlow 1.15  [AI Deep Learning Containers](https://cloud.google.com/ai-platform/deep-learning-containers/docs/) image.
 
-### Creating the custom image's Dockerfile:
+### Building the custom docker image:
 
-1. Start GCP [Cloud Shell](https://cloud.google.com/shell/docs/)
-
-2. Create a working folder in your `home` directory
+1. In **Cloud Shell**,  create a working folder in your `home` directory
 ```
 cd
 mkdir lab-workspace
 cd lab-workspace
 ```
 
-3. Create Dockerfile 
+2. Create Dockerfile 
 ```
 cat > Dockerfile << EOF
 FROM gcr.io/deeplearning-platform-release/tf-cpu.1-15:m39
@@ -96,7 +94,7 @@ RUN pip install -U six==1.12 apache-beam==2.16 pyarrow==0.14.0 tfx-bsl==0.15.1 \
 EOF
 ```
 
-### Building the image and pushing it to your project's **Container Registry**
+3. Build the image and push it to your project's **Container Registry**
 
 ```
 IMAGE_NAME=mlops-dev
