@@ -9,10 +9,10 @@ The core services in the environment are:
 - Scalable, serverless model training - AI Platform Training  
 - Scalable, serverless model serving - AI Platform Prediction 
 - Distributed data processing - Dataflow  
-- Analytics data warehouse BigQuery 
+- Analytics data warehouse - BigQuery 
 - Artifact store - Google Cloud Storage 
 - Machine learning pipelines - TensorFlow Extended (TFX) and Kubeflow Pipelines (KFP)
-- Machine learning metadata  management - Cloud SQL
+- Machine learning metadata  management - ML Metadata on Cloud SQL
 - CI/CD tooling - Cloud Build
     
 In the reference lab environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). 
