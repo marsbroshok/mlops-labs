@@ -51,7 +51,7 @@ The script goes through the following steps:
 
 ### Running the installation script
 
-You will run the provisioning script using **Cloud Shell**. 
+You will run the provisioning script using [Cloud Shell](https://cloud.google.com/shell/). 
 
 **Terraform** is pre-installed in **Cloud Shell**. The current version of `kubectl` installed by default in **Cloud Shell** does not support **Kustomize**. *When the default version of `kubectl` in **Cloud Shell** is upgraded to the version that supports **Kustomize** the below step will not be necessary and will be removed*.
 
