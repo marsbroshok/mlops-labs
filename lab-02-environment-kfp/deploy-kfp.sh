@@ -15,15 +15,26 @@
 
 # Deploy Kubeflow Pipelines on GCP
 
-if [[ $# < 3 ]]; then
-  echo "Error: Arguments missing. [PROJECT_ID] [NAMESPACE] [SQL_PASSWORD]"
+# Set up a global error handler
+err_handler() {
+    echo "Error on line: $1"
+    echo "Caused by: $2"
+    echo "That returned exit status: $3"
+    echo "Aborting..."
+    exit $3
+}
+
+trap 'err_handler "$LINENO" "$BASH_COMMAND" "$?"' ERR
+
+if [[ $# < 2 ]]; then
+  echo "Error: Arguments missing. PROJECT_ID SQL_PASSWORD [NAMESPACE=kubeflow] "
   exit 1
 fi
 
 PROJECT_ID=${1}
-NAMESPACE=${2}
 SQL_USERNAME=root
-SQL_PASSWORD=${3}
+SQL_PASSWORD=${2}
+NAMESPACE=${3:-kubeflow}
 
 # Retrieve service names and connection strings
 
@@ -39,9 +50,7 @@ ZONE=$(terraform output cluster_zone)
 
 popd
 
-
 pushd kustomize
-
 
 # Create a namespace for KFP components
 gcloud container clusters get-credentials $CLUSTER_NAME --zone $ZONE --project $PROJECT_ID
