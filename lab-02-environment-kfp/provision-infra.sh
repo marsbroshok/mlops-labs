@@ -15,15 +15,15 @@
 
 # Provision infrastructure to host KFP components
 
-if [[ $# < 4 ]]; then
-  echo "Error: Arguments missing. [PROJECT_ID] [REGION] [ZONE] [NAME_PREFIX]"
+if [[ $# < 1 ]]; then
+  echo "Error: Arguments missing. PROJECT_ID [NAME_PREFIX=PROJECT_ID] [REGION=us-central1] [ZONE=us-central1-a]"
   exit 1
 fi
 
 PROJECT_ID=${1}
-REGION=${2} 
-ZONE=${3}
-NAME_PREFIX=${4}
+NAME_PREFIX=${2:-$PROJECT_ID}
+REGION=${3:-us-central1} 
+ZONE=${4:-us-central1-a}
 
 ### Configure KPF infrastructure
 pushd terraform
