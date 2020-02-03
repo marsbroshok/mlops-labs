@@ -56,6 +56,14 @@ sqladmin.googleapis.com \
 dataflow.googleapis.com 
 #automl.googleapis.com
 
+# Give Cloud Build service account the project editor role
+echo INFO:Assigning the Cloud Build service account to the project editor role
+PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
+CLOUD_BUILD_SERVICE_ACCOUNT="${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com"
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member serviceAccount:$CLOUD_BUILD_SERVICE_ACCOUNT \
+  --role roles/editor
+  
 ### Configure KPF infrastructure
 pushd terraform
 
@@ -64,6 +72,7 @@ echo INFO: Provisioning KFP infrastructure
 
 terraform init
 terraform apply  \
+-auto-approve \
 -var "project_id=$PROJECT_ID" \
 -var "region=$REGION" \
 -var "zone=$ZONE" \
