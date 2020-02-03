@@ -25,3 +25,7 @@ output "sql_connection_name" {
 output "artifact_store_bucket" {
     value = google_storage_bucket.artifact_store.name
 }
+
+#output "caip_notebook" {
+#    value = module.caip_notebook.name
+#}

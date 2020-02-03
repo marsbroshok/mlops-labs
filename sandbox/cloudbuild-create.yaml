@@ -1,0 +1,9 @@
+steps:
+# Build the image that encapsulates transform and train modules
+- name: 'hashicorp/terraform'
+  args: ['init']
+  dir: $_TERRAFORM_FOLDER
+
+- name: 'hashicorp/terraform'
+  args: ['apply', '-auto-approve']
+  dir: $_TERRAFORM_FOLDER
