@@ -33,13 +33,25 @@ The KFP services are deployed to the GKE cluster and configured to use the Cloud
 
 ## Provisioning the lab environment
 
-Provisioning of the environment has been broken into two steps. In the first step you provision and configure core infrastructure services required to host **Kubeflow Pipelines**, including GKE, Cloud SQL and Cloud Storage. In the second step you deploy and configure **Kubeflow Pipelines**.
+Provisioning of the environment has been fully automated in the `./install.sh`. The script uses **Terraform** to provision and configure the required cloud services and **Kustomize** to configure and deploy Kubeflow Pipelines.
 
-The provisioning of the infrastructure components  has been automated with [Terraform](https://www.terraform.io/).  The Terraform HCL configurations can be found in the [terraform folder](terraform). The deployment of **Kubeflow Pipelines** is facilitated with [Kustomize](https://kustomize.io/). The Kustomize overlays are in the [kustomize folder](kustomize).
+The script goes through the following steps:
+1. Enables the required GCP cloud services
+1. Assigns the Cloud Build service account the the project editor role
+1. Builds the custom container optimized for TFX/KFP development to be used with AI Platform Notebooks
+1. Provisions an instance of AI Platform Notebooks based on the custom container image
+1. Creates and configures two service accounts:
+    - A service account for GKE worker nodes
+    - A service account to be used by KFP pipelines
+1. Creates a VPC to host a GKE cluster
+1. Creates a GKE cluster
+1. Creates a Cloud SQL instance 
+1. Creates a GCS bucket 
+1. Deploys Kubeflow Pipelines and configures the KFP services to use Cloud SQL for ML metadata management and GCS for artifact storage
 
 You will run provisioning scripts using **Cloud Shell**. 
 
-**Terraform** is pre-installed in **Cloud Shell**. Before running the scripts you need to install **Kustomize**.
+**Terraform** is pre-installed in **Cloud Shell**. The current version of `kubectl` installed by default in **Cloud Shell** does not support **Kustomize**. *When the default version of `kubectl` in **Cloud Shell** is upgraded to the version that supports **Kustomize** the below step will not be necessary and will be removed*.
 
 To install **Kustomize** in **Cloud Shell**:
 ```
@@ -49,7 +61,7 @@ sudo tar xvf kustomize_v3.3.0_linux_amd64.tar.gz
 sudo rm kustomize_v3.3.0_linux_amd64.tar.gz
 cd
 ```
-The above command installs **Kustomize** to the `/usr/local/bin` folder, which by default is on the `PATH`. **Kustomize** is a single executable. Note that this folder will be reset after you disconnect from **Cloud Shell**. 
+The above command installs **Kustomize** to the `/usr/local/bin` folder, which by default is on the `PATH`. **Kustomize** is a single executable. Note that this folder will be reset - and Kustomize removed - after you disconnect from **Cloud Shell**.
 
 ### Deploying infrastructure services to host Kubeflow Pipelines
 
