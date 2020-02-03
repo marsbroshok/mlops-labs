@@ -15,6 +15,21 @@
 
 # Destory KFP environment
 
+if [[ $# < 1 ]]; then
+  echo 'USAGE:  ./destroy.sh PROJECT_ID [NAME_PREFIX=PROJECT_ID] [REGION=us-central1] [ZONE=us-central1-a]'
+  exit 1
+fi
+
+PROJECT_ID=${1}
+NAME_PREFIX=${2:-$PROJECT_ID}
+REGION=${3:-us-central1} 
+ZONE=${4:-us-central1-a}
+
+echo INFO: Starting Terraform destroy
 pushd terraform
-terraform destroy 
+terraform destroy \
+-var "project_id=$PROJECT_ID" \
+-var "region=$REGION" \
+-var "zone=$ZONE" \
+-var "name_prefix=$NAME_PREFIX" 
 popd
