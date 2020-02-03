@@ -17,11 +17,11 @@ The core services in the environment are:
     
 In the reference lab environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). 
 
-The below diagram drills down to the deployment of Kubeflow Pipelines on GKE:
+The below diagram shows the architeacture of a lightweight deployment of Kubeflow Pipelines on GKE:
 
 ![KFP Deployment](/images/kfp.png)
 
-The environment includes:
+The deployment includes:
 - A VPC to host GKE cluster
 - A GKE cluster to host KFP services
 - A Cloud SQL managed MySQL instance to host KFP and ML Metadata databases
