@@ -68,8 +68,8 @@ containerregistry.googleapis.com \
 containeranalysis.googleapis.com \
 ml.googleapis.com \
 sqladmin.googleapis.com \
-dataflow.googleapis.com \
-automl.googleapis.com
+dataflow.googleapis.com 
+#automl.googleapis.com
 
 echo INFO: Required services enabled
 
