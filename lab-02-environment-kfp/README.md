@@ -76,10 +76,13 @@ cd mlops-labs/lab-02-environment-kfp
 ./provision-infra.sh [PROJECT_ID] [PREFIX] [REGION] [ZONE] 
 ```
 Where 
-- `[PROJECT_ID]` - your project ID
-- `[PREFIX]` - Optional. A name prefix that will be added to the names of provisioned resources. If not provided [PROJECT_ID] will be used as the prefix.
-- `[REGION]` - Optional. The region for a Cloud SQL instance. If not provided the `us-central1` region will be used.
-- `[ZONE]` - Optional. The zone for a GKE cluster. If not provided the `us-central1-a` will be used.
+
+|Parameter|Optional|Description|
+|-------------|---------|-------------------------------|
+|[PROJECT_ID]| Required|The project id of your project.|
+|[PREFIX]|Optional|A name prefix tha will be added to the names of provisioned resources. If not provided [PROJECT_ID] will be used as the prefix|
+|[REGION]|Optional|The region for the Cloud SQL instance.  If not provided the `us-central1` region will be used|
+|[ZONE]|Optional|The zone for the GKE cluster.If not provided the `us-central1-a` will be used.|
 
 We recommend using the defaults for the region and the zone.
 
