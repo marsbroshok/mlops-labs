@@ -34,7 +34,7 @@ This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipe
 PROJECT_ID=[YOUR_PROJECT_ID]
 
 DATASET_LOCATION=US
-DATASET_ID=lab_12
+DATASET_ID=covertype_dataset
 TABLE_ID=covertype
 DATA_SOURCE=gs://workshop-datasets/covertype/full/dataset.csv
 SCHEMA=Elevation:INTEGER,\
