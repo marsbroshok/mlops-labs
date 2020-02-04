@@ -152,7 +152,7 @@ export PYTHON_VERSION=3.5
 dsl-compile --py covertype_training_pipeline.py --output covertype_training_pipeline.yaml
 ```
 
-The result is the `covertype_training_pipeline.yaml` file. This file needs to deployed to the KFP runtime before pipeline runs can be triggered. You can deploy the pipeline package using an API from the **KFP SDK** or using the **KFP** Command Line Interface (CLI).
+The result is the `covertype_training_pipeline.yaml` file. This file needs to be deployed to the KFP runtime before pipeline runs can be triggered. You can deploy the pipeline package using an API from the **KFP SDK** or using the **KFP** Command Line Interface (CLI).
 
 To upload the pipeline package using **KFP CLI**:
 
