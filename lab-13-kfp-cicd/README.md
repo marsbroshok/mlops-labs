@@ -11,18 +11,19 @@ This lab uses the KFP DSL and KFP components developed in `lab-12-kfp-pipeline`.
 This lab requires the same setup as `lab-12-kfp-pipeline`. If you completed `lab-12-kfp-pipeline` you are ready to go and you can skip to the **Lab Exercises** section.
 
 ### AI Platform Notebook configuration
-Before proceeding with the lab, you must set up an AI Platform Notebook instance and a KFP environment as detailed in `lab-01-environment-notebook` and `lab-02-environment-kfp`
+Before proceeding with the lab, you must set up the lab environment.
 
 ### Lab dataset
-This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipeline developed in the lab sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery. 
+This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipeline developed in the lab sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery:
 
 1. Open new terminal in you **JupyterLab**
 
-2. Create the BigQuery dataset and upload the Cover Type CSV file.
+2. Create the BigQuery dataset and upload the Cover Type csv file.
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
+
 DATASET_LOCATION=US
-DATASET_ID=lab_11
+DATASET_ID=covertype_dataset
 TABLE_ID=covertype
 DATA_SOURCE=gs://workshop-datasets/covertype/full/dataset.csv
 SCHEMA=Elevation:INTEGER,\
@@ -49,7 +50,6 @@ $TABLE_ID \
 $DATA_SOURCE \
 $SCHEMA
 ```
-
 ### GCS bucket
 Create the GCS bucket that will be used as a staging area during the lab.
 ```
