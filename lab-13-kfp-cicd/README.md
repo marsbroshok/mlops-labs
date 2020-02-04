@@ -53,16 +53,12 @@ $SCHEMA
 
 ## Lab Exercises
 
-During this lab, you will mostly work in a JupyterLab terminal. Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
+During this lab, you will mostly work in a JupyterLab terminal. Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, ZONE, or NAMESPACE update the commands accordingly:
 
 ```
 export PROJECT_ID=$(gcloud config get-value core/project)
 export PREFIX=$PROJECT_ID
-export NAMESPACE=kubeflow
-export REGION=us-central1
 export ZONE=us-central1-a
-export ARTIFACT_STORE_URI=gs://$PREFIX-artifact-store
-export GCS_STAGING_PATH=${ARTIFACT_STORE_URI}/staging
 export GKE_CLUSTER_NAME=$PREFIX-cluster
 
 gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
