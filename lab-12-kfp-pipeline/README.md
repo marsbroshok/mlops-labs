@@ -32,6 +32,7 @@ This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipe
 2. Create the BigQuery dataset and upload the Cover Type csv file.
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
+
 DATASET_LOCATION=US
 DATASET_ID=lab_12
 TABLE_ID=covertype
