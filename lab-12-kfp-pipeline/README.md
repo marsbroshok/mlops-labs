@@ -115,8 +115,6 @@ To maintain the consistency between the development environment (AI Platform Not
 MAKE SURE to update the Dockerfile in the `trainer_image` folder with the URI pointing to your Container Registry.
 
 ```
-PROJECT_ID=[YOUR_PROJECT_ID]
-
 IMAGE_NAME=trainer_image
 TAG=latest
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
