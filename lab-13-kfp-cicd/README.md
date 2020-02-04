@@ -70,6 +70,25 @@ The **Cloud Build** workflow configuration uses both standard and custom [Cloud 
 
 *The current version of the lab has been developed and tested with v1.36 of KFP. There is a number of issues with post 1.36 versions of KFP that prevent us from upgrading to the newer version of KFP. KFP v1.36 does not have support for pipeline versions. As an interim measure, the **Cloud Build**  workflow appends `$TAG_NAME` default substitution to the name of the pipeline to designate a pipeline version.*
 
+Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
+
+```
+export PROJECT_ID=$(gcloud config get-value core/project)
+export PREFIX=$PROJECT_ID
+export NAMESPACE=kubeflow
+export REGION=us-central1
+export ZONE=us-central1-a
+export ARTIFACT_STORE_URI=gs://$PREFIX-artifact-store
+export GCS_STAGING_PATH=${ARTIFACT_STORE_URI}/staging
+export GKE_CLUSTER_NAME=$PREFIX-cluster
+
+gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
+export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
+
+```
+
+
+
 To create a **Cloud Build** custom builder that encapsulates KFP CLI.
 
 1. Create the Dockerfile describing the KFP CLI builder
@@ -84,7 +103,8 @@ EOF
 
 2. Build the image and push it to your project's Container Registry. 
 ```
-PROJECT_ID=[YOUR_PROJECT_ID]
+export PROJECT_ID=$(gcloud config get-value core/project)
+
 IMAGE_NAME=kfp-cli
 TAG=latest
 
