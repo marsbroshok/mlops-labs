@@ -88,11 +88,16 @@ Your pipeline uses a mix of custom and pre-build components.
 
 The workflow implemented by the pipeline is defined using a Python based KFP Domain Specific Language (DSL). The pipeline's DSL is in the `covertype_training_pipeline.py` file.
 
+### Building the container images
+
+The training step in the pipeline employes the AI Platform Training component to schedule a  AI Platform Training job in a custom training container. You need to build the training container image before you can run the pipeline. You also need to build the image that provides a runtime environment for the **Retrieve Best Run** and **Evaluate Model** components.
+
+To maintain the consistency between the development environment (AI Platform Notebooks) and the pipeline
+s runtime environment on the GKE, both container images are derivatives of the image used by the AI Platform Notebooks instance - `gcr.io/[YOUR_PROJECT_ID]/mlops-dev:TF115-TFX015-KFP136`.
+
 ### Building the training image
 
-The training step in the pipeline employes the AI Platform Training component to schedule a  AI Platform Training job in a training container. 
 
-You need to build the training container image before you can run the pipeline.
 
 MAKE SURE to update the Dockerfile in the `trainer_image` folder with the URI pointing to your Container Registry.
 
@@ -107,7 +112,7 @@ gcloud builds submit --timeout 15m --tag ${IMAGE_URI} trainer_image
 ```
 
 ### Building the base image for custom components
-To maintain the consistency between the development environment (AI Platform Notebooks) and the custom components' runtime environment the container image  for the components is a derivative of the image used by the AI Platform Notebooks instance - `gcr.io/[YOUR_PROJECT_ID]/mlops-dev:TF115-TFX015-KFP136`. 
+ 
 
 To build and push the base image execute the below commands. 
 
