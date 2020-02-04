@@ -177,7 +177,6 @@ kfp --endpoint $INVERSE_PROXY_HOSTNAME pipeline list
 
 You can trigger pipeline runs using an API from the KFP SDK or using KFP CLI. To submit the run using KFP CLI, execute the following commands. Notice how the pipeline's parameters are passed to the pipeline run.
 
-
 ```
 
 PIPELINE_ID=[YOUR_PIPELINE_ID]
