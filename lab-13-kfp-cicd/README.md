@@ -88,6 +88,7 @@ export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config 
 ```
 
 
+#### Creating KFP CLI builder
 
 To create a **Cloud Build** custom builder that encapsulates KFP CLI.
 
@@ -112,6 +113,8 @@ IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 ```
+
+#### Manually triggering CI/CD runs
 
 To manually trigger the CI/CD run :
 
