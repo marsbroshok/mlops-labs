@@ -106,11 +106,8 @@ EOF
 
 2. Build the image and push it to your project's Container Registry. 
 ```
-export PROJECT_ID=$(gcloud config get-value core/project)
-
 IMAGE_NAME=kfp-cli
 TAG=latest
-
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
@@ -120,10 +117,9 @@ gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 
 To manually trigger the CI/CD run :
 
-1. Update the `build_pipeline.sh` script  with your KFP inverting proxy host. Recall that you can retrieve the inverting proxy hostname using the following commands:
+1. Update the `build_pipeline.sh` script  with your KFP inverting proxy host. 
 ```
-gcloud container clusters get-credentials [YOUR_GKE_CLUSTER] --zone [YOUR_ZONE]
-kubectl describe configmap inverse-proxy-config -n [YOUR_NAMESPACE] | grep "googleusercontent.com"
+echo $INVERSE_PROXY_HOSTNAME
 ```
 
 2. Start the run:
