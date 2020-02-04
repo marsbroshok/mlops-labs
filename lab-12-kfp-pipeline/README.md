@@ -77,12 +77,10 @@ export NAME_PREFIX=$PROJECT_ID
 export NAMESPACE=kubeflow
 export REGION=us-central1
 export ZONE=us-central1-a
-
 export ARTIFACT_STORE_URI=gs://$PREFIX-artifact-store
 export GKE_CLUSTER_NAME=$PREFIX-cluster
 
 gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
-
 export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
 ```
 
