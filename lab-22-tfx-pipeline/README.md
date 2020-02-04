@@ -19,9 +19,24 @@ The TFX `ExampleGen`, `StatisticsGen`, `ExampleValidator`, `SchemaGen`, `Transfo
 ## Lab setup
 
 ### AI Platform Notebook and KFP environment
-Before proceeding with the lab, you must set up an **AI Platform Notebooks** instance and a **KFP** environment as detailed in lab-01-environment-notebook and lab-02-environment-kfp
+Before proceeding with the lab, you must set up an **AI Platform Notebooks** instance and a **KFP** environment.
 
 ## Lab Exercises
+
+During this lab, you will mostly work in a JupyterLab terminal. Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
+```
+export PROJECT_ID=$(gcloud config get-value core/project)
+export PREFIX=$PROJECT_ID
+export NAMESPACE=kubeflow
+export REGION=us-central1
+export ZONE=us-central1-a
+export ARTIFACT_STORE_URI=gs://$PREFIX-artifact-store
+export GCS_STAGING_PATH=${ARTIFACT_STORE_URI}/staging
+export GKE_CLUSTER_NAME=$PREFIX-cluster
+
+gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
+export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
+```
 
 Follow the instructor who will walk you through the lab. The high level summary of the lab flow is as follows:
 
@@ -34,7 +49,7 @@ The base `tfx` image includes TFX v0.15 and TensorFlow v2.0. The custom image mo
 The pipeline needs to use v1.15 of TensorFlow as the AI Platform Prediction service, which is used as a deployment target, does not yet support v2.0 of TensorFlow.
 
 ### Building and deploying the pipeline
-You can use **TFX CLI** to compile and deploy the pipeline to the KFP environment. As the pipeline uses the custom image, the first step is to build the image and push it to your project's **Container Registry**. You will use **Cloud Build** to build the image.
+The first step is to build the the custom docker image and push it to your project's **Container Registry**. You will use **Cloud Build** to build the image.
 
 1. Create the Dockerfile describing the custom image
 ```
