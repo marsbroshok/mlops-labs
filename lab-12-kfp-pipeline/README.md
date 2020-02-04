@@ -73,7 +73,7 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 During this lab, you will mostly work in a JupyterLab terminal. Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
 ```
 export PROJECT_ID=$(gcloud config get-value core/project)
-export NAME_PREFIX=$PROJECT_ID
+export PREFIX=$PROJECT_ID
 export NAMESPACE=kubeflow
 export REGION=us-central1
 export ZONE=us-central1-a
