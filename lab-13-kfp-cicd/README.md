@@ -50,12 +50,7 @@ $TABLE_ID \
 $DATA_SOURCE \
 $SCHEMA
 ```
-### GCS bucket
-Create the GCS bucket that will be used as a staging area during the lab.
-```
-BUCKET_NAME=gs://${PROJECT_ID}-staging
-gsutil mb -p $PROJECT_ID $BUCKET_NAME
-```
+
 ## Lab Exercises
 
 Follow the instructor who will walk you through the lab. The high level summary of the lab exercises is as follows.
