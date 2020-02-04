@@ -22,7 +22,7 @@ The below diagram represents the workflow orchestrated by the pipeline.
 ## Lab setup
 
 ### AI Platform Notebook and KFP environment
-Before proceeding with the lab, you must set up an **AI Platform Notebook** instance and a KFP environment as detailed in `lab-01-environment-notebook` and `lab-02-environment-kfp`
+Before proceeding with the lab, you must set up the lab environment.`
 
 ### Lab dataset
 This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipeline developed in the lab sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery:
@@ -32,8 +32,9 @@ This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipe
 2. Create the BigQuery dataset and upload the Cover Type csv file.
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
+
 DATASET_LOCATION=US
-DATASET_ID=lab_12
+DATASET_ID=covertype_dataset
 TABLE_ID=covertype
 DATA_SOURCE=gs://workshop-datasets/covertype/full/dataset.csv
 SCHEMA=Elevation:INTEGER,\
@@ -61,16 +62,26 @@ $DATA_SOURCE \
 $SCHEMA
 ```
 
-### GCS bucket
-Create the GCS bucket that will be used as a staging area during the lab.
-```
-BUCKET_NAME=gs://${PROJECT_ID}-staging
-gsutil mb -p $PROJECT_ID $BUCKET_NAME
-```
 ## Lab Exercises
 
-Follow the instructor who will walk you through the lab. The high level summary of the lab flow is as follows.
+During this lab, you will mostly work in a JupyterLab terminal. Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
+```
+export PROJECT_ID=$(gcloud config get-value core/project)
+export PREFIX=$PROJECT_ID
+export NAMESPACE=kubeflow
+export REGION=us-central1
+export ZONE=us-central1-a
+export ARTIFACT_STORE_URI=gs://$PREFIX-artifact-store
+export GCS_STAGING_PATH=${ARTIFACT_STORE_URI}/staging
+export GKE_CLUSTER_NAME=$PREFIX-cluster
 
+gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
+export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
+```
+
+Follow the instructor who will walk you through the lab. 
+
+The high level summary of the lab flow is as follows.
 
 ### Authoring the pipeline
 
@@ -87,14 +98,18 @@ Your pipeline uses a mix of custom and pre-build components.
 
 The workflow implemented by the pipeline is defined using a Python based KFP Domain Specific Language (DSL). The pipeline's DSL is in the `covertype_training_pipeline.py` file.
 
-### Building the training image
+### Building the container images
 
-The training step in the pipeline employes the AI Platform Training component to schedule a  AI Platform Training job in a custom container. If you walked through the `lab-11-caip-trainer` lab the trainer image was already pushed to your project's Container Registry. If you did not, you can build and push the image using the below commands.   
+The training step in the pipeline employes the AI Platform Training component to schedule a  AI Platform Training job in a custom training container. You need to build the training container image before you can run the pipeline. You also need to build the image that provides a runtime environment for the **Retrieve Best Run** and **Evaluate Model** components.
+
+To maintain the consistency between the development environment (AI Platform Notebooks) and the pipeline's runtime environment on the GKE, both container images are derivatives of the image used by the AI Platform Notebooks instance - `gcr.io/[YOUR_PROJECT_ID]/mlops-dev:TF115-TFX015-KFP136`.
+
+#### Building the training image
+
 
 MAKE SURE to update the Dockerfile in the `trainer_image` folder with the URI pointing to your Container Registry.
 
 ```
-PROJECT_ID=[YOUR_PROJECT_ID]
 IMAGE_NAME=trainer_image
 TAG=latest
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
@@ -103,10 +118,8 @@ gcloud builds submit --timeout 15m --tag ${IMAGE_URI} trainer_image
 
 ```
 
-### Building the base image for custom components
-The custom components used by the pipeline are run in the context of a base image. To maintain the consistency between the development environment (AI Platform Notebooks) and the components' runtime environment the component base image is a derivative of the image used by the AI Platform Notebooks instance - `gcr.io/[YOUR_PROJECT_ID]/mlops-dev:TF115-TFX015-KFP136`. 
-
-To build and push the base image execute the below commands. 
+#### Building the base image for custom components
+ 
 
 MAKE SURE to update the Dockerfile in the `base_image` folder with the URI pointing to your Container Registry.
 
@@ -123,14 +136,13 @@ gcloud builds submit --timeout 15m --tag ${IMAGE_URI} base_image
 
 ### Compiling and deploying the pipeline
 
-Before deploying to the KFP runtime environment, the pipeline's DSL has to be compiled into a pipeline runtime format, also refered to as a pipeline package.  The current version of the runtime format is based on [Argo Workflow](https://github.com/argoproj/argo), which is expressed in YAML. 
+Before deploying to the KFP runtime environment, the pipeline's DSL has to be compiled into a pipeline runtime format, also refered to as a pipeline package.  The runtime format is based on [Argo Workflow](https://github.com/argoproj/argo), which is expressed in YAML. 
 
 You can compile the DSL using an API from the **KFP SDK** or using the **KFP** compiler.
 
 To compile the pipeline DSL using **KFP** compiler. From the root folder of this lab, execute the following commands.
 
 ```
-export PROJECT_ID=[YOUR_PROJECT_ID]
 export BASE_IMAGE=gcr.io/$PROJECT_ID/base_image:latest
 export TRAINER_IMAGE=gcr.io/$PROJECT_ID/trainer_image:latest
 export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.36/components/gcp/
@@ -140,26 +152,19 @@ export PYTHON_VERSION=3.5
 dsl-compile --py covertype_training_pipeline.py --output covertype_training_pipeline.yaml
 ```
 
-The result is the `covertype_training_pipeline.yaml` file. This file needs to deployed to the KFP runtime before pipeline runs can be triggered. You can deploy the pipeline package using an API from the **KFP SDK** or using the **KFP** Command Line Interface (CLI).
+The result is the `covertype_training_pipeline.yaml` file. This file needs to be deployed to the KFP runtime before pipeline runs can be triggered. You can deploy the pipeline package using an API from the **KFP SDK** or using the **KFP** Command Line Interface (CLI).
 
 To upload the pipeline package using **KFP CLI**:
 
 ```
-INVERSE_PROXY_HOSTNAME=[YOUR_INVERSE_PROXY_HOSTNAME]
+
 PIPELINE_NAME=covertype_classifier_training
 
 kfp --endpoint $INVERSE_PROXY_HOSTNAME pipeline upload \
 -p $PIPELINE_NAME \
 covertype_training_pipeline.yaml
 ```
-Where [YOUR_INVERSE_PROXY_HOST] is the hostname of the inverse proxy providing access to your KFP environment. The hostname is stored in the `inverse-proxy-config` ConfigMap in the Kubernetes namespace where you deployed KFP in `lab-02-environment-kfp`.
 
-You can retrieve the hostname using the following commands.
-
-```
-gcloud container clusters get-credentials [YOUR_GKE_CLUSTER] --zone [YOUR_ZONE]
-kubectl describe configmap inverse-proxy-config -n [YOUR_NAMESPACE] | grep "googleusercontent.com"
-```
 
 You can double check that the pipeline was uploaded by listing the pipelines in your KFP environment.
 
@@ -172,17 +177,13 @@ kfp --endpoint $INVERSE_PROXY_HOSTNAME pipeline list
 
 You can trigger pipeline runs using an API from the KFP SDK or using KFP CLI. To submit the run using KFP CLI, execute the following commands. Notice how the pipeline's parameters are passed to the pipeline run.
 
-
 ```
-PROJECT_ID=[YOUR_PROJECT_ID]
+
 PIPELINE_ID=[YOUR_PIPELINE_ID]
-GCS_STAGING_BUCKET=[YOUR_GCS_STAGING_BUCKET]
-REGION=[YOUR_REGION]
-INVERSE_PROXY_HOSTNAME=[YOUR_INVERSE_PROXY_HOSTNAME]
 
 EXPERIMENT_NAME=Covertype_Classifier_Training
 RUN_ID=Run_001
-SOURCE_TABLE=lab_12.covertype
+SOURCE_TABLE=covertype_dataset.covertype
 DATASET_ID=splits
 EVALUATION_METRIC=accuracy
 EVALUATION_METRIC_THRESHOLD=0.69
@@ -195,7 +196,7 @@ kfp --endpoint $INVERSE_PROXY_HOSTNAME run submit \
 -r Run_201 \
 -p $PIPELINE_ID \
 project_id=$PROJECT_ID \
-gcs_root=$GCS_STAGING_BUCKET \
+gcs_root=$GCS_STAGING_PATH \
 region=$REGION \
 source_table_name=$SOURCE_TABLE \
 dataset_id=$DATASET_ID \
@@ -211,8 +212,8 @@ where
 - EXPERIMENT_NAME is set to the experiment used to run the pipeline. You can choose any name you want. If the experiment does not exist it will be created by the command
 - RUN_ID is the name of the run. You can use an arbitrary name
 - PIPELINE_ID is the id of your pipeline. Use the value retrieved by the   `kfp pipeline list` command
-- GCS_STAGING_BUCKET is the GCS bucket used by the pipeline to store intermediate files. Use the bucket created during the lab setup. Make sure to specify a full URI starting with`gs://`.
-- REGION is the compute region for AI Platform Training and Prediction. We recommend using the same region where your KFP environment is deployed.
+- GCS_STAGING_PATH is the URI to the GCS location used by the pipeline to store intermediate files. It is set a the `staging` folder in your artifact store.
+- REGION is the compute region for AI Platform Training and Prediction. 
 
 You should be already familiar with these and other parameters passed to the command. If not go back and review the pipeline code.
 
