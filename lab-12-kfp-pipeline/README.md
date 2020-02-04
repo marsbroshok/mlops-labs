@@ -70,7 +70,7 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
 ## Lab Exercises
 
-During this lab, you will mostly work in a JupyterLab terminal. Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default setting during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
+During this lab, you will mostly work in a JupyterLab terminal. Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
 ```
 export PROJECT_ID=$(gcloud config get-value core/project)
 expert NAME_PREFIX=$PROJECT_ID
