@@ -70,8 +70,25 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
 ## Lab Exercises
 
-Follow the instructor who will walk you through the lab. The high level summary of the lab flow is as follows.
+During this lab you will mostly work in a JupyterLab terminal. Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default setting during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
+```
+export PROJECT_ID=$(gcloud config get-value core/project)
+expert NAME_PREFIX=$PROJECT_ID
+export NAMESPACE=kubeflow
+export REGION=us-central1
+export ZONE=us-central1-a
 
+export ARTIFACT_STORE_URI=gs://$PREFIX-artifact-store
+export GKE_CLUSTER_NAME=$PREFIX-cluster
+
+gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
+
+export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
+```
+
+Follow the instructor who will walk you through the lab. 
+
+The high level summary of the lab flow is as follows.
 
 ### Authoring the pipeline
 
@@ -92,17 +109,16 @@ The workflow implemented by the pipeline is defined using a Python based KFP Dom
 
 The training step in the pipeline employes the AI Platform Training component to schedule a  AI Platform Training job in a custom training container. You need to build the training container image before you can run the pipeline. You also need to build the image that provides a runtime environment for the **Retrieve Best Run** and **Evaluate Model** components.
 
-To maintain the consistency between the development environment (AI Platform Notebooks) and the pipeline
-s runtime environment on the GKE, both container images are derivatives of the image used by the AI Platform Notebooks instance - `gcr.io/[YOUR_PROJECT_ID]/mlops-dev:TF115-TFX015-KFP136`.
+To maintain the consistency between the development environment (AI Platform Notebooks) and the pipeline's runtime environment on the GKE, both container images are derivatives of the image used by the AI Platform Notebooks instance - `gcr.io/[YOUR_PROJECT_ID]/mlops-dev:TF115-TFX015-KFP136`.
 
-### Building the training image
-
+#### Building the training image
 
 
 MAKE SURE to update the Dockerfile in the `trainer_image` folder with the URI pointing to your Container Registry.
 
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
+
 IMAGE_NAME=trainer_image
 TAG=latest
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
@@ -111,10 +127,8 @@ gcloud builds submit --timeout 15m --tag ${IMAGE_URI} trainer_image
 
 ```
 
-### Building the base image for custom components
+#### Building the base image for custom components
  
-
-To build and push the base image execute the below commands. 
 
 MAKE SURE to update the Dockerfile in the `base_image` folder with the URI pointing to your Container Registry.
 
@@ -131,7 +145,7 @@ gcloud builds submit --timeout 15m --tag ${IMAGE_URI} base_image
 
 ### Compiling and deploying the pipeline
 
-Before deploying to the KFP runtime environment, the pipeline's DSL has to be compiled into a pipeline runtime format, also refered to as a pipeline package.  The current version of the runtime format is based on [Argo Workflow](https://github.com/argoproj/argo), which is expressed in YAML. 
+Before deploying to the KFP runtime environment, the pipeline's DSL has to be compiled into a pipeline runtime format, also refered to as a pipeline package.  The runtime format is based on [Argo Workflow](https://github.com/argoproj/argo), which is expressed in YAML. 
 
 You can compile the DSL using an API from the **KFP SDK** or using the **KFP** compiler.
 
@@ -139,6 +153,7 @@ To compile the pipeline DSL using **KFP** compiler. From the root folder of this
 
 ```
 export PROJECT_ID=[YOUR_PROJECT_ID]
+
 export BASE_IMAGE=gcr.io/$PROJECT_ID/base_image:latest
 export TRAINER_IMAGE=gcr.io/$PROJECT_ID/trainer_image:latest
 export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.36/components/gcp/
@@ -153,7 +168,7 @@ The result is the `covertype_training_pipeline.yaml` file. This file needs to de
 To upload the pipeline package using **KFP CLI**:
 
 ```
-INVERSE_PROXY_HOSTNAME=[YOUR_INVERSE_PROXY_HOSTNAME]
+
 PIPELINE_NAME=covertype_classifier_training
 
 kfp --endpoint $INVERSE_PROXY_HOSTNAME pipeline upload \
