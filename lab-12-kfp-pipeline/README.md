@@ -22,7 +22,7 @@ The below diagram represents the workflow orchestrated by the pipeline.
 ## Lab setup
 
 ### AI Platform Notebook and KFP environment
-Before proceeding with the lab, you must set up the lab environment.`
+Before proceeding with the lab, you must set up the lab environment as outlined in the 00-series labs.
 
 ### Lab dataset
 This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipeline developed in the lab sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery:
