@@ -11,18 +11,19 @@ This lab uses the KFP DSL and KFP components developed in `lab-12-kfp-pipeline`.
 This lab requires the same setup as `lab-12-kfp-pipeline`. If you completed `lab-12-kfp-pipeline` you are ready to go and you can skip to the **Lab Exercises** section.
 
 ### AI Platform Notebook configuration
-Before proceeding with the lab, you must set up an AI Platform Notebook instance and a KFP environment as detailed in `lab-01-environment-notebook` and `lab-02-environment-kfp`
+Before proceeding with the lab, you must set up the lab environment.
 
 ### Lab dataset
-This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipeline developed in the lab sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery. 
+This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipeline developed in the lab sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery:
 
 1. Open new terminal in you **JupyterLab**
 
-2. Create the BigQuery dataset and upload the Cover Type CSV file.
+2. Create the BigQuery dataset and upload the Cover Type csv file.
 ```
 PROJECT_ID=[YOUR_PROJECT_ID]
+
 DATASET_LOCATION=US
-DATASET_ID=lab_11
+DATASET_ID=covertype_dataset
 TABLE_ID=covertype
 DATA_SOURCE=gs://workshop-datasets/covertype/full/dataset.csv
 SCHEMA=Elevation:INTEGER,\
@@ -50,13 +51,20 @@ $DATA_SOURCE \
 $SCHEMA
 ```
 
-### GCS bucket
-Create the GCS bucket that will be used as a staging area during the lab.
-```
-BUCKET_NAME=gs://${PROJECT_ID}-staging
-gsutil mb -p $PROJECT_ID $BUCKET_NAME
-```
 ## Lab Exercises
+
+During this lab, you will mostly work in a JupyterLab terminal. Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, ZONE, or NAMESPACE update the commands accordingly:
+
+```
+export PROJECT_ID=$(gcloud config get-value core/project)
+export PREFIX=$PROJECT_ID
+export ZONE=us-central1-a
+export GKE_CLUSTER_NAME=$PREFIX-cluster
+
+gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
+export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
+
+```
 
 Follow the instructor who will walk you through the lab. The high level summary of the lab exercises is as follows.
 
@@ -75,6 +83,11 @@ The **Cloud Build** workflow configuration uses both standard and custom [Cloud 
 
 *The current version of the lab has been developed and tested with v1.36 of KFP. There is a number of issues with post 1.36 versions of KFP that prevent us from upgrading to the newer version of KFP. KFP v1.36 does not have support for pipeline versions. As an interim measure, the **Cloud Build**  workflow appends `$TAG_NAME` default substitution to the name of the pipeline to designate a pipeline version.*
 
+
+
+
+#### Creating KFP CLI builder
+
 To create a **Cloud Build** custom builder that encapsulates KFP CLI.
 
 1. Create the Dockerfile describing the KFP CLI builder
@@ -89,21 +102,20 @@ EOF
 
 2. Build the image and push it to your project's Container Registry. 
 ```
-PROJECT_ID=[YOUR_PROJECT_ID]
 IMAGE_NAME=kfp-cli
 TAG=latest
-
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 ```
 
+#### Manually triggering CI/CD runs
+
 To manually trigger the CI/CD run :
 
-1. Update the `build_pipeline.sh` script  with your KFP inverting proxy host. Recall that you can retrieve the inverting proxy hostname using the following commands:
+1. Update the `build_pipeline.sh` script  with your KFP inverting proxy host. 
 ```
-gcloud container clusters get-credentials [YOUR_GKE_CLUSTER] --zone [YOUR_ZONE]
-kubectl describe configmap inverse-proxy-config -n [YOUR_NAMESPACE] | grep "googleusercontent.com"
+echo $INVERSE_PROXY_HOSTNAME
 ```
 
 2. Start the run:
