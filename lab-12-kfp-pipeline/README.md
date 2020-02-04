@@ -62,12 +62,6 @@ $DATA_SOURCE \
 $SCHEMA
 ```
 
-### GCS bucket
-Create the GCS bucket that will be used as a staging area during the lab.
-```
-BUCKET_NAME=gs://${PROJECT_ID}-staging
-gsutil mb -p $PROJECT_ID $BUCKET_NAME
-```
 ## Lab Exercises
 
 During this lab, you will mostly work in a JupyterLab terminal. Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
@@ -78,6 +72,7 @@ export NAMESPACE=kubeflow
 export REGION=us-central1
 export ZONE=us-central1-a
 export ARTIFACT_STORE_URI=gs://$PREFIX-artifact-store
+export GCS_STAGING_PATH=${ARTIFACT_STORE_URI}/staging
 export GKE_CLUSTER_NAME=$PREFIX-cluster
 
 gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
@@ -148,8 +143,6 @@ You can compile the DSL using an API from the **KFP SDK** or using the **KFP** c
 To compile the pipeline DSL using **KFP** compiler. From the root folder of this lab, execute the following commands.
 
 ```
-export PROJECT_ID=[YOUR_PROJECT_ID]
-
 export BASE_IMAGE=gcr.io/$PROJECT_ID/base_image:latest
 export TRAINER_IMAGE=gcr.io/$PROJECT_ID/trainer_image:latest
 export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.36/components/gcp/
@@ -171,14 +164,7 @@ kfp --endpoint $INVERSE_PROXY_HOSTNAME pipeline upload \
 -p $PIPELINE_NAME \
 covertype_training_pipeline.yaml
 ```
-Where [YOUR_INVERSE_PROXY_HOST] is the hostname of the inverse proxy providing access to your KFP environment. The hostname is stored in the `inverse-proxy-config` ConfigMap in the Kubernetes namespace where you deployed KFP in `lab-02-environment-kfp`.
 
-You can retrieve the hostname using the following commands.
-
-```
-gcloud container clusters get-credentials [YOUR_GKE_CLUSTER] --zone [YOUR_ZONE]
-kubectl describe configmap inverse-proxy-config -n [YOUR_NAMESPACE] | grep "googleusercontent.com"
-```
 
 You can double check that the pipeline was uploaded by listing the pipelines in your KFP environment.
 
@@ -193,15 +179,12 @@ You can trigger pipeline runs using an API from the KFP SDK or using KFP CLI. To
 
 
 ```
-PROJECT_ID=[YOUR_PROJECT_ID]
+
 PIPELINE_ID=[YOUR_PIPELINE_ID]
-GCS_STAGING_BUCKET=[YOUR_GCS_STAGING_BUCKET]
-REGION=[YOUR_REGION]
-INVERSE_PROXY_HOSTNAME=[YOUR_INVERSE_PROXY_HOSTNAME]
 
 EXPERIMENT_NAME=Covertype_Classifier_Training
 RUN_ID=Run_001
-SOURCE_TABLE=lab_12.covertype
+SOURCE_TABLE=covertype_dataset.covertype
 DATASET_ID=splits
 EVALUATION_METRIC=accuracy
 EVALUATION_METRIC_THRESHOLD=0.69
@@ -214,7 +197,7 @@ kfp --endpoint $INVERSE_PROXY_HOSTNAME run submit \
 -r Run_201 \
 -p $PIPELINE_ID \
 project_id=$PROJECT_ID \
-gcs_root=$GCS_STAGING_BUCKET \
+gcs_root=$GCS_STAGING_PATH \
 region=$REGION \
 source_table_name=$SOURCE_TABLE \
 dataset_id=$DATASET_ID \
