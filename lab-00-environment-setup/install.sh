@@ -73,10 +73,6 @@ dataflow.googleapis.com
 
 echo INFO: Required services enabled
 
-# Build AI Platform Notebook image
-echo INFO: Building AI Platform Notebooks container image: $IMAGE_URI
-gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
-
 # Give Cloud Build service account the project editor role
 echo INFO:Assigning the Cloud Build service account to the project editor role
 PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
