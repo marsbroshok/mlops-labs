@@ -119,7 +119,7 @@ def covertype_train(
     hypertune_settings:Dict =HYPERTUNE_SETTINGS,
     dataset_location:str ='US'
     ):
-    """Orchestrates training and deployment of an sklearn model"
+    """Orchestrates training and deployment of an sklearn model"""
     
     # Create the training split
     query = generate_sampling_query(
