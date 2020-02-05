@@ -19,9 +19,25 @@ The TFX `ExampleGen`, `StatisticsGen`, `ExampleValidator`, `SchemaGen`, `Transfo
 ## Lab setup
 
 ### AI Platform Notebook and KFP environment
-Before proceeding with the lab, you must set up an **AI Platform Notebooks** instance and a **KFP** environment as detailed in lab-01-environment-notebook and lab-02-environment-kfp
+Before proceeding with the lab, you must set up an **AI Platform Notebooks** instance and a **KFP** environment.
 
 ## Lab Exercises
+
+You will use a JupyterLab terminal terminal as the primary interface during the lab. Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
+```
+export PROJECT_ID=$(gcloud config get-value core/project)
+export PREFIX=$PROJECT_ID
+export NAMESPACE=kubeflow
+export GCP_REGION=us-central1
+export ZONE=us-central1-a
+export ARTIFACT_STORE_URI=gs://$PREFIX-artifact-store
+export GCS_STAGING_PATH=${ARTIFACT_STORE_URI}/staging
+export GKE_CLUSTER_NAME=$PREFIX-cluster
+export DATA_ROOT_URI=gs://workshop-datasets/covertype/full
+
+gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
+export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
+```
 
 Follow the instructor who will walk you through the lab. The high level summary of the lab flow is as follows:
 
@@ -34,7 +50,8 @@ The base `tfx` image includes TFX v0.15 and TensorFlow v2.0. The custom image mo
 The pipeline needs to use v1.15 of TensorFlow as the AI Platform Prediction service, which is used as a deployment target, does not yet support v2.0 of TensorFlow.
 
 ### Building and deploying the pipeline
-You can use **TFX CLI** to compile and deploy the pipeline to the KFP environment. As the pipeline uses the custom image, the first step is to build the image and push it to your project's **Container Registry**. You will use **Cloud Build** to build the image.
+#### Creating the custom docker image
+The first step is to build the custom docker image and push it to your project's **Container Registry**. You will use **Cloud Build** to build the image.
 
 1. Create the Dockerfile describing the custom image
 ```
@@ -48,43 +65,26 @@ EOF
 
 2. Submit the **Cloud Build** job
 ```
-PROJECT_ID=[YOUR_PROJECT_ID]
 IMAGE_NAME=tfx-image
 TAG=latest
-IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
+export TFX_IMAGE="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
-gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
+gcloud builds submit --timeout 15m --tag ${TFX_IMAGE} .
 ```
 
-The pipeline's DSL retrieves the settings controlling how the pipeline is compiled from the environment variables.To set the environment variables and compile and deploy the pipeline using  **TFX CLI**:
+#### Compiling and uploading the pipeline to the KFP environment
+The pipeline's DSL retrieves the settings controlling how the pipeline is compiled from the environment variables. In addition to the environment settings configured before, you need to set a few additional pipeline specific settings:
 
 ```
-export PROJECT_ID=[YOUR_PROJECT_ID]
-export ARTIFACT_STORE_URI=[YOUR_ARTIFACT_STORE_URI]
-export TFX_IMAGE=[YOUR_TFX_IMAGE_URI]
-export KFP_INVERSE_PROXY_HOST=[YOUR_INVERSE_PROXY_HOST]
-
-export DATA_ROOT_URI=gs://workshop-datasets/covertype/full
 export PIPELINE_NAME=tfx_covertype_classifier_training
-export GCP_REGION=us-central1
 export RUNTIME_VERSION=1.15
 export PYTHON_VERSION=3.7
 
-tfx pipeline create --engine kubeflow --pipeline_path pipeline_dsl.py --endpoint $KFP_INVERSE_PROXY_HOST
+tfx pipeline create --engine kubeflow --pipeline_path pipeline_dsl.py --endpoint $INVERSE_PROXY_HOSTNAME
 ```
 
-Where 
-- [YOUR_ARTIFACT_STORE_URI] is the URI of the bucket created during the KFP lightweight deployment setup - `lab-02-environment-kfp`.
-- [YOUR_DATA_ROOT_URI] is the GCS location where you uploaded the *Covertype Data Set* CSV file
-- [YOUR_TFX_IMAGE_URI] is the URI of the image you created in the previous step. Make sure to specify a full URI including the tag
-- [YOUR_INVERSE_PROXY_HOST] is the hostname of the inverse proxy to your KFP installation. Recall that you can retrieve the inverse proxy hostname using the below command
 
-```
-gcloud container clusters get-credentials [YOUR_GKE_CLUSTER] --zone [YOUR_ZONE]
-kubectl describe configmap inverse-proxy-config -n [YOUR_NAMESPACE] | grep "googleusercontent.com"
-```
-
-The `tfx pipeline create` command compiled the pipeline's DSL into the KFP package file - `tfx_covertype_classifier_training.tar.gz`. The package file contains the description of the pipeline in the YAML format. If you want to examine the file, extract from the tarball file and use the JupyterLab editor.
+The `tfx pipeline create` command compiles the pipeline's DSL into the KFP package file - `tfx_covertype_classifier_training.tar.gz` and uploads the package to the KFP environment. The package file contains the description of the pipeline in the YAML format. If you want to examine the file, extract from the tarball file and use the JupyterLab editor.
 
 ```
 tar xvf tfx_covertype_classifier_training.tar.gz
@@ -99,21 +99,21 @@ After the pipeline has been deployed, you can trigger and monitor pipeline runs 
 
 To submit the pipeline run using **TFX CLI**:
 ```
-tfx run create --pipeline_name tfx_covertype_classifier_training --endpoint $KFP_INVERSE_PROXY_HOST
+tfx run create --pipeline_name tfx_covertype_classifier_training --endpoint $INVERSE_PROXY_HOSTNAME
 ```
 
 To list all the active runs of the pipeline:
 ```
-tfx run list --pipeline_name tfx_covertype_classifier_training --endpoint $KFP_INVERSE_PROXY_HOST
+tfx run list --pipeline_name tfx_covertype_classifier_training --endpoint $INVERSE_PROXY_HOSTNAME
 ```
 
 To retrieve the status of a given run:
 ```
-tfx run status --pipeline_name tfx_covertype_classifier_training --run_id [YOUR_RUN_ID] --endpoint $KFP_INVERSE_PROXY_HOST
+tfx run status --pipeline_name tfx_covertype_classifier_training --run_id [YOUR_RUN_ID] --endpoint $INVERSE_PROXY_HOSTNAME
 ```
  To terminate a run:
  ```
- tfx run terminate --run_id [YOUR_RUN_ID] --endpoint $KFP_INVERSE_PROXY_HOST
+ tfx run terminate --run_id [YOUR_RUN_ID] --endpoint $INVERSE_PROXY_HOSTNAME
  ```
 
 
