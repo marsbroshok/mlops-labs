@@ -17,6 +17,18 @@ Before proceeding with the lab, you must set up an **AI Platform Notebooks** ins
 
 ## Lab Exercises
 
+You will use a JupyterLab terminal as your primary workspace. Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, ZONE, or NAMESPACE update the commands accordingly:
+
+```
+export PROJECT_ID=$(gcloud config get-value core/project)
+export PREFIX=$PROJECT_ID
+export ZONE=us-central1-a
+export GKE_CLUSTER_NAME=$PREFIX-cluster
+
+gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
+export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
+```
+
 Follow the instructor who will walk you through the lab. The high level summary of the lab exercises is as follows:
 
 ### Authoring the CI/CD workflow that builds and deploy the TFX training pipeline
@@ -46,7 +58,6 @@ EOF
 
 2. Build the image and push it to your project's Container Registry. 
 ```
-PROJECT_ID=[YOUR_PROJECT_ID]
 IMAGE_NAME=tfx-cli
 TAG=latest
 
