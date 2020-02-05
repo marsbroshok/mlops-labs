@@ -55,5 +55,7 @@ gsutil mb -p $PROJECT_ID $BUCKET_NAME
 ```
 
 ## Lab Exercises
-Follow the instructor, who will walk you throught the `tfdv-covertype.ipynb` notebook.
+This lab has two exercises:
+1. The [tfdv-covertype.ipynb](tfdv-covertype.ipynb) Notebook, which uses the [Covertype Dataset](../datasets/covertype/README.md) available in the repository. This exersise is intended to run locally.
+2. The [tfdv-flights.ipynb](tfdv-flights.ipynb) Notebook, which uses the [flights](https://bigquery.cloud.google.com/table/bigquery-samples:airline_ontime_data.flights?pli=1&tab=schema) dataset available in BigQuery. This exersise is intended to run the TFDV steps using Dataflow.
 
