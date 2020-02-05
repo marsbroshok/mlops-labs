@@ -11,6 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""KFP pipeline orchestrating BigQuery and Cloud AI Platform services."""
+
 
 import json
 import kfp
@@ -18,7 +20,6 @@ import os
 import uuid
 import time
 import tempfile
-
 
 from google.cloud import bigquery
 from jinja2 import Template
@@ -71,6 +72,8 @@ HYPERTUNE_SETTINGS = '''
 
 # Helper functions
 def generate_sampling_query(source_table_name, num_lots, lots):
+    """Prepares the data sampling query."""
+    
     sampling_query_template = """
        SELECT *
        FROM 
@@ -116,6 +119,7 @@ def covertype_train(
     hypertune_settings:Dict =HYPERTUNE_SETTINGS,
     dataset_location:str ='US'
     ):
+    """Orchestrates training and deployment of an sklearn model"
     
     # Create the training split
     query = generate_sampling_query(
