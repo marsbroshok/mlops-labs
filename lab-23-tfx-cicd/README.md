@@ -12,7 +12,7 @@ This lab uses the TFX code developed in lab-22-tfx-pipeline.
 
 ### AI Platform Notebooks and KFP environment
 
-Before proceeding with the lab, you must set up an AI Platform Notebook instance and a KFP environment as detailed in lab-01-environment-notebook and lab-02-environment-kfp
+Before proceeding with the lab, you must set up an **AI Platform Notebooks** instance and a **KFP** environment.
 
 
 ## Lab Exercises
