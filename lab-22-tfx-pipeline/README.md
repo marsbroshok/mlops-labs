@@ -28,7 +28,7 @@ You will use a JupyterLab terminal terminal as the primary interface during the 
 export PROJECT_ID=$(gcloud config get-value core/project)
 export PREFIX=$PROJECT_ID
 export NAMESPACE=kubeflow
-export REGION=us-central1
+export GCP_REGION=us-central1
 export ZONE=us-central1-a
 export ARTIFACT_STORE_URI=gs://$PREFIX-artifact-store
 export GCS_STAGING_PATH=${ARTIFACT_STORE_URI}/staging
@@ -67,9 +67,9 @@ EOF
 ```
 IMAGE_NAME=tfx-image
 TAG=latest
-export IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
+export TFX_IMAGE="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
-gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
+gcloud builds submit --timeout 15m --tag ${TFX_IMAGE} .
 ```
 
 #### Compiling and uploading the pipeline to the KFP environment
