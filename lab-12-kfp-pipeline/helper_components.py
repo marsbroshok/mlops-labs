@@ -10,13 +10,14 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-
+"""Helper components."""
 
 from typing import NamedTuple
 def retrieve_best_run(project_id:str, job_id:str)->NamedTuple('Outputs',
                                                    [('metric_value', float),
                                                     ('alpha', float),
                                                     ('max_iter', int)]):
+    """Retrieves the parameters of the best Hypertune run."""
 
     from googleapiclient import discovery
     from googleapiclient import errors
@@ -48,6 +49,7 @@ def evaluate_model(dataset_path:str, model_path:str, metric_name:str)->NamedTupl
                                                                        [('metric_name', str),
                                                                         ('metric_value', float),
                                                                         ('mlpipeline_metrics', 'Metrics')]):
+    """Evaluates a trained sklearn model."""
     #import joblib
     import pickle
     import json
