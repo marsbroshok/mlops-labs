@@ -94,16 +94,9 @@ Code | Description
 
 ## Data Splits
 
-The file `covertype.csv` is a full dataset with 581012 examples.
-
-In addition, the following data splits have been created:
-- `covertype_training.csv` - the training split with 431012 examples
-- `covertype_evaluation.csv` -  the evaluation split with 75,000 examples
-- `covertype_serving.csv`- the serving split with 75,000 examples. The serving split does not have the `Cover_type` column
-- `covertype_training_missing.csv` - the training split with some missing values
-- `covertype_evaluation_anomalies.csv` - the evaluation split with simulated anomalies: some examples have slope values over 90 degrees, some examples have soil type 5151 (that code does not exist in the training split).
+In addition to the full data split that contains all records from the original UCI file, the training, evaluation, testing and serving splits have been created.
 
 
-All data set splits have been uploaded to the `gs://workshop-datasets/covertype` GCS location.
-In addition the full dataset has been loaded to BigQuery at ...
+All data set splits have been uploaded to the `gs://workshop-datasets/covertype` public GCS location.
+
 
