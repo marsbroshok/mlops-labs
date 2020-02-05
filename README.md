@@ -1,6 +1,9 @@
-# Production ML workflows on Google Cloud
+# ML Engineering on Google Cloud Platform
 
-This repo manages a set of labs designed to demonstrate best practices and patterns for implementing and operationalizing production grade ML workflows on Google Cloud Platform. The goal is to create a portoflio of labs that can be utilized in development and delivery of scenario specific demos and workshops. 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
+
+This repository manages a set of hands-on labs and code samples that demonstrate best practices and patterns for implementing and operationalizing production grade machine learning workflows on Google Cloud Platform. The goal is to create a portoflio of labs that can be utilized in development and delivery of scenario specific demos and workshops. 
 
 - **Series 0x labs**. These labs guide you through the process of provisioning and configuring a reference MLOps environment on GCP. Most other labs rely on the environment configured in these labs. 
     - **lab-00-environment-setup** is a fully automated one-step deployment of the lab environment. 
