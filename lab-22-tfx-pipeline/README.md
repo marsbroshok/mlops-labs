@@ -73,7 +73,7 @@ gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 ```
 
 #### Compiling and uploading the pipeline to the KFP environment
-The pipeline's DSL retrieves the settings controlling how the pipeline is compiled from the environment variables. In addition to the environment settings configured before you need to set a few additional pipeline specific settings**:
+The pipeline's DSL retrieves the settings controlling how the pipeline is compiled from the environment variables. In addition to the environment settings configured before, you need to set a few additional pipeline specific settings:
 
 ```
 export PIPELINE_NAME=tfx_covertype_classifier_training
