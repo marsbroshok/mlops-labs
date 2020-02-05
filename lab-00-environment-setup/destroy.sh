@@ -13,8 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Destory KFP environment
+# Destroy the KFP environment
 
+# Verify command line parameters
 if [[ $# < 1 ]]; then
   echo 'USAGE:  ./destroy.sh PROJECT_ID [NAME_PREFIX=PROJECT_ID] [REGION=us-central1] [ZONE=us-central1-a]'
   exit 1
@@ -27,6 +28,7 @@ ZONE=${4:-us-central1-a}
 
 INSTANCE_NAME=${NAME_PREFIX}-notebook
 
+# Destroy the AI Platform Notebook instance
 if [ $(gcloud compute instances list --filter="name=$INSTANCE_NAME" --zones $ZONE --format="value(name)") ]; then
     echo INFO: Instance $INSTANCE_NAME exists in $ZONE. Destroying ...
     gcloud compute instances delete $INSTANCE_NAME --zone $ZONE
@@ -34,6 +36,7 @@ else
     echo INFO: No $INSTANCE_NAME instance in $ZONE
 fi
 
+# Destroy the Terraform configuration
 echo INFO: Starting Terraform destroy
 pushd terraform
 terraform destroy \
