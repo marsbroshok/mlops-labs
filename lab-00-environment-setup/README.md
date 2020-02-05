@@ -57,7 +57,7 @@ You will run the provisioning script using [Cloud Shell](https://cloud.google.co
 
 To install **Kustomize** in **Cloud Shell**:
 ```
-cd /usr/local//bin
+cd /usr/local/bin
 sudo wget https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv3.3.0/kustomize_v3.3.0_linux_amd64.tar.gz
 sudo tar xvf kustomize_v3.3.0_linux_amd64.tar.gz
 sudo rm kustomize_v3.3.0_linux_amd64.tar.gz
