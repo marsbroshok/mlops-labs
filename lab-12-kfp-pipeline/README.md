@@ -31,7 +31,7 @@ This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipe
 
 2. Create the BigQuery dataset and upload the Cover Type csv file.
 ```
-PROJECT_ID=[YOUR_PROJECT_ID]
+export PROJECT_ID=$(gcloud config get-value core/project)
 
 DATASET_LOCATION=US
 DATASET_ID=covertype_dataset
