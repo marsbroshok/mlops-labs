@@ -12,10 +12,22 @@ This lab uses the TFX code developed in lab-22-tfx-pipeline.
 
 ### AI Platform Notebooks and KFP environment
 
-Before proceeding with the lab, you must set up an AI Platform Notebook instance and a KFP environment as detailed in lab-01-environment-notebook and lab-02-environment-kfp
+Before proceeding with the lab, you must set up an **AI Platform Notebooks** instance and a **KFP** environment.
 
 
 ## Lab Exercises
+
+You will use a JupyterLab terminal as your primary workspace. Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, ZONE, or NAMESPACE update the commands accordingly:
+
+```
+export PROJECT_ID=$(gcloud config get-value core/project)
+export PREFIX=$PROJECT_ID
+export ZONE=us-central1-a
+export GKE_CLUSTER_NAME=$PREFIX-cluster
+
+gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
+export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
+```
 
 Follow the instructor who will walk you through the lab. The high level summary of the lab exercises is as follows:
 
@@ -35,7 +47,7 @@ To create a **Cloud Build** custom builder that encapsulates **TFX CLI**.
 1. Create the Dockerfile describing the TFX CLI builder
 ```
 cat > Dockerfile << EOF
-FROM gcr.io/deeplearning-platform-release/tf-cpu.1-15
+FROM gcr.io/deeplearning-platform-release/tf-cpu.1-15:m39
 RUN pip install -U six==1.12 apache-beam==2.16 pyarrow==0.14.0 tfx-bsl==0.15.1 \
 && pip install -U tfx==0.15 \
 && pip install -U https://storage.googleapis.com/ml-pipeline/release/0.1.36/kfp.tar.gz 
@@ -46,7 +58,6 @@ EOF
 
 2. Build the image and push it to your project's Container Registry. 
 ```
-PROJECT_ID=[YOUR_PROJECT_ID]
 IMAGE_NAME=tfx-cli
 TAG=latest
 
