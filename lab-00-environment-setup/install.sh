@@ -28,7 +28,7 @@ trap 'err_handler "$LINENO" "$BASH_COMMAND" "$?"' ERR
 
 # Check command line parameters
 if [[ $# < 1 ]]; then
-  echo 'USAGE:  ./install.sh PROJECT_ID NAME_PREFIX [REGION=us-central1] [ZONE=us-central1-a] [NAMESPACE=kubeflow]'
+  echo 'USAGE:  ./install.sh PROJECT_ID [NAME_PREFIX=PROJECT_ID] [REGION=us-central1] [ZONE=us-central1-a] [NAMESPACE=kubeflow]'
   exit 1
 fi
 
