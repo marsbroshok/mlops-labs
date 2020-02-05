@@ -80,7 +80,7 @@ export PIPELINE_NAME=tfx_covertype_classifier_training
 export RUNTIME_VERSION=1.15
 export PYTHON_VERSION=3.7
 
-tfx pipeline create --engine kubeflow --pipeline_path pipeline_dsl.py --endpoint $KFP_INVERSE_PROXY_HOST
+tfx pipeline create --engine kubeflow --pipeline_path pipeline_dsl.py --endpoint $INVERSE_PROXY_HOSTNAME
 ```
 
 
@@ -99,21 +99,21 @@ After the pipeline has been deployed, you can trigger and monitor pipeline runs 
 
 To submit the pipeline run using **TFX CLI**:
 ```
-tfx run create --pipeline_name tfx_covertype_classifier_training --endpoint $KFP_INVERSE_PROXY_HOST
+tfx run create --pipeline_name tfx_covertype_classifier_training --endpoint $INVERSE_PROXY_HOSTNAME
 ```
 
 To list all the active runs of the pipeline:
 ```
-tfx run list --pipeline_name tfx_covertype_classifier_training --endpoint $KFP_INVERSE_PROXY_HOST
+tfx run list --pipeline_name tfx_covertype_classifier_training --endpoint $INVERSE_PROXY_HOSTNAME
 ```
 
 To retrieve the status of a given run:
 ```
-tfx run status --pipeline_name tfx_covertype_classifier_training --run_id [YOUR_RUN_ID] --endpoint $KFP_INVERSE_PROXY_HOST
+tfx run status --pipeline_name tfx_covertype_classifier_training --run_id [YOUR_RUN_ID] --endpoint $INVERSE_PROXY_HOSTNAME
 ```
  To terminate a run:
  ```
- tfx run terminate --run_id [YOUR_RUN_ID] --endpoint $KFP_INVERSE_PROXY_HOST
+ tfx run terminate --run_id [YOUR_RUN_ID] --endpoint $INVERSE_PROXY_HOSTNAME
  ```
 
 
