@@ -71,7 +71,6 @@ To start the provisioning script:
 1. Open **Cloud Shell**
 2. Clone this repo under the `home` folder.
 ```
-cd /
 git clone https://github.com/jarokaz/mlops-labs.git
 cd mlops-labs/lab-00-environment-setup
 ```
