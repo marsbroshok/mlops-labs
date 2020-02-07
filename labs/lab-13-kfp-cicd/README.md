@@ -136,7 +136,7 @@ You will set up a trigger that starts the CI/CD workflow when a new tag is appli
 |Trigger type| Tag|
 |Tag (regex)|.\*|
 |Build Configuration|Cloud Build configuration file (yaml or json)|
-|Cloud Build configuration file location|/ lab-13-kfp-cicd/cloudbuild.yaml|
+|Cloud Build configuration file location|/ labs/lab-13-kfp-cicd/cloudbuild.yaml|
 
 
 Use the following values for the substitution variables:
@@ -147,7 +147,7 @@ Use the following values for the substitution variables:
 |_COMPONENT_URL_SEARCH_PREFIX|https://raw.githubusercontent.com/kubeflow/pipelines/0.1.36/components/gcp/|
 |_INVERTING_PROXY_HOST|[Your inverting proxy host]|
 |_PIPELINE_DSL|covertype_training_pipeline.py|
-|_PIPELINE_FOLDER|lab-13-kfp-cicd/pipeline|
+|_PIPELINE_FOLDER|labs/lab-13-kfp-cicd/pipeline|
 |_PIPELINE_NAME|covertype_training_deployment|
 |_PIPELINE_PACKAGE|covertype_training_pipeline.yaml|
 |_PYTHON_VERSION|3.5|
