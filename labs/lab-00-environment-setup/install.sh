@@ -40,7 +40,7 @@ REGION=${3:-us-central1}
 ZONE=${4:-us-central1-a}
 NAMESPACE=${5:-kubeflow}
 
-IMAGE_NAME=mlops-labs-image
+IMAGE_NAME=mlops-dev
 TAG=TF115-TFX015-KFP136
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
