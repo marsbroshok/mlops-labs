@@ -95,7 +95,7 @@ Use the following values for the substitution variables:
 
 |Variable|Value|
 |--------|-----|
-|_TFX_IMAGE_NAME|custom-tfx-image|
+|_TFX_IMAGE_NAME|tfx-image|
 |_KFP_INVERSE_PROXY_HOST|[YOUR_INVERTING_PROXY]|
 |_PIPELINE_DSL|pipeline_dsl.py|
 |_PIPELINE_FOLDER|labs/lab-23-tfx-cicd/pipeline-dsl|
