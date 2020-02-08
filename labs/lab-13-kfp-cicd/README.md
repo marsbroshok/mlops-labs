@@ -117,8 +117,8 @@ To manually trigger the CI/CD run :
 ```
 echo $INVERSE_PROXY_HOSTNAME
 ```
-
-2. Start the run:
+2. Update the Dockerfile files in the  `pipeline/base_image` and `pipeline/trainer_image` folders so they get the base image from your Container Registry.
+3. Start the run:
 ```
 ./build_pipeline.sh
 ```
