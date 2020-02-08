@@ -97,6 +97,8 @@ EOF
 3. Build the image and push it to your project's **Container Registry**
 
 ```
+PROJECT_ID=[YOUR_PROJECT_ID]
+
 IMAGE_NAME=mlops-dev
 TAG=TF115-TFX015-KFP136
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
