@@ -18,7 +18,7 @@
 
 SUBSTITUTIONS=\
 _PIPELINE_NAME=tfx-covertype-classifier-training,\
-_TFX_IMAGE_NAME=lab-23-tfx-image,\
+_TFX_IMAGE_NAME=custom-tfx-image,\
 _GCP_REGION=us-central1,\
 _ARTIFACT_STORE_URI=gs://mlops-workshop-artifact-store,\
 _DATA_ROOT_URI=gs://mlops-workshop-staging/covertype_dataset,\
