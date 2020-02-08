@@ -17,7 +17,7 @@ The pipeline you develop in the lab orchestrates GCP managed services. The sourc
 
 The below diagram represents the workflow orchestrated by the pipeline.
 
-![Training pipeline](../images/kfp-caip.png).
+![Training pipeline](../../images/kfp-caip.png).
 
 ## Lab setup
 
