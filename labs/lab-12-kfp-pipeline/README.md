@@ -203,7 +203,7 @@ dataset_id=$DATASET_ID \
 evaluation_metric_name=$EVALUATION_METRIC \
 evaluation_metric_threshold=$EVALUATION_METRIC_THRESHOLD \
 model_id=$MODEL_ID \
-version_id=$VERSION_DI \
+version_id=$VERSION_ID \
 replace_existing_version=$REPLACE_EXISTING_VERSION
 ```
 
