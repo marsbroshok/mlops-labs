@@ -17,7 +17,7 @@ The core services in the environment are:
     
 In the reference lab environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). 
 
-The below diagram shows the architeacture of a lightweight deployment of Kubeflow Pipelines on GKE:
+The diagram below shows the architecture of a lightweight deployment of Kubeflow Pipelines on GKE:
 
 ![KFP Deployment](/images/kfp.png)
 
@@ -37,7 +37,7 @@ Provisioning of the environment has been fully automated with the `./install.sh`
 
 The script goes through the following steps:
 1. Enables the required GCP cloud services
-1. Assigns the Cloud Build service account the the project editor role
+1. Assigns the Cloud Build service account the project editor role
 1. Builds the custom container optimized for TFX/KFP development to be used with AI Platform Notebooks
 1. Provisions an instance of AI Platform Notebooks based on the custom container image
 1. Creates and configures two service accounts:
@@ -53,7 +53,7 @@ The script goes through the following steps:
 
 You will run the provisioning script using [Cloud Shell](https://cloud.google.com/shell/). 
 
-**Terraform** is pre-installed in **Cloud Shell**. The current version of `kubectl` installed by default in **Cloud Shell** does not support **Kustomize**. *When the default version of `kubectl` in **Cloud Shell** is upgraded to the version that supports **Kustomize** the below step will not be necessary and will be removed*.
+**Terraform** is pre-installed in **Cloud Shell**. The current version of `kubectl` installed by default in **Cloud Shell** does not support **Kustomize**. *When the default version of `kubectl` in **Cloud Shell** is upgraded to the version that supports **Kustomize** the step below will not be necessary and will be removed*.
 
 To install **Kustomize** in **Cloud Shell**:
 ```
