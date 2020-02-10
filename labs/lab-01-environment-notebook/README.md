@@ -23,7 +23,7 @@ As an alternative to a fully automated setup, `lab-01-environment-notebook` and 
 
 This lab - `lab-01-environment-notebook` - walks you through the steps required to provision  an AI Platfom Notebooks instance configured based on a custom container image optimized for TFX/KFP development.
 
-The accompanying lab - `lab-02-environment` - describe the steps to provision Cloud SQL, GKE and GCS and deploying Kubeflow Pipelines
+The accompanying lab - `lab-02-environment-kfp` - describe the steps to provision Cloud SQL, GKE and GCS and deploying Kubeflow Pipelines
 
 ## Enabling the required cloud services
 
@@ -63,7 +63,6 @@ containeranalysis.googleapis.com \
 ml.googleapis.com \
 sqladmin.googleapis.com \
 dataflow.googleapis.com 
-#automl.googleapis.com
 ```
 
 3. After the services are enabled, [grant the Cloud Build service account the Project Editor role](https://cloud.google.com/cloud-build/docs/securing-builds/set-service-account-permissions).
