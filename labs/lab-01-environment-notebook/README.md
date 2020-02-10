@@ -65,7 +65,14 @@ sqladmin.googleapis.com \
 dataflow.googleapis.com 
 ```
 
-3. After the services are enabled, [grant the Cloud Build service account the Project Editor role](https://cloud.google.com/cloud-build/docs/securing-builds/set-service-account-permissions).
+3. After the services are enabled, grant the Cloud Build service account the Project Editor role.
+```
+PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
+CLOUD_BUILD_SERVICE_ACCOUNT="${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com"
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member serviceAccount:$CLOUD_BUILD_SERVICE_ACCOUNT \
+  --role roles/editor
+```
 
 
 ## Creating an **AI Platform Notebooks** instance
