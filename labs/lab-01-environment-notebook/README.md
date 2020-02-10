@@ -91,12 +91,11 @@ cd lab-workspace
 2. Create Dockerfile 
 ```
 cat > Dockerfile << EOF
-FROM gcr.io/deeplearning-platform-release/tf-cpu.1-15:m39
+gcr.io/deeplearning-platform-release/tf2-cpu.2-1
 RUN apt-get update -y && apt-get -y install kubectl
-RUN pip install -U six==1.12 apache-beam==2.16 pyarrow==0.14.0 tfx-bsl==0.15.1 \
-&& pip install -U tfx==0.15 \
+RUN pip install -U tfx==0.21.0rc0 \
 && pip install -U tensorboard \
-&& pip install https://storage.googleapis.com/ml-pipeline/release/0.1.36/kfp.tar.gz
+&& pip install kfp==0.2.2
 EOF
 ```
 

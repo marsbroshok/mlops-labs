@@ -73,6 +73,9 @@ bucket_name=$BUCKET_NAME
 EOF
 
 # Deploy KFP to the cluster
+kustomize build \
+    github.com/kubeflow/pipelines/manifests/kustomize/base/crds/?ref=0.2.2
+kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.io
 kustomize build . | kubectl apply -f -
 
 popd
