@@ -125,8 +125,29 @@ gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 
 ### Provisioning an AI Platform notebook instance
 
-To provision an instance of **AI Platform Notebooks** using the custom image, follow the  [instructions in AI Platform Notebooks Documentation](https://cloud.google.com/ai-platform/notebooks/docs/custom-container). In the **Docker container image** field, enter the full name of the image (including the tag) you created in the previous step.
+You can provision an instance of **AI Platform Notebooks** using the custom container image created in the previous steps using   [the GCP Console](https://cloud.google.com/ai-platform/notebooks/docs/custom-container) or using the `gcloud` command. To provision the instance using `gcloud`.
 
+```
+ZONE=[YOUR_ZONE]
+INSTANCE_NAME=[YOUR_INSTANCE_NAME]
+
+IMAGE_FAMILY="common-container"
+IMAGE_PROJECT="deeplearning-platform-release"
+INSTANCE_TYPE="n1-standard-4"
+METADATA="proxy-mode=project_editors,container=$IMAGE_URI"
+
+gcloud compute instances create $INSTANCE_NAME \
+    --zone=$ZONE \
+    --image-family=$IMAGE_FAMILY \
+    --machine-type=$INSTANCE_TYPE \
+    --image-project=$IMAGE_PROJECT \
+    --maintenance-policy=TERMINATE \
+    --boot-disk-device-name=${INSTANCE_NAME}-disk \
+    --boot-disk-size=100GB \
+    --boot-disk-type=pd-ssd \
+    --scopes=cloud-platform,userinfo-email \
+    --metadata=$METADATA
+```
 
 
 ### Accessing JupyterLab IDE
