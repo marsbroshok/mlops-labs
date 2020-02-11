@@ -91,12 +91,16 @@ cd lab-workspace
 2. Create requirements file
 ```
 cat > requirements.txt << EOF
-absl-py~=0.8
-scikit-learn~=0.21
-pandas~=0.25
+absl-py<0.9
+cloudpickle>=1.2.2
+google-resumable-media<0.5.0dev
+httplib2<=0.12.0
+scikit-learn<0.22
+pandas<1.0.0
 tfx==0.21.0rc0
 kfp==0.2.2
 tensorboard~=2.1.0
+
 EOF
 ```
 3. Create Dockerfile 
@@ -105,7 +109,7 @@ cat > Dockerfile << EOF
 FROM gcr.io/deeplearning-platform-release/tf2-cpu.2-1
 RUN apt-get update -y && apt-get -y install kubectl
 COPY requirements.txt .
-RUN pip install -U -r requirements.txt 
+RUN pip install -U -r requirements.txt --ignore-installed PyYAML
 EOF
 ```
 
