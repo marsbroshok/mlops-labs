@@ -102,15 +102,6 @@ kfp==0.2.2
 tensorboard~=2.1.0
 EOF
 ```
-3. Create Dockerfile 
-```
-cat > Dockerfile << EOF
-FROM gcr.io/deeplearning-platform-release/tf2-cpu.2-1
-COPY requirements.txt .
-RUN gcloud components install kubectl \
-&& pip install -U -r requirements.txt --ignore-installed PyYAML
-EOF
-```
 
 3. Create Dockerfile 
 ```
