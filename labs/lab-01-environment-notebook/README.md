@@ -134,7 +134,7 @@ INSTANCE_NAME=[YOUR_INSTANCE_NAME]
 IMAGE_FAMILY="common-container"
 IMAGE_PROJECT="deeplearning-platform-release"
 INSTANCE_TYPE="n1-standard-4"
-METADATA="proxy-mode=project_editors,container=$IMAGE_URI"
+METADATA="proxy-mode=service_account,container=$IMAGE_URI"
 
 gcloud compute instances create $INSTANCE_NAME \
     --zone=$ZONE \
