@@ -97,6 +97,8 @@ google-resumable-media<0.5.0dev
 httplib2<=0.12.0
 scikit-learn<0.22
 pandas<1.0.0
+pyaml<4
+cloudpickle==1.1.1
 tfx==0.21.0rc0
 kfp==0.2.2
 tensorboard~=2.1.0
