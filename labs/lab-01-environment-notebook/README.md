@@ -92,7 +92,6 @@ cd lab-workspace
 ```
 cat > requirements.txt << EOF
 absl-py<0.9
-cloudpickle>=1.2.2
 google-resumable-media<0.5.0dev
 httplib2<=0.12.0
 scikit-learn<0.22
