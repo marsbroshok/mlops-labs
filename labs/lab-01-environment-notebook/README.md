@@ -88,14 +88,24 @@ mkdir lab-workspace
 cd lab-workspace
 ```
 
-2. Create Dockerfile 
+2. Create requirements file
+```
+cat > requirements.txt << EOF
+absl-py~=0.8
+scikit-learn~=0.21
+pandas~=0.25
+tfx==0.21.0rc0
+kfp==0.2.2
+tensorboard~=2.1.0
+EOF
+```
+3. Create Dockerfile 
 ```
 cat > Dockerfile << EOF
 FROM gcr.io/deeplearning-platform-release/tf2-cpu.2-1
 RUN apt-get update -y && apt-get -y install kubectl
-RUN pip install -U tfx==0.21.0rc0 \
-&& pip install -U tensorboard \
-&& pip install kfp==0.2.2
+COPY requirements.txt .
+RUN pip install -U -r requirements.txt 
 EOF
 ```
 
@@ -103,7 +113,7 @@ EOF
 
 ```
 IMAGE_NAME=mlops-dev
-TAG=TF115-TFX015-KFP136
+TAG=latest
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
