@@ -145,7 +145,7 @@ To compile the pipeline DSL using **KFP** compiler. From the root folder of this
 ```
 export BASE_IMAGE=gcr.io/$PROJECT_ID/base_image:latest
 export TRAINER_IMAGE=gcr.io/$PROJECT_ID/trainer_image:latest
-export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.1.36/components/gcp/
+export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.2.2/components/gcp/
 export RUNTIME_VERSION=1.14
 export PYTHON_VERSION=3.5
 
