@@ -110,7 +110,7 @@ cat > Dockerfile << EOF
 FROM gcr.io/deeplearning-platform-release/tf2-cpu.2-1
 RUN apt-get update -y && apt-get -y install kubectl
 COPY requirements.txt .
-RUN pip install -U -r requirements.txt --ignore-installed PyYAML
+RUN pip install -U -r requirements.txt --ignore-installed PyYAML<4
 EOF
 ```
 
