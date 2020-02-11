@@ -106,6 +106,16 @@ EOF
 ```
 cat > Dockerfile << EOF
 FROM gcr.io/deeplearning-platform-release/tf2-cpu.2-1
+COPY requirements.txt .
+RUN gcloud components install kubectl \
+&& pip install -U -r requirements.txt --ignore-installed PyYAML
+EOF
+```
+
+3. Create Dockerfile 
+```
+cat > Dockerfile << EOF
+FROM gcr.io/deeplearning-platform-release/tf2-cpu.2-1
 RUN apt-get update -y && apt-get -y install kubectl
 COPY requirements.txt .
 RUN pip install -U -r requirements.txt --ignore-installed PyYAML
