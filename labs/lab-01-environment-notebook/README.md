@@ -100,7 +100,6 @@ pandas<1.0.0
 tfx==0.21.0rc0
 kfp==0.2.2
 tensorboard~=2.1.0
-
 EOF
 ```
 3. Create Dockerfile 
