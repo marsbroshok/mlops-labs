@@ -21,7 +21,7 @@ The provisioning of the environment has been fully automated as described in `la
 
 As an alternative to a fully automated setup, `lab-01-environment-notebook` and `lab-02-environment-kfp` describe the semi-manual process to individually provision components of the environment.
 
-This lab - `lab-02-environment` - describe the steps to provision Cloud SQL, GKE and GCS and deploying Kubeflow Pipelines
+This lab - `lab-02-environment-kfp` - describe the steps to provision Cloud SQL, GKE and GCS and deploying Kubeflow Pipelines
 
 The accompanying lab -  `lab-01-environment-notebook` - walks you through the steps required to provision  an AI Platfom Notebooks instance configured based on a custom container image optimized for TFX/KFP development.
 
