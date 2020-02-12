@@ -32,6 +32,9 @@ cd mlops-labs/labs/lab-00-environment-setup-simplified
 
 3. Start installation
 ```
+PROJECT_ID=[YOUR_PROJECT_ID]
+
+gcloud config set project $PROJECT_ID
 ./install.sh $PROJECT_ID 
 ```
 By default, the script uses the [PROJECT_ID]-[RESOURCE-NAME] format to name the provisioned resources. For example, if your project's ID was `mlops-workshop` the script would provision the resources with the following names:
