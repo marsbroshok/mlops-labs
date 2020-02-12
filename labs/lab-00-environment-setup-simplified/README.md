@@ -27,7 +27,7 @@ To provision the lab environment
 ```
 cd 
 git clone https://github.com/jarokaz/mlops-labs.git
-cd mlops-labs/lab-00-environment-setup-simplified
+cd mlops-labs/labs/lab-00-environment-setup-simplified
 ```
 
 3. Start installation
