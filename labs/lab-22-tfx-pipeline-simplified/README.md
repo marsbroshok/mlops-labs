@@ -9,7 +9,7 @@ You will be working with the [Covertype Data Set](https://github.com/jarokaz/mlo
 
 The pipeline implements a typical TFX workflow as depicted on the below diagram:
 
-![Lab 03 diagram](../images/lab-03-diagram.png).
+![Lab 03 diagram](../../images/lab-03-diagram.png).
 
 The source data in a CSV file format is in the GCS bucket.
 
