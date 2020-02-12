@@ -38,7 +38,7 @@ PROJECT_ID=${1}
 NAME_PREFIX=${2:-$PROJECT_ID} 
 ZONE=${4:-us-central1-a}
 
-IMAGE_NAME=mlops-labs-image
+IMAGE_NAME=mlops-dev
 TAG=latest
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
