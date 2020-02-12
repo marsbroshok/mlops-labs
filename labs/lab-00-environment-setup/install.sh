@@ -41,7 +41,7 @@ ZONE=${4:-us-central1-a}
 NAMESPACE=${5:-kubeflow}
 
 IMAGE_NAME=mlops-dev
-TAG=TF115-TFX015-KFP136
+TAG=latest
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
 INSTANCE_NAME=${NAME_PREFIX}-notebook
