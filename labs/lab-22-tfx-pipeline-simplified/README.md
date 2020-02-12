@@ -18,7 +18,7 @@ The TFX components run in containers orchestrated by Kubeflow Pipelines.
 
 ## Lab setup
 
-Before proceeding with the lab, you must set up an **AI Platform Notebooks** instance and a **KFP** environment as detailed in `lab-01-environment-setup`.
+Before proceeding with the lab, you must set up an **AI Platform Notebooks** instance and a **KFP** environment as detailed in the setup.
 
 ## Lab Exercises
 
