@@ -56,7 +56,6 @@ Where
 
 Upload the module file into the GCS location:
 ```
-cd ~/mlops-miniworkshop/lab-03-tfx-pipeline
 export MODULE_FILE_URI=${ARTIFACT_STORE_URI}/modules/transform_train.py
 gsutil cp transform_train.py $MODULE_FILE_URI
 ```
