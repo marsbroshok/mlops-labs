@@ -103,10 +103,20 @@ tensorboard~=2.1.0
 EOF
 ```
 
+2. Create requirements file
+```
+cat > requirements.txt << EOF
+tensorflow==2.1
+tfx==0.21
+kfp==0.2.2
+tensorboard~=2.1.0
+EOF
+```
+
 3. Create Dockerfile 
 ```
 cat > Dockerfile << EOF
-FROM gcr.io/deeplearning-platform-release/tf2-cpu.2-1
+FROM gcr.io/deeplearning-platform-release/base-cpu
 RUN apt-get update -y && apt-get -y install kubectl
 COPY requirements.txt .
 RUN pip install -U -r requirements.txt --ignore-installed PyYAML==3.13
