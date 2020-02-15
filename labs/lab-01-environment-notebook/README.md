@@ -110,7 +110,7 @@ httplib2<=0.12.0,>=0.8
 absl-py<0.9,>=0.7
 tensorflow==2.1
 tfx==0.21
-kfp==0.2.3
+kfp==0.2.2
 tensorboard~=2.1.0
 EOF
 ```
