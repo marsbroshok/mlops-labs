@@ -118,6 +118,9 @@ EOF
 cat > Dockerfile << EOF
 FROM gcr.io/deeplearning-platform-release/base-cpu
 RUN apt-get update -y && apt-get -y install kubectl
+RUN curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 \
+&& chmod +x skaffold \
+&& mv skaffold /usr/local/bin
 COPY requirements.txt .
 RUN pip install -U -r requirements.txt --ignore-installed PyYAML==3.13
 EOF
