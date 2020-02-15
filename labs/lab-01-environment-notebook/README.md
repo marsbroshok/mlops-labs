@@ -106,6 +106,7 @@ EOF
 2. Create requirements file
 ```
 cat > requirements.txt << EOF
+absl-py<0.9,>=0.7
 tensorflow==2.1
 tfx==0.21
 kfp==0.2.2
@@ -116,7 +117,7 @@ EOF
 3. Create Dockerfile 
 ```
 cat > Dockerfile << EOF
-FROM gcr.io/deeplearning-platform-release/base-cpu
+FROM gcr.io/deeplearning-platform-release/base-cpu:m42
 RUN apt-get update -y && apt-get -y install kubectl
 RUN curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64 \
 && chmod +x skaffold \
