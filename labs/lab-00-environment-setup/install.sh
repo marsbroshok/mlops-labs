@@ -35,13 +35,14 @@ fi
 # Set script constants
 
 PROJECT_ID=${1}
-NAME_PREFIX=${2:-$PROJECT_ID}
-REGION=${3:-us-central1} 
-ZONE=${4:-us-central1-a}
-NAMESPACE=${5:-kubeflow}
+SQL_PASSWORD=${2}
+NAME_PREFIX=${3:-$PROJECT_ID}
+REGION=${4:-us-central1} 
+ZONE=${5:-us-central1-a}
+NAMESPACE=${6:-kubeflow}
 
 IMAGE_NAME=mlops-dev
-TAG=TF21-TFX021-KFP022
+TAG=latest
 IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
 INSTANCE_NAME=${NAME_PREFIX}-notebook
