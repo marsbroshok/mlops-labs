@@ -80,9 +80,11 @@ The CI/CD workflow automates the steps you walked through manually during `lab-1
 1. Uploads the pipeline to the KFP environment
 1. Pushes the trainer and base images to your project's **Container Registry**
 
+Although the KFP backend supports pipeline versioning, this feature has not been yet enable through the **KFP** CLI. As a temporary workaround, in the **Cloud Build** configuration a value of the `TAG_NAME` variable is appended to the name of the pipeline. 
+
 The **Cloud Build** workflow configuration uses both standard and custom [Cloud Build builders](https://cloud.google.com/cloud-build/docs/cloud-builders). The custom builder encapsulates **KFP CLI**. 
 
-
+Review the `cloudbuild.yaml` file to understand how the CI/CD workflow is implemented and how environment specific settings are abstracted using **Cloud Build** variables.
 
 #### Creating KFP CLI builder
 
