@@ -57,10 +57,10 @@ During this lab, you will mostly work in a JupyterLab terminal. Before proceedin
 
 ```
 export PROJECT_ID=$(gcloud config get-value core/project)
+export NAMESPACE=kubeflow
 export PREFIX=$PROJECT_ID
 export ZONE=us-central1-a
 export GKE_CLUSTER_NAME=$PREFIX-cluster
-export NAMESPACE=kubeflow
 
 gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
 export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
