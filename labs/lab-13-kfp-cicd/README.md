@@ -60,6 +60,7 @@ export PROJECT_ID=$(gcloud config get-value core/project)
 export PREFIX=$PROJECT_ID
 export ZONE=us-central1-a
 export GKE_CLUSTER_NAME=$PREFIX-cluster
+export NAMESPACE=kubeflow
 
 gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
 export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
