@@ -57,6 +57,7 @@ During this lab, you will mostly work in a JupyterLab terminal. Before proceedin
 
 ```
 export PROJECT_ID=$(gcloud config get-value core/project)
+export NAMESPACE=kubeflow
 export PREFIX=$PROJECT_ID
 export ZONE=us-central1-a
 export GKE_CLUSTER_NAME=$PREFIX-cluster
@@ -72,6 +73,8 @@ Follow the instructor who will walk you through the lab. The high level summary 
 
 In this exercise you walk-through authoring a **Cloud Build** CI/CD workflow that automatically builds and deploys a KFP pipeline. 
 
+Review the `cloudbuild.yaml` file to understand how the CI/CD workflow is implemented and how environment specific settings are abstracted using **Cloud Build** variables.
+
 The CI/CD workflow automates the steps you walked through manually during `lab-12-kfp-pipeline`:
 1. Builds the trainer image
 1. Builds the base image for custom components
@@ -79,10 +82,9 @@ The CI/CD workflow automates the steps you walked through manually during `lab-1
 1. Uploads the pipeline to the KFP environment
 1. Pushes the trainer and base images to your project's **Container Registry**
 
+Although the KFP backend supports pipeline versioning, this feature has not been yet enable through the **KFP** CLI. As a temporary workaround, in the **Cloud Build** configuration a value of the `TAG_NAME` variable is appended to the name of the pipeline. 
+
 The **Cloud Build** workflow configuration uses both standard and custom [Cloud Build builders](https://cloud.google.com/cloud-build/docs/cloud-builders). The custom builder encapsulates **KFP CLI**. 
-
-*The current version of the lab has been developed and tested with v1.36 of KFP. There is a number of issues with post 1.36 versions of KFP that prevent us from upgrading to the newer version of KFP. KFP v1.36 does not have support for pipeline versions. As an interim measure, the **Cloud Build**  workflow appends `$TAG_NAME` default substitution to the name of the pipeline to designate a pipeline version.*
-
 
 
 
@@ -94,7 +96,7 @@ To create a **Cloud Build** custom builder that encapsulates KFP CLI.
 ```
 cat > Dockerfile << EOF
 FROM gcr.io/deeplearning-platform-release/base-cpu
-RUN pip install https://storage.googleapis.com/ml-pipeline/release/0.1.36/kfp.tar.gz 
+RUN pip install https://storage.googleapis.com/ml-pipeline/release/0.2.2/kfp.tar.gz 
 
 ENTRYPOINT ["/bin/bash"]
 EOF
@@ -110,6 +112,8 @@ gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 ```
 
 #### Manually triggering CI/CD runs
+You can manually trigger **Cloud Build** runs using the `gcloud builds submit` command. The `build_pipeline.sh` script contains an example of how to invoke `gcloud builds submit` and provide runtime subsitutions for the variables used in the `cloudbuild.yaml` configuration.
+
 
 To manually trigger the CI/CD run :
 
