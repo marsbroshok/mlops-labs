@@ -108,6 +108,8 @@ gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 ```
 
 #### Manually triggering CI/CD runs
+You can manually trigger **Cloud Build** runs using the `gcloud builds submit` command. The `build_pipeline.sh` script contains an example of how to invoke `gcloud builds submit` and provide runtime subsitutions for the variables in the `cloudbuild.yaml` configuration.
+
 
 To manually trigger the CI/CD run :
 
