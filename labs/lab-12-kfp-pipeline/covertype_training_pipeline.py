@@ -100,18 +100,18 @@ evaluate_model_op = func_to_container_op(evaluate_model, base_image=BASE_IMAGE)
     name='Covertype Classifier Training',
     description='The pipeline training and deploying the Covertype classifierpipeline_yaml'
 )
-def covertype_train(project_id: GCPProjectID,
-                    region: GCPRegion,
-                    source_table_name: String,
-                    gcs_root: GCSPath,
-                    dataset_id: str,
-                    evaluation_metric_name: str,
-                    evaluation_metric_threshold: float,
-                    model_id: str,
-                    version_id: str,
-                    replace_existing_version: bool,
-                    hypertune_settings: Dict = HYPERTUNE_SETTINGS,
-                    dataset_location: str = 'US'):
+def covertype_train(project_id,
+                    region,
+                    source_table_name,
+                    gcs_root,
+                    dataset_id,
+                    evaluation_metric_name,
+                    evaluation_metric_threshold,
+                    model_id,
+                    version_id,
+                    replace_existing_version,
+                    hypertune_settings=HYPERTUNE_SETTINGS,
+                    dataset_location='US'):
   """Orchestrates training and deployment of an sklearn model."""
 
   # Create the training split
