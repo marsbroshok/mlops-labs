@@ -73,6 +73,8 @@ Follow the instructor who will walk you through the lab. The high level summary 
 
 In this exercise you walk-through authoring a **Cloud Build** CI/CD workflow that automatically builds and deploys a KFP pipeline. 
 
+Review the `cloudbuild.yaml` file to understand how the CI/CD workflow is implemented and how environment specific settings are abstracted using **Cloud Build** variables.
+
 The CI/CD workflow automates the steps you walked through manually during `lab-12-kfp-pipeline`:
 1. Builds the trainer image
 1. Builds the base image for custom components
@@ -84,7 +86,7 @@ Although the KFP backend supports pipeline versioning, this feature has not been
 
 The **Cloud Build** workflow configuration uses both standard and custom [Cloud Build builders](https://cloud.google.com/cloud-build/docs/cloud-builders). The custom builder encapsulates **KFP CLI**. 
 
-Review the `cloudbuild.yaml` file to understand how the CI/CD workflow is implemented and how environment specific settings are abstracted using **Cloud Build** variables.
+
 
 #### Creating KFP CLI builder
 
