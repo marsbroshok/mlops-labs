@@ -28,7 +28,7 @@ trap 'err_handler "$LINENO" "$BASH_COMMAND" "$?"' ERR
 
 # Check command line parameters
 if [[ $# < 1 ]]; then
-  echo 'USAGE:  ./install.sh PROJECT_ID [NAME_PREFIX=PROJECT_ID] [REGION=us-central1] [ZONE=us-central1-a] [NAMESPACE=kubeflow]'
+  echo 'USAGE:  ./install.sh PROJECT_ID SQL_PASSWORD [NAME_PREFIX=PROJECT_ID] [REGION=us-central1] [ZONE=us-central1-a] [NAMESPACE=kubeflow]'
   exit 1
 fi
 
@@ -140,13 +140,13 @@ pushd kustomize
 
 # Create a namespace for KFP components
 gcloud container clusters get-credentials $CLUSTER_NAME --zone $ZONE --project $PROJECT_ID
-#kubectl create namespace $NAMESPACE
-#kustomize edit set namespace $NAMESPACE
+kubectl create namespace $NAMESPACE
+kustomize edit set namespace $NAMESPACE
 
 # Configure user-gpc-sa with a private key of the KFP service account
-#gcloud iam service-accounts keys create application_default_credentials.json --iam-account=$KFP_SA_EMAIL --project $PROJECT_ID
-#kubectl create secret -n $NAMESPACE generic user-gcp-sa --from-file=application_default_credentials.json --from-file=user-gcp-sa.json=application_default_credentials.json
-#rm application_default_credentials.json
+gcloud iam service-accounts keys create application_default_credentials.json --iam-account=$KFP_SA_EMAIL --project $PROJECT_ID
+kubectl create secret -n $NAMESPACE generic user-gcp-sa --from-file=application_default_credentials.json --from-file=user-gcp-sa.json=application_default_credentials.json
+rm application_default_credentials.json
 
 # Create a Cloud SQL database user and store its credentials in mysql-credential secret
 #gcloud sql users create $SQL_USERNAME --instance=$SQL_INSTANCE_NAME --password=$SQL_PASSWORD --project $PROJECT_ID
