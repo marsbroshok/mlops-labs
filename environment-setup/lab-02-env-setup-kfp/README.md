@@ -4,32 +4,6 @@ This lab  describes the steps to provision a lighweight deployment of  Kubeflow 
 
 The accompanying lab -  `lab-01-env-setup-ai-notebook` - walks you through the steps required to provision  an AI Platfom Notebooks instance configured based on a custom container image optimized for TFX/KFP development.
 
-
-
-
-
-
-## Creating Kubeflow Pipelines environment
-
-The below diagram shows an MVP environment for a lightweight deployment of Kubeflow Pipelines on GCP:
-
-![KFP Deployment](/images/kfp.png)
-
-The environment includes:
-- A VPC to host GKE cluster
-- A GKE cluster to host KFP services
-- A Cloud SQL managed MySQL instance to host KFP and ML Metadata databases
-- A Cloud Storage bucket to host artifact repository
-
-The KFP services are deployed to the GKE cluster and configured to use the Cloud SQL managed MySQL instance. The KFP services access the Cloud SQL through [Cloud SQL Proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy). External clients use [Inverting Proxy](https://github.com/google/inverting-proxy) to interact with the KFP services.
-
-
-*The current versions of the labs have been tested with Kubeflow Pipelines 0.1.36. KFP 0.1.37, 0.1.38, 0.1.39 introduced [the issue](https://github.com/kubeflow/pipelines/issues/2764) that causes some labs to fail. After the issue is addressed we will update the setup to utilize the newer version of KFP.*
-
-Provisioning of the environment has been broken into two steps. In the first step you provision and configure core infrastructure services required to host **Kubeflow Pipelines**, including GKE, Cloud SQL and Cloud Storage. In the second step you deploy and configure **Kubeflow Pipelines**.
-
-The provisioning of the infrastructure components  has been automated with [Terraform](https://www.terraform.io/).  The Terraform HCL configurations can be found in the [terraform folder](terraform). The deployment of **Kubeflow Pipelines** is facilitated with [Kustomize](https://kustomize.io/). The Kustomize overlays are in the [kustomize folder](kustomize).
-
 You will run provisioning scripts using **Cloud Shell**. 
 
 **Terraform** is pre-installed in **Cloud Shell**. Before running the scripts you need to install **Kustomize**.
