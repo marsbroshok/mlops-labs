@@ -99,7 +99,7 @@ The
 ```
 cd 
 git clone https://github.com/jarokaz/mlops-labs.git
-cd mlops-labs/environment_setup/lab-02-env-setup-kfp
+cd mlops-labs/environment-setup/lab-02-env-setup-kfp/
 ```
 
 2. Review the `provision-infra.sh` installation script
