@@ -20,7 +20,7 @@ The above command installs **Kustomize** to the `/usr/local/bin` folder, which b
 
 The provisioning of a lightweight deployment of Kubeflow Pipelines is performed into two stages:
 - Installing the infrastructure services required to host Kubeflow Pipelines
-- Deploying Kubeflow pipelines
+- Deploying Kubeflow Pipelines
 
 ## Installing the infrastructure services required to host Kubeflow Pipelines
 
