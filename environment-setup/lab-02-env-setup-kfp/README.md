@@ -18,9 +18,13 @@ cd
 ```
 The above command installs **Kustomize** to the `/usr/local/bin` folder, which by default is on the `PATH`. **Kustomize** is a single executable. Note that this folder will be reset after you disconnect from **Cloud Shell**. 
 
-### Provisioning infrastructure to host Kubeflow Pipelines
+The provisioning of a lightweight deployment of Kubeflow Pipelines is performed into two stages:
+- Installing the infrastructure services required to host Kubeflow Pipelines
+- Deploying Kubeflow pipelines
 
-The 
+## Installing the infrastructure services required to host Kubeflow Pipelines
+
+In this step you provision the infrastructure services required to host Kubeflow Pipelines, including GKE cluster, Cloud SQL and Cloud Storage.
 
 1. Clone this repo under the `home` folder.
 ```
