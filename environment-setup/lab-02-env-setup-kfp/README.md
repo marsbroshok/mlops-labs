@@ -69,14 +69,6 @@ Where:
 |[NAMESPACE]|Optional|The namespace to deploy KFP to. If not provided the `kubeflow` namespace will be used
 
 
-## Granting the Cloud Build service account the Project Editor role.
-```
-PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
-CLOUD_BUILD_SERVICE_ACCOUNT="${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com"
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$CLOUD_BUILD_SERVICE_ACCOUNT \
-  --role roles/editor
-```
 
 ## Accessing KFP UI
 
