@@ -40,14 +40,18 @@ To use this option follow the instructions in:
 
 [lab-00-env-setup-automated](lab-00-env-setup-automated/README.md)
 
+The provisioning of the environment has been fully automated in the `./install.sh` script. The script uses [Google Cloud SDK](https://cloud.google.com/sdk), [Terraform](https://www.terraform.io/docs/providers/google/index.html), and [Kustomize](https://kustomize.io/) to enable the required services, create an instance of **AI Platform Notebooks**, and provision a lightweight deployment of Kubeflow Pipelines
+
 
 ## Setting up the environment using a two step process
 
-To use this processd step through two labs:
+In this option, the provisioning process has been split into two steps. In the first step, you create an instance of **AI Platform Notebook**. In the second step, you provision a lightweigth deployment of Kubeflow Pipelines. The second step is further divided into provisioning of infrastructure services to host Kubeflow Pipelines and deploying Kubeflow Pipelines to the provisioned infrastructure.
+
+To use this process step through the following labs:
 
 [lab-01-env-setup-ai-notebook](lab-01-env-setup-ai-notebook/README.md), and
 
-[lab-02-env-setup-kfp](lab-02-env-setup/README.md)
+[lab-02-env-setup-kfp](lab-02-env-setup-kfp/README.md)
 
 
 
