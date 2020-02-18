@@ -40,7 +40,7 @@ To use this option follow the instructions in:
 
 [lab-00-env-setup-automated](lab-00-env-setup-automated/README.md)
 
-The provisioning of the environment has been fully automated in the `./install.sh` script. The script uses [Google Cloud SDK](https://cloud.google.com/sdk), [Terraform](https://www.terraform.io/docs/providers/google/index.html), and [Kustomize](https://kustomize.io/) to enable the required services, create an instance of **AI Platform Notebooks**, and provision a lightweight deployment of Kubeflow Pipelines
+The provisioning of the environment has been fully automated in the `./install.sh` script. The script uses [Google Cloud SDK](https://cloud.google.com/sdk), [Terraform](https://www.terraform.io/docs/providers/google/index.html), and [Kustomize](https://kustomize.io/) to enable the required services, create an instance of **AI Platform Notebooks**, and provision a lightweight deployment of Kubeflow Pipelines.
 
 
 ## Setting up the environment using a two step process
