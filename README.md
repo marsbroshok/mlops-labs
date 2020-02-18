@@ -7,9 +7,10 @@ This repository mantains hands-on labs and code samples that demonstrate best pr
 
 ## Navigating this repository
 This repository is organized into three sections:
+- [Environment setup](./environment-setup/README.md)
 - [Workshops](./workshops/README.md)
 - [Code samples](./examples/README.md)
-- [Environment setup](./environment-setup/README.md)
+
 
 ### Environment Setup
 
