@@ -1,29 +1,8 @@
-# Setting up an MLOps environment on GCP - Part 1 - Creating an AI Platform Notebooks instance
+# Creating an AI Platform Notebooks instance
 
-The labs in this repo are designed to run in the reference MLOps environment. The environment is configured to support effective development and operationalization of production grade ML workflows.
+This lab walks you through the steps required to provision  an AI Platfom Notebooks instance configured based on a custom container image optimized for TFX/KFP development.
 
-![Reference topolgy](/images/lab_300.png)
-
-The core services in the environment are:
-- ML experimentation and development - AI Platform Notebooks 
-- Scalable, serverless model training - AI Platform Training  
-- Scalable, serverless model serving - AI Platform Prediction 
-- Distributed data processing - Dataflow  
-- Analytics data warehouse - BigQuery 
-- Artifact store - Google Cloud Storage 
-- Machine learning pipelines - TensorFlow Extended (TFX) and Kubeflow Pipelines (KFP)
-- Machine learning metadata  management - ML Metadata on Cloud SQL
-- CI/CD tooling - Cloud Build
-    
-In the reference lab environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). 
-
-The provisioning of the environment has been fully automated as described in `lab-00-environment-setup`.  
-
-As an alternative to a fully automated setup, `lab-01-environment-notebook` and `lab-02-environment-kfp` describe the semi-manual process to individually provision components of the environment.
-
-This lab - `lab-01-environment-notebook` - walks you through the steps required to provision  an AI Platfom Notebooks instance configured based on a custom container image optimized for TFX/KFP development.
-
-The accompanying lab - `lab-02-environment-kfp` - describe the steps to provision Cloud SQL, GKE and GCS and deploying Kubeflow Pipelines
+The accompanying lab - `lab-02-env-setup-kfp` - describe the steps to provision a lightweight deployment of Kubeflow Pipelines.
 
 ## Enabling the required cloud services
 
