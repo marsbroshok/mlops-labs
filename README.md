@@ -3,17 +3,20 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
 
-This repository contains hands-on labs and code samples that demonstrate best practices and patterns for implementing and operationalizing production grade machine learning workflows on Google Cloud Platform. 
+This repository mantains hands-on workshops and code samples that demonstrate best practices and patterns for implementing and operationalizing production grade machine learning workflows on Google Cloud Platform. 
 
 ## Navigating this repository
 This repository is organized into two sections:
-- [Hands-on Labs](./labs/README.md)
+- [Workshops](./workshops/README.md)
 - [Code samples](./examples/README.md)
+- [Environment setup](./environment-setup/README.md)
 
-### Hands-on Labs
-This section contains a portfolio of hands-on labs designed to support development and delivery of instructor led ML Engineering workshops. Each lab includes the detailed setup instructions and a summary of lab exercises. The labs are grouped into the series that have to be executed in sequence as the subsequent labs depend on the successful outcome of the preceding labs.
+### Environment Setup
 
-It is expected that instructors will pick and choose from the lab portfolio to create a customized workshop.
+Both workshops and code samples are designed to run in a reference MLOps environment. This section provides instructions and automation scripts for setting up the environment.
+
+### Workshops
+This section contains a number of blueprint workshops. It is expected that instructors will use them as a starting point to create a customized workshop addressing the needs of a specific audience. Multiple bluerprints can be combined to create a comprehensive, multi-day workshop. The blueprints are designed to be instructor led. To evolve them into a self-study format, the accompanying instructions would have to be enhanced.
 
 ### Code Samples
 This section compiles code samples demonstrating design and code patterns for a variety of ML Engineering topics. Each code sample is standalone and contains a brief description of the illustrated pattern. 
