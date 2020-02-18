@@ -30,3 +30,25 @@ The deployment includes:
 
 The KFP services are deployed to the GKE cluster and configured to use the Cloud SQL managed MySQL instance. The KFP services access the Cloud SQL through [Cloud SQL Proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy). External clients use [Inverting Proxy](https://github.com/google/inverting-proxy) to interact with the KFP services.
 
+You can choose between two options for setting up the environment:
+- A one-step, fully automated process 
+- A two step, semi-automated process.
+
+## Setting up the environment using a fully automated process
+
+To use this option follow the instructions in:
+
+[lab-00-env-setup-automated](lab-00-env-setup-automated/README.md)
+
+
+## Setting up the environment using a two step process
+
+To use this processd step through two labs:
+
+[lab-01-env-setup-ai-notebook](lab-01-env-setup-ai-notebook/README.md), and
+
+[lab-02-env-setup-kfp](lab-02-env-setup/README.md)
+
+
+
+
