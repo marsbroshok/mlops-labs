@@ -63,20 +63,25 @@ kubectl create secret -n $NAMESPACE generic user-gcp-sa --from-file=application_
 rm application_default_credentials.json
 
 # Create a Cloud SQL database user and store its credentials in mysql-credential secret
-gcloud sql users create $SQL_USERNAME --instance=$SQL_INSTANCE_NAME --password=$SQL_PASSWORD --project $PROJECT_ID
-kubectl create secret -n $NAMESPACE generic mysql-credential --from-literal=username=$SQL_USERNAME --from-literal=password=$SQL_PASSWORD
+#gcloud sql users create $SQL_USERNAME --instance=$SQL_INSTANCE_NAME --password=$SQL_PASSWORD --project $PROJECT_ID
+#kubectl create secret -n $NAMESPACE generic mysql-credential --from-literal=username=$SQL_USERNAME --from-literal=password=$SQL_PASSWORD
 
 # Generate an environment file with connection settings to Cloud SQL and artifact store
-cat > gcp-configs.env << EOF
-sql_connection_name=$SQL_CONNECTION_NAME
-bucket_name=$BUCKET_NAME
-EOF
+#cat > gcp-configs.env << EOF
+#sql_connection_name=$SQL_CONNECTION_NAME
+#bucket_name=$BUCKET_NAME
+#EOF
 
 # Deploy KFP to the cluster
-kustomize build \
-    github.com/kubeflow/pipelines/manifests/kustomize/base/crds/?ref=0.2.2
+#kustomize build \
+#    github.com/kubeflow/pipelines/manifests/kustomize/base/crds/?ref=0.2.2
+#kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.io
+#kustomize build . | kubectl apply -f -
+
+export PIPELINE_VERSION=0.2.2
+kubectl apply -f https://storage.googleapis.com/ml-pipeline/pipeline-lite/$PIPELINE_VERSION/crd.yaml
 kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.io
-kustomize build . | kubectl apply -f -
+kubectl apply -f https://storage.googleapis.com/ml-pipeline/pipeline-lite/$PIPELINE_VERSION/namespaced-install.yaml
 
 popd
 
