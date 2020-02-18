@@ -43,8 +43,8 @@ pushd terraform
 # Retrieve resource names
 CLUSTER_NAME=$(terraform output cluster_name)
 KFP_SA_EMAIL=$(terraform output kfp_sa_email)
-SQL_INSTANCE_NAME=$(terraform output sql_name)
-SQL_CONNECTION_NAME=$(terraform output sql_connection_name)
+#SQL_INSTANCE_NAME=$(terraform output sql_name)
+#SQL_CONNECTION_NAME=$(terraform output sql_connection_name)
 BUCKET_NAME=$(terraform output artifact_store_bucket)
 ZONE=$(terraform output cluster_zone)
 
