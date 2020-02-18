@@ -4,56 +4,9 @@ This lab  describes the steps to provision a lighweight deployment of  Kubeflow 
 
 The accompanying lab -  `lab-01-env-setup-ai-notebook` - walks you through the steps required to provision  an AI Platfom Notebooks instance configured based on a custom container image optimized for TFX/KFP development.
 
-## Enabling the required cloud services
 
-If you walked through `lab-01-env-setup-ai-notebook`, you can skip this step as the required services have been already enabled.
 
-In addition to the [services enabled by default](https://cloud.google.com/service-usage/docs/enabled-service), the following additional services must be enabled in the project hosting the MLOps environment:
 
-1. Compute Engine
-1. Container Registry
-1. AI Platform Training and Prediction
-1. IAM
-1. Dataflow
-1. Kubernetes Engine
-1. Cloud SQL
-1. Cloud SQL Admin
-1. Cloud Build
-1. Cloud Resource Manager
-
-Use [GCP Console](https://console.cloud.google.com/) or `gcloud` command line interface in [Cloud Shell](https://cloud.google.com/shell/docs/) to [enable the required services](https://cloud.google.com/service-usage/docs/enable-disable) . 
-
-To enable the required services using `gcloud`:
-1. Start GCP [Cloud Shell](https://cloud.google.com/shell/docs/)
-2. Make sure that **Cloud Shell** is configured to use your project
-```
-PROJECT_ID=[YOUR_PROJECT_ID]
-
-gcloud config set project $PROJECT_ID
-```
-
-3. Enable services
-```
-gcloud services enable \
-cloudbuild.googleapis.com \
-container.googleapis.com \
-cloudresourcemanager.googleapis.com \
-iam.googleapis.com \
-containerregistry.googleapis.com \
-containeranalysis.googleapis.com \
-ml.googleapis.com \
-sqladmin.googleapis.com \
-dataflow.googleapis.com 
-```
-
-3. After the services are enabled, grant the Cloud Build service account the Project Editor role.
-```
-PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
-CLOUD_BUILD_SERVICE_ACCOUNT="${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com"
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$CLOUD_BUILD_SERVICE_ACCOUNT \
-  --role roles/editor
-```
 
 
 ## Creating Kubeflow Pipelines environment
@@ -138,7 +91,14 @@ Where:
 |[NAMESPACE]|Optional|The namespace to deploy KFP to. If not provided the `kubeflow` namespace will be used
 
 
-
+## Granting the Cloud Build service account the Project Editor role.
+```
+PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
+CLOUD_BUILD_SERVICE_ACCOUNT="${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com"
+gcloud projects add-iam-policy-binding $PROJECT_ID \
+  --member serviceAccount:$CLOUD_BUILD_SERVICE_ACCOUNT \
+  --role roles/editor
+```
 
 ## Accessing KFP UI
 
