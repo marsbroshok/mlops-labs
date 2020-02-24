@@ -14,7 +14,7 @@ This lab requires the same setup as `lab-12-kfp-pipeline`. If you completed `lab
 Before proceeding with the lab, you must set up the lab environment.
 
 ### Lab dataset
-This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipeline developed in the lab sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery:
+This lab uses the [Covertype Dataset](../datasets/covertype/README.md). The pipeline developed in the lab sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery:
 
 1. Open new terminal in you **JupyterLab**
 
@@ -154,8 +154,9 @@ Use the following values for the substitution variables:
 |_RUNTIME_VERSION|1.14|
 |_TRAINER_IMAGE_NAME|trainer_image|
 
+3. In your fork master branch, update the Dockerfile files in the pipeline/base_image and pipeline/trainer_image folders so they get the base image from your Container Registry.
 
-3. To start an automated build [create a new release of the repo in GitHub](https://help.github.com/en/github/administering-a-repository/creating-releases). Alternatively, you can start the build by applying a tag using `git`. 
+4. To start an automated build [create a new release of the repo in GitHub](https://help.github.com/en/github/administering-a-repository/creating-releases). Alternatively, you can start the build by applying a tag using `git`. 
 ```
 git tag [TAG NAME]
 git push origin --tags
