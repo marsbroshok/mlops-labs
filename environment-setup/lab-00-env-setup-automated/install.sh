@@ -161,7 +161,7 @@ rm application_default_credentials.json
 # Deploy KFP to the cluster
 #kustomize build . | kubectl apply -f -
 
-export PIPELINE_VERSION=0.2.2
+export PIPELINE_VERSION=0.2.4
 kubectl apply -f https://storage.googleapis.com/ml-pipeline/pipeline-lite/$PIPELINE_VERSION/crd.yaml
 kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.io
 kubectl apply -f https://storage.googleapis.com/ml-pipeline/pipeline-lite/$PIPELINE_VERSION/namespaced-install.yaml
