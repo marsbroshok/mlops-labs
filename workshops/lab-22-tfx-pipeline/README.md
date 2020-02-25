@@ -43,11 +43,10 @@ Follow the instructor who will walk you through the lab. The high level summary 
 
 ### Understanding the pipeline's DSL.
 
-The pipeline uses a custom docker image, which is a derivative of the [tensorflow/tfx:0.15.0 image](https://hub.docker.com/r/tensorflow/tfx), as a runtime execution environment for the pipeline's components. The same image is also used as a a training image used by **AI Platform Training**
+The pipeline uses a custom docker image, which is a derivative of the [tensorflow/tfx:0.21.0 image](https://hub.docker.com/r/tensorflow/tfx), as a runtime execution environment for the pipeline's components. The same image is also used as a a training image used by **AI Platform Training**
 
-The base `tfx` image includes TFX v0.15 and TensorFlow v2.0. The custom image modifies the base image by downgrading to TensorFlow v1.15 and adding the `modules` folder with the `transform_train.py` file that contains data transformation and training code used by the pipeline's `Transform` and `Train` components.
+he custom image modifies the base image by adding the `modules` folder with the `transform_train.py` file that contains data transformation and training code used by the pipeline's `Transform` and `Train` components.
 
-The pipeline needs to use v1.15 of TensorFlow as the AI Platform Prediction service, which is used as a deployment target, does not yet support v2.0 of TensorFlow.
 
 ### Building and deploying the pipeline
 #### Creating the custom docker image
@@ -56,8 +55,7 @@ The first step is to build the custom docker image and push it to your project's
 1. Create the Dockerfile describing the custom image
 ```
 cat > Dockerfile << EOF
-FROM tensorflow/tfx:0.15.0
-RUN pip install -U tensorflow-serving-api==1.15 tensorflow==1.15
+FROM tensorflow/tfx:0.21.0
 RUN mkdir modules
 COPY  transform_train.py modules/
 EOF
