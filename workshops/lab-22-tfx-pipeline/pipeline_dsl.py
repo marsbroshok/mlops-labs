@@ -29,6 +29,7 @@ from tfx.components.trainer.component import Trainer
 from tfx.components.transform.component import Transform
 from tfx.extensions.google_cloud_ai_platform.pusher import executor as ai_platform_pusher_executor
 from tfx.extensions.google_cloud_ai_platform.trainer import executor as ai_platform_trainer_executor
+from tfx.orchestration import data_types
 from tfx.orchestration import pipeline
 from tfx.orchestration.kubeflow import kubeflow_dag_runner
 from tfx.orchestration.kubeflow.proto import kubeflow_pb2
@@ -38,9 +39,11 @@ from tfx.utils.dsl_utils import external_input
 from use_mysql_secret import use_mysql_secret
 
 
-def _create__pipeline(pipeline_name: Text, pipeline_root: Text, data_root: Text,
-                      module_file: Text, ai_platform_training_args: Dict[Text,
-                                                                         Text],
+def _create__pipeline(pipeline_name: Text, 
+                      pipeline_root: Text, 
+                      data_root: data_types.RuntimeParameter,
+                      module_file: data_types.RuntimeParameter, 
+                      ai_platform_training_args: Dict[Text, Text],
                       ai_platform_serving_args: Dict[Text, Text],
                       beam_pipeline_args: List[Text]) -> pipeline.Pipeline:
   """Implements the online news pipeline with TFX."""
@@ -105,75 +108,91 @@ def _create__pipeline(pipeline_name: Text, pipeline_root: Text, data_root: Text,
           trainer, model_analyzer, model_validator, pusher
       ],
       # enable_cache=True,
-      beam_pipeline_args=beam_pipeline_args)
+      beam_pipeline_args=beam_pipeline_args
+  )
 
 
 if __name__ == '__main__':
 
   # Get settings from environment variables
-  _pipeline_name = os.environ.get('PIPELINE_NAME')
-  _project_id = os.environ.get('PROJECT_ID')
-  _gcp_region = os.environ.get('GCP_REGION')
-  _pipeline_image = os.environ.get('TFX_IMAGE')
-  _gcs_data_root_uri = os.environ.get('DATA_ROOT_URI')
-  _artifact_store_uri = os.environ.get('ARTIFACT_STORE_URI')
-  _runtime_version = os.environ.get('RUNTIME_VERSION')
-  _python_version = os.environ.get('PYTHON_VERSION')
+  pipeline_name = os.environ.get('PIPELINE_NAME')
+  project_id = os.environ.get('PROJECT_ID')
+  gcp_region = os.environ.get('GCP_REGION')
+  pipeline_image = os.environ.get('TFX_IMAGE')
+  data_root_uri = os.environ.get('DATA_ROOT_URI')
+  artifact_store_uri = os.environ.get('ARTIFACT_STORE_URI')
+  runtime_version = os.environ.get('RUNTIME_VERSION')
+  python_version = os.environ.get('PYTHON_VERSION')
 
   # AI Platform Training settings
-  _ai_platform_training_args = {
-      'project': _project_id,
-      'region': _gcp_region,
+  ai_platform_training_args = {
+      'project': project_id,
+      'region': gcp_region,
       'masterConfig': {
-          'imageUri': _pipeline_image,
+          'imageUri': pipeline_image,
       }
   }
 
   # AI Platform Prediction settings
-  _ai_platform_serving_args = {
-      'model_name': 'model_' + _pipeline_name,
-      'project_id': _project_id,
-      'runtimeVersion': _runtime_version,
-      'pythonVersion': _python_version
+  ai_platform_serving_args = {
+      'model_name': 'model_' + pipeline_name,
+      'project_id': project_id,
+      'runtimeVersion': runtime_version,
+      'pythonVersion': python_version
   }
 
   # Dataflow settings.
-  _beam_tmp_folder = '{}/beam/tmp'.format(_artifact_store_uri)
-  _beam_pipeline_args = [
+  beam_tmp_folder = '{}/beam/tmp'.format(artifact_store_uri)
+  beam_pipeline_args = [
       '--runner=DataflowRunner',
       '--experiments=shuffle_mode=auto',
-      '--project=' + _project_id,
-      '--temp_location=' + _beam_tmp_folder,
-      '--region=' + _gcp_region,
+      '--project=' + project_id,
+      '--temp_location=' + beam_tmp_folder,
+      '--region=' + gcp_region,
   ]
 
   # ML Metadata settings
-  _metadata_config = kubeflow_pb2.KubeflowMetadataConfig()
-  _metadata_config.mysql_db_service_host.environment_variable = 'MYSQL_SERVICE_HOST'
-  _metadata_config.mysql_db_service_port.environment_variable = 'MYSQL_SERVICE_PORT'
-  _metadata_config.mysql_db_name.value = 'metadb'
-  _metadata_config.mysql_db_user.environment_variable = 'MYSQL_USERNAME'
-  _metadata_config.mysql_db_password.environment_variable = 'MYSQL_PASSWORD'
+  #_metadata_config = kubeflow_pb2.KubeflowMetadataConfig()
+  #_metadata_config.mysql_db_service_host.environment_variable = 'MYSQL_SERVICE_HOST'
+  #_metadata_config.mysql_db_service_port.environment_variable = 'MYSQL_SERVICE_PORT'
+  #_metadata_config.mysql_db_name.value = 'metadb'
+  #_metadata_config.mysql_db_user.environment_variable = 'MYSQL_USERNAME'
+  #_metadata_config.mysql_db_password.environment_variable = 'MYSQL_PASSWORD'
 
-  operator_funcs = [
-      gcp.use_gcp_secret('user-gcp-sa'),
-      use_mysql_secret('mysql-credential')
-  ]
+  #operator_funcs = [
+  #    gcp.use_gcp_secret('user-gcp-sa'),
+  #    use_mysql_secret('mysql-credential')
+  #]
 
+  metadata_config = kubeflow_dag_runner.get_default_kubeflow_metadata_config()
+  operator_funcs = kubeflow_dag_runner. get_default_pipeline_operator_funcs()
+  
   # Compile the pipeline
   runner_config = kubeflow_dag_runner.KubeflowDagRunnerConfig(
-      kubeflow_metadata_config=_metadata_config,
+      kubeflow_metadata_config=metadata_config,
       pipeline_operator_funcs=operator_funcs,
-      tfx_image=_pipeline_image)
+      tfx_image=pipeline_image)
 
-  _module_file = 'modules/transform_train.py'
-  _pipeline_root = '{}/{}'.format(_artifact_store_uri, _pipeline_name)
+  module_file_param = data_types.RuntimeParameter(
+    name='module-file',
+    default='{}/{}/{}'.format(artifact_store_uri, 'modules', 'transform_train.py'),
+    ptype=Text,
+  )
+  
+  data_root_param = data_types.RuntimeParameter(
+      name='data-root',
+      default='{}/{}'.format(artifact_store_uri, 'data'),
+      ptype=Text
+  )
+  
+  pipeline_root = '{}/{}'.format(artifact_store_uri, pipeline_name)
+    
   kubeflow_dag_runner.KubeflowDagRunner(config=runner_config).run(
       _create__pipeline(
-          pipeline_name=_pipeline_name,
-          pipeline_root=_pipeline_root,
-          data_root=_gcs_data_root_uri,
-          module_file=_module_file,
-          ai_platform_training_args=_ai_platform_training_args,
-          ai_platform_serving_args=_ai_platform_serving_args,
-          beam_pipeline_args=_beam_pipeline_args))
+          pipeline_name=pipeline_name,
+          pipeline_root=pipeline_root,
+          data_root=data_root_param,
+          module_file=module_file_param,
+          ai_platform_training_args=ai_platform_training_args,
+          ai_platform_serving_args=ai_platform_serving_args,
+          beam_pipeline_args=beam_pipeline_args))
