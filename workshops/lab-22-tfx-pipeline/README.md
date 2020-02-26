@@ -97,17 +97,17 @@ After the pipeline has been deployed, you can trigger and monitor pipeline runs 
 
 To submit the pipeline run using **TFX CLI**:
 ```
-tfx run create --pipeline_name tfx_covertype_classifier_training --endpoint $INVERSE_PROXY_HOSTNAME
+tfx run create --pipeline_name $PIPELINE_NAME --endpoint $INVERSE_PROXY_HOSTNAME
 ```
 
 To list all the active runs of the pipeline:
 ```
-tfx run list --pipeline_name tfx_covertype_classifier_training --endpoint $INVERSE_PROXY_HOSTNAME
+tfx run list --pipeline_name $PIPELINE_NAME --endpoint $INVERSE_PROXY_HOSTNAME
 ```
 
 To retrieve the status of a given run:
 ```
-tfx run status --pipeline_name tfx_covertype_classifier_training --run_id [YOUR_RUN_ID] --endpoint $INVERSE_PROXY_HOSTNAME
+tfx run status --pipeline_name $PIPELINE_NAME --run_id [YOUR_RUN_ID] --endpoint $INVERSE_PROXY_HOSTNAME
 ```
  To terminate a run:
  ```
