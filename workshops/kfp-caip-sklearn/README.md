@@ -17,7 +17,7 @@ The ML model utilized in the labs  is a multi-class classification model that pr
 
 ## Lab exercises
 ### Lab 01 - Using custom containers with AI Platform Training
-In this lab, you will develop, package as a docker image, and run on AI Platform Training a training application that builds a **scikit-learn** model. The goal of this lab is to understand and codify the steps of the machine learning workflow that will be orchestrated by the continuous training pipeline.
+In this lab, you will develop, package as a docker image, and run on AI Platform Training a training application that builds a **scikit-learn** classifier. The goal of this lab is to understand and codify the steps of the machine learning workflow that will be orchestrated by the continuous training pipeline.
 
 The lab is implemented as a Jupyter notebook.
 
