@@ -19,10 +19,14 @@ The ML model utilized in the labs  is a multi-class classification model that pr
 ### Lab 01 - Using custom containers with AI Platform Training
 In this lab, you will develop, package as a docker image, and run on AI Platform Training a training application that builds a **scikit-learn** classifier. The goal of this lab is to understand and codify the steps of the machine learning workflow that will be orchestrated by the continuous training pipeline.
 
-The lab is implemented as a Jupyter notebook.
 
 ### Lab 02 - Orchestrating model training and deployment with Kubeflow Pipelines and Cloud AI Platform
-In this lab, you will author, deploy, and run a **Kubeflow Pipelines (KFP)** pipeline that automates ML workflow steps you went through interactively in the first lab.
+In this lab, you will author, deploy, and run a **Kubeflow Pipelines (KFP)** pipeline that automates ML workflow steps you experminted with in the first lab.
+
+### Lab 03 - CI/CD for a KFP pipeline
+In this lab, you will walk through authoring of a **Cloud Build** CI/CD workflow that automatically builds and deploys a KFP pipeline. You will also integrate the workflow with **GitHub**.
+
+
 
 
 
