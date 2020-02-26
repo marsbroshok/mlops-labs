@@ -26,7 +26,11 @@ In this lab, you will author, deploy, and run a **Kubeflow Pipelines (KFP)** pip
 ### Lab 03 - CI/CD for a KFP pipeline
 In this lab, you will walk through authoring of a **Cloud Build** CI/CD workflow that automates the process of building and deploying of the KFP pipeline authored in the second lab. You will also integrate the **Cloud Build** workflow with **GitHub**.
 
+## Lab setup
+Before proceeding with the lab exercises you need to set up the lab environment and prepare the lab dataset.
 
+### Preparing the lab environment
+### Preparing the lab dataset
 
 
 
