@@ -141,7 +141,6 @@ if __name__ == '__main__':
       'pythonVersion': python_version
   }
 
-  # Dataflow settings.
   beam_tmp_folder = '{}/beam/tmp'.format(artifact_store_uri)
   beam_pipeline_args = [
       '--runner=DataflowRunner',
@@ -169,13 +168,13 @@ if __name__ == '__main__':
     
   module_file_param = data_types.RuntimeParameter(
     name='module-file',
-    default='{}/{}/{}'.format(artifact_store_uri, 'modules', 'transform_train.py'),
+    default='{}/{}/{}'.format(artifact_store_uri, pipeline_name, 'transform_train.py'),
     ptype=Text,
   )
   
   data_root_param = data_types.RuntimeParameter(
       name='data-root',
-      default='{}/{}'.format(artifact_store_uri, 'data'),
+      default=data_root_uri,
       ptype=Text
   )
   
