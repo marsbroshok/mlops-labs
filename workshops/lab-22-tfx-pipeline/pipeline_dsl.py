@@ -114,7 +114,7 @@ def _create__pipeline(pipeline_name: Text,
 
 if __name__ == '__main__':
 
-  # Get settings from environment variables
+  # Get evironment settings from environment variables
   pipeline_name = os.environ.get('PIPELINE_NAME')
   project_id = os.environ.get('PROJECT_ID')
   gcp_region = os.environ.get('GCP_REGION')
@@ -124,7 +124,8 @@ if __name__ == '__main__':
   runtime_version = os.environ.get('RUNTIME_VERSION')
   python_version = os.environ.get('PYTHON_VERSION')
 
-  # AI Platform Training settings
+  # Set values for the compile time parameters
+    
   ai_platform_training_args = {
       'project': project_id,
       'region': gcp_region,
@@ -133,7 +134,6 @@ if __name__ == '__main__':
       }
   }
 
-  # AI Platform Prediction settings
   ai_platform_serving_args = {
       'model_name': 'model_' + pipeline_name,
       'project_id': project_id,
@@ -164,15 +164,9 @@ if __name__ == '__main__':
   #    use_mysql_secret('mysql-credential')
   #]
 
-  metadata_config = kubeflow_dag_runner.get_default_kubeflow_metadata_config()
-  operator_funcs = kubeflow_dag_runner. get_default_pipeline_operator_funcs()
   
-  # Compile the pipeline
-  runner_config = kubeflow_dag_runner.KubeflowDagRunnerConfig(
-      kubeflow_metadata_config=metadata_config,
-      pipeline_operator_funcs=operator_funcs,
-      tfx_image=pipeline_image)
-
+  # Set default values for the pipeline runtime parameters
+    
   module_file_param = data_types.RuntimeParameter(
     name='module-file',
     default='{}/{}/{}'.format(artifact_store_uri, 'modules', 'transform_train.py'),
@@ -187,6 +181,16 @@ if __name__ == '__main__':
   
   pipeline_root = '{}/{}'.format(artifact_store_uri, pipeline_name)
     
+  
+  # Set KubeflowDagRunner settings
+  metadata_config = kubeflow_dag_runner.get_default_kubeflow_metadata_config()
+  operator_funcs = kubeflow_dag_runner. get_default_pipeline_operator_funcs()
+  runner_config = kubeflow_dag_runner.KubeflowDagRunnerConfig(
+      kubeflow_metadata_config=metadata_config,
+      pipeline_operator_funcs=operator_funcs,
+      tfx_image=pipeline_image)
+
+  # Compile the pipeline
   kubeflow_dag_runner.KubeflowDagRunner(config=runner_config).run(
       _create__pipeline(
           pipeline_name=pipeline_name,
