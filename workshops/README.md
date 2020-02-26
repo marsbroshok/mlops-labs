@@ -1,6 +1,6 @@
-# Workshop blueprints
+# Mini Workshops
 
-This section contains blueprints for instructor led ML Engineering workshops. It is expected that instructors will use them as a starting point to create a customized workshop addressing the needs of a specific audience. Multiple workshops can be combined to create a comprehensive, multi-day workshop.
+This section contains hands on labs for instructor led ML Engineering mini workshops. Each mini workshops focuses on a single use case. The instructors can (and are encouraged) to combine multiple mini workshosps into a comprehensive, multi-day workshop.
 
 ## [Continuous training with scikit-learn and Cloud AI Platform ](kfp-caip-sklearn)
 
