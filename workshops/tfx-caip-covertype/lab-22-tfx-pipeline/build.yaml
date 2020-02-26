@@ -1,0 +1,10 @@
+apiVersion: skaffold/v2alpha4
+kind: Config
+build:
+  artifacts:
+  - context: .
+    image: 'gcr.io/mlops-workshop/custom_tfx'
+  googleCloudBuild: {}
+  tagPolicy:
+    envTemplate:
+      template: "{{.IMAGE_NAME}}:latest"

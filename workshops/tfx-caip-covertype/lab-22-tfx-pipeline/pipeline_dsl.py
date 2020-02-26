@@ -183,7 +183,8 @@ if __name__ == '__main__':
   
   # Set KubeflowDagRunner settings
   metadata_config = kubeflow_dag_runner.get_default_kubeflow_metadata_config()
-  operator_funcs = kubeflow_dag_runner. get_default_pipeline_operator_funcs()
+  operator_funcs = kubeflow_dag_runner. get_default_pipeline_operator_funcs(use_gcp_sa=True)
+    
   runner_config = kubeflow_dag_runner.KubeflowDagRunnerConfig(
       kubeflow_metadata_config=metadata_config,
       pipeline_operator_funcs=operator_funcs,
