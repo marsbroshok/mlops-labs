@@ -82,7 +82,7 @@ Before deploying to the KFP runtime environment, the pipeline's DSL has to be co
 
 You can compile the DSL using an API from the **KFP SDK** or using the **KFP** compiler.
 
-To compile the pipeline DSL using **KFP** compiler. From the root folder of this lab, execute the following commands.
+To compile the pipeline DSL using **KFP** compiler, execute the following commands from the root folder of this lab,.
 
 ```
 export BASE_IMAGE=gcr.io/$PROJECT_ID/base_image:latest
