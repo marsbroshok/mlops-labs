@@ -30,7 +30,9 @@ In this lab, you will walk through authoring of a **Cloud Build** CI/CD workflow
 Before proceeding with the lab exercises you need to set up the lab environment and prepare the lab dataset.
 
 ### Preparing the lab environment
-Follow the instructions in [/environment-setup] to set up the environment. 
+Follow the instructions in the [environment setup](/environment-setup) folder to set up the environment. 
+
+After the environment is ready, connect to your instance of **AI Platform Notebooks** and open a new JupyterLab terminal.
 
 ### Preparing the lab dataset
 The pipeline developed in the labs sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery in your project:
