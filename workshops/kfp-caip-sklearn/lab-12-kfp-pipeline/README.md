@@ -90,10 +90,6 @@ You can compile the DSL using an API from the **KFP SDK** or using the **KFP** c
 To compile the pipeline DSL using **KFP** compiler, execute the following commands from the root folder of this lab,.
 
 ```
-export BASE_IMAGE=gcr.io/$PROJECT_ID/base_image:latest
-export TRAINER_IMAGE=gcr.io/$PROJECT_ID/trainer_image:latest
-
-
 dsl-compile --py covertype_training_pipeline.py --output covertype_training_pipeline.yaml
 ```
 
