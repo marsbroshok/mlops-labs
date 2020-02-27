@@ -20,7 +20,7 @@ The KFP pipeline uses a mix of custom and pre-build components.
     - **Evaluate Model**. This component evaluates the *sklearn* trained model using a provided metric and a testing dataset. 
 
 
-The workflow implemented by the pipeline is defined using a Python based KFP Domain Specific Language (DSL). The pipeline's DSL is in the `covertype_training_pipeline.py` file.
+The workflow implemented by the pipeline is defined using a Python based KFP Domain Specific Language (DSL). The pipeline's DSL is in the `covertype_training_pipeline.py` file. The pipeline's DSL has been designed to avoid hardcoding any environment specific settings like file paths or connection strings. These settings are provided to the pipeline code through a set of environment variables.
 
 ### Configuring the environment settings
 Before building and deploying the pipeline, you need to configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
