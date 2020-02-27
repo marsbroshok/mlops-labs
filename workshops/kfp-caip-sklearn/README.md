@@ -30,7 +30,44 @@ In this lab, you will walk through authoring of a **Cloud Build** CI/CD workflow
 Before proceeding with the lab exercises you need to set up the lab environment and prepare the lab dataset.
 
 ### Preparing the lab environment
-### Preparing the lab dataset
+Follow the instructions in [/environment-setup] to set up the environment. 
 
+### Preparing the lab dataset
+The pipeline developed in the labs sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery in your project:
+
+1. Open new terminal in you **JupyterLab**
+
+2. Create the BigQuery dataset and upload the Cover Type csv file.
+```
+export PROJECT_ID=$(gcloud config get-value core/project)
+
+DATASET_LOCATION=US
+DATASET_ID=covertype_dataset
+TABLE_ID=covertype
+DATA_SOURCE=gs://workshop-datasets/covertype/full/dataset.csv
+SCHEMA=Elevation:INTEGER,\
+Aspect:INTEGER,\
+Slope:INTEGER,\
+Horizontal_Distance_To_Hydrology:INTEGER,\
+Vertical_Distance_To_Hydrology:INTEGER,\
+Horizontal_Distance_To_Roadways:INTEGER,\
+Hillshade_9am:INTEGER,\
+Hillshade_Noon:INTEGER,\
+Hillshade_3pm:INTEGER,\
+Horizontal_Distance_To_Fire_Points:INTEGER,\
+Wilderness_Area:STRING,\
+Soil_Type:STRING,\
+Cover_Type:INTEGER
+
+bq --location=$DATASET_LOCATION --project_id=$PROJECT_ID mk --dataset $DATASET_ID
+
+bq --project_id=$PROJECT_ID --dataset_id=$DATASET_ID load \
+--source_format=CSV \
+--skip_leading_rows=1 \
+--replace \
+$TABLE_ID \
+$DATA_SOURCE \
+$SCHEMA
+```
 
 
