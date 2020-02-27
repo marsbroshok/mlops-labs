@@ -3,68 +3,12 @@
 In this lab, you will develop, deploy, and run a KFP pipeline that orchestrates **BigQuery** and **Cloud AI Platform** services to train a **scikit-learn** model.
 
 
-## Lab scenario
+## Lab instructions
 
-This lab uses the same scenario and training application as `lab-11-caip-containers`. Since the focus of this lab is on developing and deploying a KFP pipeline rather than on specifics of the training code, the `lab-11-caip-containers` lab is not a required pre-requisite. However, it is highly recommend to walk through `lab-11-caip-container` before starting this lab, especially if you don't have previous experience with using custom containers with AI Platform Training.
+During this lab, you will mostly work in a JupyterLab terminal of the **AI Platform Notebook** instance you provisioned during the environment setup. To start, connect to your instance and open a new terminal.
 
-During the lab, the instructor will walk you through key parts of a typical KFP pipeline, including pre-built components, custom components and a pipeline definition in KFP Domain Specific Language (DSL). You will also use KFP compiler and KFP CLI to compile the pipeline's DSL, upload the pipeline package to the KFP environment, and trigger pipeline runs.
-
-
-The pipeline you develop in the lab orchestrates GCP managed services. The source data is in BigQuery. The pipeline uses:
-- BigQuery to prepare training, evaluation, and testing data splits, 
-- AI Platform Training to run a custom container with data preprocessing and training code, and
-- AI Platform Prediction as a deployment target. 
-
-The below diagram represents the workflow orchestrated by the pipeline.
-
-![Training pipeline](/images/kfp-caip.png).
-
-## Lab setup
-
-### AI Platform Notebook and KFP environment
-Before proceeding with the lab, you must set up an **AI Platform Notebooks** instance and a **KFP** environment.
-
-### Lab dataset
-This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipeline developed in the lab sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery:
-
-1. Open new terminal in you **JupyterLab**
-
-2. Create the BigQuery dataset and upload the Cover Type csv file.
-```
-export PROJECT_ID=$(gcloud config get-value core/project)
-
-DATASET_LOCATION=US
-DATASET_ID=covertype_dataset
-TABLE_ID=covertype
-DATA_SOURCE=gs://workshop-datasets/covertype/full/dataset.csv
-SCHEMA=Elevation:INTEGER,\
-Aspect:INTEGER,\
-Slope:INTEGER,\
-Horizontal_Distance_To_Hydrology:INTEGER,\
-Vertical_Distance_To_Hydrology:INTEGER,\
-Horizontal_Distance_To_Roadways:INTEGER,\
-Hillshade_9am:INTEGER,\
-Hillshade_Noon:INTEGER,\
-Hillshade_3pm:INTEGER,\
-Horizontal_Distance_To_Fire_Points:INTEGER,\
-Wilderness_Area:STRING,\
-Soil_Type:STRING,\
-Cover_Type:INTEGER
-
-bq --location=$DATASET_LOCATION --project_id=$PROJECT_ID mk --dataset $DATASET_ID
-
-bq --project_id=$PROJECT_ID --dataset_id=$DATASET_ID load \
---source_format=CSV \
---skip_leading_rows=1 \
---replace \
-$TABLE_ID \
-$DATA_SOURCE \
-$SCHEMA
-```
-
-## Lab Exercises
-
-During this lab, you will mostly work in a JupyterLab terminal. Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
+### Configuring the environment settings
+Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
 ```
 export PROJECT_ID=$(gcloud config get-value core/project)
 export PREFIX=$PROJECT_ID
@@ -79,13 +23,9 @@ gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
 export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
 ```
 
-Follow the instructor who will walk you through the lab. 
-
-The high level summary of the lab flow is as follows.
-
 ### Authoring the pipeline
 
-Your pipeline uses a mix of custom and pre-build components.
+The KFP pipeline uses a mix of custom and pre-build components.
 
 - Pre-build components. The pipeline uses the following pre-build components that are included with KFP distribution:
     - [BigQuery query component](https://github.com/kubeflow/pipelines/tree/0.1.36/components/gcp/bigquery/query)
