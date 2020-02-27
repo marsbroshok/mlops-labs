@@ -12,9 +12,9 @@ During this lab, you will mostly work in a JupyterLab terminal of the **AI Platf
 The KFP pipeline uses a mix of custom and pre-build components.
 
 - Pre-build components. The pipeline uses the following pre-build components that are included with the KFP distribution:
-    - [BigQuery query component](https://github.com/kubeflow/pipelines/tree/0.1.36/components/gcp/bigquery/query)
-    - [AI Platform Training component](https://github.com/kubeflow/pipelines/tree/0.1.36/components/gcp/ml_engine/train)
-    - [AI Platform Deploy component](https://github.com/kubeflow/pipelines/tree/0.1.36/components/gcp/ml_engine/deploy)
+    - [BigQuery query component](https://github.com/kubeflow/pipelines/tree/0.2.4/components/gcp/bigquery/query)
+    - [AI Platform Training component](https://github.com/kubeflow/pipelines/tree/0.2.4/components/gcp/ml_engine/train)
+    - [AI Platform Deploy component](https://github.com/kubeflow/pipelines/tree/0.2.4/components/gcp/ml_engine/deploy)
 - Custom components. The pipeline uses two custom helper components that encapsulate functionality not available in any of the pre-build components. The components are implemented using the KFP SDK's [Lightweight Python Components](https://www.kubeflow.org/docs/pipelines/sdk/lightweight-python-components/) mechanism. The code for the components is in the `helper_components.py` file:
     - **Retrieve Best Run**. This component retrieves the tuning metric and hyperparameter values for the best run of the AI Platform Training hyperparameter tuning job.
     - **Evaluate Model**. This component evaluates the *sklearn* trained model using a provided metric and a testing dataset. 
