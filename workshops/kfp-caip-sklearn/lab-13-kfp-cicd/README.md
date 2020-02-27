@@ -2,58 +2,28 @@
 
 In this lab you will walk through authoring of a **Cloud Build** CI/CD workflow that automatically builds and deploys a KFP pipeline. You will also integrate your workflow with **GitHub** by setting up a trigger that starts the  workflow when a new tag is applied to the **GitHub** repo hosting the pipeline's code.
 
-## Lab scenario
+## Lab instructions
 
-This lab uses the KFP DSL and KFP components developed in `lab-12-kfp-pipeline`.
+During this lab, you will mostly work in a JupyterLab terminal of the **AI Platform Notebooks** instance you provisioned during the environment setup. To start, connect to your instance and open a new terminal.
 
-## Lab setup
+###  Reviewing the CI/CD workflow that builds and deploys a KFP  pipeline
 
-This lab requires the same setup as `lab-12-kfp-pipeline`. If you completed `lab-12-kfp-pipeline` you are ready to go and you can skip to the **Lab Exercises** section.
+Review the `cloudbuild.yaml` file to understand how the CI/CD workflow is implemented and how environment specific settings are abstracted using **Cloud Build** variables.
 
-### AI Platform Notebook configuration
-Before proceeding with the lab, you must set up the lab environment.
+The CI/CD workflow automates the steps you walked through manually during `lab-02-kfp-pipeline`:
+1. Builds the trainer image
+1. Builds the base image for custom components
+1. Compiles the pipeline
+1. Uploads the pipeline to the KFP environment
+1. Pushes the trainer and base images to your project's **Container Registry**
 
-### Lab dataset
-This lab uses the [Covertype Dat Set](../datasets/covertype/README.md). The pipeline developed in the lab sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery:
+Although the KFP backend supports pipeline versioning, this feature has not been yet enable through the **KFP** CLI. As a temporary workaround, in the **Cloud Build** configuration a value of the `TAG_NAME` variable is appended to the name of the pipeline. 
 
-1. Open new terminal in you **JupyterLab**
+The **Cloud Build** workflow configuration uses both standard and custom [Cloud Build builders](https://cloud.google.com/cloud-build/docs/cloud-builders). The custom builder encapsulates **KFP CLI**. 
 
-2. Create the BigQuery dataset and upload the Cover Type csv file.
-```
-PROJECT_ID=[YOUR_PROJECT_ID]
+### Configuring the environment settings
 
-DATASET_LOCATION=US
-DATASET_ID=covertype_dataset
-TABLE_ID=covertype
-DATA_SOURCE=gs://workshop-datasets/covertype/full/dataset.csv
-SCHEMA=Elevation:INTEGER,\
-Aspect:INTEGER,\
-Slope:INTEGER,\
-Horizontal_Distance_To_Hydrology:INTEGER,\
-Vertical_Distance_To_Hydrology:INTEGER,\
-Horizontal_Distance_To_Roadways:INTEGER,\
-Hillshade_9am:INTEGER,\
-Hillshade_Noon:INTEGER,\
-Hillshade_3pm:INTEGER,\
-Horizontal_Distance_To_Fire_Points:INTEGER,\
-Wilderness_Area:STRING,\
-Soil_Type:STRING,\
-Cover_Type:INTEGER
-
-bq --location=$DATASET_LOCATION --project_id=$PROJECT_ID mk --dataset $DATASET_ID
-
-bq --project_id=$PROJECT_ID --dataset_id=$DATASET_ID load \
---source_format=CSV \
---skip_leading_rows=1 \
---replace \
-$TABLE_ID \
-$DATA_SOURCE \
-$SCHEMA
-```
-
-## Lab Exercises
-
-During this lab, you will mostly work in a JupyterLab terminal. Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, ZONE, or NAMESPACE update the commands accordingly:
+Before triggering the **Cloud Build** workflow, configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, ZONE, or NAMESPACE update the commands accordingly:
 
 ```
 export PROJECT_ID=$(gcloud config get-value core/project)
@@ -69,22 +39,7 @@ export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config 
 
 Follow the instructor who will walk you through the lab. The high level summary of the lab exercises is as follows.
 
-###  Authoring the CI/CD workflow that builds and deploys a KFP  pipeline
 
-In this exercise you walk-through authoring a **Cloud Build** CI/CD workflow that automatically builds and deploys a KFP pipeline. 
-
-Review the `cloudbuild.yaml` file to understand how the CI/CD workflow is implemented and how environment specific settings are abstracted using **Cloud Build** variables.
-
-The CI/CD workflow automates the steps you walked through manually during `lab-12-kfp-pipeline`:
-1. Builds the trainer image
-1. Builds the base image for custom components
-1. Compiles the pipeline
-1. Uploads the pipeline to the KFP environment
-1. Pushes the trainer and base images to your project's **Container Registry**
-
-Although the KFP backend supports pipeline versioning, this feature has not been yet enable through the **KFP** CLI. As a temporary workaround, in the **Cloud Build** configuration a value of the `TAG_NAME` variable is appended to the name of the pipeline. 
-
-The **Cloud Build** workflow configuration uses both standard and custom [Cloud Build builders](https://cloud.google.com/cloud-build/docs/cloud-builders). The custom builder encapsulates **KFP CLI**. 
 
 
 
