@@ -1,13 +1,13 @@
 # Orchestrating model training and deployment with Kubeflow Pipelines (KFP) and Cloud AI Platform
 
-In this lab, you will review the code, deploy, and run a KFP pipeline that orchestrates **BigQuery** and **Cloud AI Platform** services to train a **scikit-learn** model.
+In this lab, you will review, deploy, and run a KFP pipeline that orchestrates **BigQuery** and **Cloud AI Platform** services to train a **scikit-learn** model.
 
 
 ## Lab instructions
 
 During this lab, you will mostly work in a JupyterLab terminal of the **AI Platform Notebook** instance you provisioned during the environment setup. To start, connect to your instance and open a new terminal.
 
-### Reviewing the pipeline code
+### Reviewing the pipeline design
 
 The KFP pipeline uses a mix of custom and pre-build components.
 
