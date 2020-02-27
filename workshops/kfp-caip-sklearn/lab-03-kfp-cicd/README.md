@@ -98,10 +98,10 @@ Use the following values for the substitution variables:
 |Variable|Value|
 |--------|-----|
 |_BASE_IMAGE_NAME|base_image|
-|_COMPONENT_URL_SEARCH_PREFIX|https://raw.githubusercontent.com/kubeflow/pipelines/0.1.36/components/gcp/|
+|_COMPONENT_URL_SEARCH_PREFIX|https://raw.githubusercontent.com/kubeflow/pipelines/0.2.4/components/gcp/|
 |_INVERTING_PROXY_HOST|[Your inverting proxy host]|
 |_PIPELINE_DSL|covertype_training_pipeline.py|
-|_PIPELINE_FOLDER|labs/lab-13-kfp-cicd/pipeline|
+|_PIPELINE_FOLDER|workshops/kfp-caip-sklearn/lab-03-kfp-cicd/pipeline|
 |_PIPELINE_NAME|covertype_training_deployment|
 |_PIPELINE_PACKAGE|covertype_training_pipeline.yaml|
 |_PYTHON_VERSION|3.5|
