@@ -5,7 +5,7 @@ In this lab, you will review, deploy, and run a KFP pipeline that orchestrates *
 
 ## Lab instructions
 
-During this lab, you will mostly work in a JupyterLab terminal of the **AI Platform Notebook** instance you provisioned during the environment setup. To start, connect to your instance and open a new terminal.
+During this lab, you will mostly work in a JupyterLab terminal of the **AI Platform Notebooks** instance you provisioned during the environment setup. To start, connect to your instance and open a new terminal.
 
 ### Reviewing the pipeline design
 
