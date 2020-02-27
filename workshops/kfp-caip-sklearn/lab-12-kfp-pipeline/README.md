@@ -20,7 +20,9 @@ The KFP pipeline uses a mix of custom and pre-build components.
     - **Evaluate Model**. This component evaluates the *sklearn* trained model using a provided metric and a testing dataset. 
 
 
-The workflow implemented by the pipeline is defined using a Python based KFP Domain Specific Language (DSL). The pipeline's DSL is in the `covertype_training_pipeline.py` file. The pipeline's DSL has been designed to avoid hardcoding any environment specific settings like file paths or connection strings. These settings are provided to the pipeline code through a set of environment variables.
+The workflow implemented by the pipeline is defined using a Python based KFP Domain Specific Language (DSL). The pipeline's DSL is in the `covertype_training_pipeline.py` file. 
+
+The pipeline's DSL has been designed to avoid hardcoding any environment specific settings like file paths or connection strings. These settings are provided to the pipeline code through a set of environment variables.
 
 ### Configuring the environment settings
 Before building and deploying the pipeline, you need to configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
@@ -33,6 +35,9 @@ export ZONE=us-central1-a
 export ARTIFACT_STORE_URI=gs://$PREFIX-artifact-store
 export GCS_STAGING_PATH=${ARTIFACT_STORE_URI}/staging
 export GKE_CLUSTER_NAME=$PREFIX-cluster
+export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.2.4/components/gcp/
+export RUNTIME_VERSION=1.14
+export PYTHON_VERSION=3.5
 
 gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
 export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
@@ -54,9 +59,9 @@ MAKE SURE to update the Dockerfile in the `trainer_image` folder with the URI po
 ```
 IMAGE_NAME=trainer_image
 TAG=latest
-IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
+TRAINER_IMAGE="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
-gcloud builds submit --timeout 15m --tag ${IMAGE_URI} trainer_image
+gcloud builds submit --timeout 15m --tag ${TRAINER_IMAGE} trainer_image
 
 ```
 
@@ -69,9 +74,9 @@ MAKE SURE to update the Dockerfile in the `base_image` folder with the URI point
 ```
 IMAGE_NAME=base_image
 TAG=latest
-IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
+BASE_IMAGE="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
-gcloud builds submit --timeout 15m --tag ${IMAGE_URI} base_image
+gcloud builds submit --timeout 15m --tag ${BASE_IMAGE} base_image
 ```
 
 
@@ -87,9 +92,7 @@ To compile the pipeline DSL using **KFP** compiler, execute the following comman
 ```
 export BASE_IMAGE=gcr.io/$PROJECT_ID/base_image:latest
 export TRAINER_IMAGE=gcr.io/$PROJECT_ID/trainer_image:latest
-export COMPONENT_URL_SEARCH_PREFIX=https://raw.githubusercontent.com/kubeflow/pipelines/0.2.2/components/gcp/
-export RUNTIME_VERSION=1.14
-export PYTHON_VERSION=3.5
+
 
 dsl-compile --py covertype_training_pipeline.py --output covertype_training_pipeline.yaml
 ```
