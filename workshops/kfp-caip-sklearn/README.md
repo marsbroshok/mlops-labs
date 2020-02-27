@@ -34,7 +34,7 @@ export PROJECT_ID=$(gcloud config get-value core/project)
 DATASET_LOCATION=US
 DATASET_ID=covertype_dataset
 TABLE_ID=covertype
-DATA_SOURCE=gs://workshop-datasets/covertype/full/dataset.csv
+DATA_SOURCE=gs://workshop-datasets/covertype/small/dataset.csv
 SCHEMA=Elevation:INTEGER,\
 Aspect:INTEGER,\
 Slope:INTEGER,\
