@@ -15,7 +15,7 @@ The below diagram represents the workflow orchestrated by the pipeline.
 ## Scenario
 The ML model utilized in the labs  is a multi-class classifier that predicts the type of  forest cover from cartographic data. The model is trained on the [Covertype Data Set](/datasets/covertype/README.md) dataset.
 
-## Lab exercises
+## Summary of lab exercises
 ### Lab 01 - Using custom containers with AI Platform Training
 In this lab, you will develop, package as a docker image, and run on AI Platform Training a training application that builds a **scikit-learn** classifier. The goal of this lab is to understand and codify the steps of the machine learning workflow that will be orchestrated by the continuous training pipeline.
 
