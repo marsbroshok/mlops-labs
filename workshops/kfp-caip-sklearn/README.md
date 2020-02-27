@@ -13,7 +13,7 @@ The below diagram represents the workflow orchestrated by the pipeline.
 4. If the model meets or exceeds the performance requirements it is deployed as an online service using AI Platform Prediction
 
 ## Scenario
-The ML model utilized in the labs  is a multi-class classification model that predicts the type of forest cover from cartographic data. The model is trained on the [Covertype Data Set](/datasets/covertype/README.md) dataset.
+The ML model utilized in the labs  is a multi-class classifier that predicts the type of forest cover from cartographic data. The model is trained on the [Covertype Data Set](/datasets/covertype/README.md) dataset.
 
 ## Lab exercises
 ### Lab 01 - Using custom containers with AI Platform Training
