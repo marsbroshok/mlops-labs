@@ -70,7 +70,7 @@ In this lab, you will develop, package as a docker image, and run on AI Platform
 In this lab, you will author, deploy, and run a **Kubeflow Pipelines (KFP)** pipeline that automates ML workflow steps you experminted with in the first lab.
 
 ### Lab-03 - CI/CD for a KFP pipeline
-In this lab, you will walk through authoring of a **Cloud Build** CI/CD workflow that automates the process of building and deploying of the KFP pipeline authored in the second lab. You will also integrate the **Cloud Build** workflow with **GitHub**.
+In this lab, you will author a **Cloud Build** CI/CD workflow that automates the process of building and deploying of the KFP pipeline authored in the second lab. You will also integrate the **Cloud Build** workflow with **GitHub**.
 
 
 
