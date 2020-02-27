@@ -11,7 +11,7 @@ During this lab, you will mostly work in a JupyterLab terminal of the **AI Platf
 
 The KFP pipeline uses a mix of custom and pre-build components.
 
-- Pre-build components. The pipeline uses the following pre-build components that are included with KFP distribution:
+- Pre-build components. The pipeline uses the following pre-build components that are included with the KFP distribution:
     - [BigQuery query component](https://github.com/kubeflow/pipelines/tree/0.1.36/components/gcp/bigquery/query)
     - [AI Platform Training component](https://github.com/kubeflow/pipelines/tree/0.1.36/components/gcp/ml_engine/train)
     - [AI Platform Deploy component](https://github.com/kubeflow/pipelines/tree/0.1.36/components/gcp/ml_engine/deploy)
