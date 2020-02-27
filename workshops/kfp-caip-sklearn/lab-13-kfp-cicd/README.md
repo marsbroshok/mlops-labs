@@ -37,13 +37,8 @@ export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config 
 
 ```
 
-Follow the instructor who will walk you through the lab. The high level summary of the lab exercises is as follows.
 
-
-
-
-
-#### Creating KFP CLI builder
+### Creating KFP CLI builder
 
 To create a **Cloud Build** custom builder that encapsulates KFP CLI.
 
@@ -66,7 +61,7 @@ IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 ```
 
-#### Manually triggering CI/CD runs
+### Manually triggering CI/CD runs
 You can manually trigger **Cloud Build** runs using the `gcloud builds submit` command. The `build_pipeline.sh` script contains an example of how to invoke `gcloud builds submit` and provide runtime subsitutions for the variables used in the `cloudbuild.yaml` configuration.
 
 
@@ -76,7 +71,7 @@ To manually trigger the CI/CD run :
 ```
 echo $INVERSE_PROXY_HOSTNAME
 ```
-2. Update the Dockerfile files in the  `pipeline/base_image` and `pipeline/trainer_image` folders so they get the base image from your Container Registry.
+2. Update the Dockerfile files in the  `pipeline/base_image` and `pipeline/trainer_image` folders so they refer to your Container Registry.
 3. Start the run:
 ```
 ./build_pipeline.sh
