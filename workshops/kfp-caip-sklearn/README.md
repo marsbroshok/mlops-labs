@@ -12,10 +12,9 @@ The below diagram represents the workflow orchestrated by the pipeline.
 4. The model's performance is validated against a configurable performance threshold
 4. If the model meets or exceeds the performance requirements it is deployed as an online service using AI Platform Prediction
 
-## Scenario
 The ML model utilized in the labs  is a multi-class classifier that predicts the type of  forest cover from cartographic data. The model is trained on the [Covertype Data Set](/datasets/covertype/README.md) dataset.
 
-## Lab setup
+## Lab environment setup
 Before proceeding with the lab exercises you need to set up the lab environment and prepare the lab dataset.
 
 ### Preparing the lab environment
