@@ -59,7 +59,7 @@ MAKE SURE to update the Dockerfile in the `trainer_image` folder with the URI po
 ```
 IMAGE_NAME=trainer_image
 TAG=latest
-TRAINER_IMAGE="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
+export TRAINER_IMAGE="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
 gcloud builds submit --timeout 15m --tag ${TRAINER_IMAGE} trainer_image
 
@@ -74,7 +74,7 @@ MAKE SURE to update the Dockerfile in the `base_image` folder with the URI point
 ```
 IMAGE_NAME=base_image
 TAG=latest
-BASE_IMAGE="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
+export BASE_IMAGE="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
 
 gcloud builds submit --timeout 15m --tag ${BASE_IMAGE} base_image
 ```
