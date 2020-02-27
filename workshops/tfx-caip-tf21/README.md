@@ -15,7 +15,7 @@ After the environment is ready, connect to your instance of **AI Platform Notebo
 
 ## Summary of lab exercises
 ### Lab-01 - TFX Components walk-through
-In this lab you will walk through the configuration and execution of core TFX Components, using the TFX interactive context. The primary goal of the lab is to get a high level understanding of the function and usage of each of the components. You w
+In this lab you will walk through the configuration and execution of core TFX Components, using the TFX interactive context. The primary goal of the lab is to get a high level understanding of the function and usage of each of the components. 
 
 ### Lab-02 - Orchestrating model training and deployment with Kubeflow Pipelines and Cloud AI Platform
 In this lab you will develop, deploy and run a TFX pipeline that uses Kubeflow Pipelines for orchestration and Cloud Dataflow and Cloud AI Platform for data processing, training, and deployment.
