@@ -32,7 +32,7 @@ Before proceeding with the lab exercises you need to set up the lab environment 
 ### Preparing the lab environment
 Follow the instructions in the [environment setup](/environment-setup) folder to set up the environment. 
 
-After the environment is ready, connect to your instance of **AI Platform Notebooks** and open a new JupyterLab terminal.
+After the environment is ready, connect to your instance of **AI Platform Notebooks**.
 
 ### Preparing the lab dataset
 The pipeline developed in the labs sources the dataset from BigQuery. Before proceeding with the lab upload the dataset to BigQuery in your project:
