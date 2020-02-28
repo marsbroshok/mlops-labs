@@ -14,19 +14,20 @@
 """Covertype training pipeline DSL."""
 
 import os
-from typing import Dict, List, Text
+from typing import Optional, Dict, List, Text
 
 from kfp import gcp
 from tfx.components.base import executor_spec
-from tfx.components.evaluator.component import Evaluator
-from tfx.components.example_gen.csv_example_gen.component import CsvExampleGen
-from tfx.components.example_validator.component import ExampleValidator
-from tfx.components.model_validator.component import ModelValidator
-from tfx.components.pusher.component import Pusher
-from tfx.components.schema_gen.component import SchemaGen
-from tfx.components.statistics_gen.component import StatisticsGen
-from tfx.components.trainer.component import Trainer
-from tfx.components.transform.component import Transform
+from tfx.components import Evaluator
+from tfx.components import CsvExampleGen
+from tfx.components import ExampleValidator
+from tfx.components import ImporterNode
+from tfx.components import ModelValidator
+from tfx.components import Pusher
+from tfx.components import SchemaGen
+from tfx.components import StatisticsGen
+from tfx.components import Trainer
+from tfx.components import Transform
 from tfx.extensions.google_cloud_ai_platform.pusher import executor as ai_platform_pusher_executor
 from tfx.extensions.google_cloud_ai_platform.trainer import executor as ai_platform_trainer_executor
 from tfx.orchestration import data_types
@@ -36,78 +37,93 @@ from tfx.orchestration.kubeflow.proto import kubeflow_pb2
 from tfx.proto import evaluator_pb2
 from tfx.proto import trainer_pb2
 from tfx.utils.dsl_utils import external_input
-from use_mysql_secret import use_mysql_secret
+from tfx.types.standard_artifacts import Schema
+
 
 
 def _create__pipeline(pipeline_name: Text, 
                       pipeline_root: Text, 
-                      data_root: data_types.RuntimeParameter,
-                      module_file: data_types.RuntimeParameter, 
+                      data_root_uri: data_types.RuntimeParameter,
+                      module_file_uri: data_types.RuntimeParameter, 
+                      schema_file_uri: data_types.RuntimeParameter,
+                      train_steps: data_types.RuntimeParameter,
+                      eval_steps: data_types.RuntimeParameter,
                       ai_platform_training_args: Dict[Text, Text],
                       ai_platform_serving_args: Dict[Text, Text],
-                      beam_pipeline_args: List[Text]) -> pipeline.Pipeline:
+                      beam_pipeline_args: List[Text],
+                      enable_cache: Optional[bool] = True) -> pipeline.Pipeline:
   """Implements the online news pipeline with TFX."""
 
-  examples = external_input(data_root)
+  examples = external_input(data_root_uri)
 
   # Brings data into the pipeline or otherwise joins/converts training data.
-  example_gen = CsvExampleGen(input=examples)
+  generate_examples = CsvExampleGen(input=examples)
 
+  
   # Computes statistics over data for visualization and example validation.
-  statistics_gen = StatisticsGen(examples=example_gen.outputs.examples)
+  generate_statistics = StatisticsGen(examples=generate_examples.outputs.examples)
 
-  # Generates schema based on statistics files.
-  infer_schema = SchemaGen(statistics=statistics_gen.outputs.output)
+  # Import a user-provided schema
+  import_schema = ImporterNode(
+      instance_name='import_user_schema',
+      source_uri=schema_file_uri,
+      artifact_type=Schema)
+  
+  # Generates schema based on statistics files.Even though, we use user-provided schema
+  # we still want to generate the schema of the newest data for tracking and comparison
+  infer_schema = SchemaGen(statistics=generate_statistics.outputs.statistics)
 
   # Performs anomaly detection based on statistics and data schema.
   validate_stats = ExampleValidator(
-      statistics=statistics_gen.outputs.output, schema=infer_schema.outputs.output)
+      statistics=generate_statistics.outputs.statistics, 
+      schema=import_schema.outputs.result)
 
   # Performs transformations and feature engineering in training and serving.
   transform = Transform(
-      examples=example_gen.outputs.examples,
-      schema=infer_schema.outputs.output,
-      module_file=module_file)
+      examples=generate_examples.outputs.examples,
+      schema=import_schema.outputs.result,
+      module_file=module_file_uri)
 
   # Uses user-provided Python function that implements a model using
   # TensorFlow's Estimators API.
-  trainer = Trainer(
+  train = Trainer(
       custom_executor_spec=executor_spec.ExecutorClassSpec(
           ai_platform_trainer_executor.Executor),
-      module_file=module_file,
+      module_file=module_file_uri,
       transformed_examples=transform.outputs.transformed_examples,
-      schema=infer_schema.outputs.output,
+      schema=import_schema.outputs.result,
       transform_graph=transform.outputs.transform_graph,
-      train_args=trainer_pb2.TrainArgs(num_steps=10000),
-      eval_args=trainer_pb2.EvalArgs(num_steps=5000),
+      train_args={'num_steps': train_steps},
+      eval_args={'num_steps': eval_steps},
       custom_config={'ai_platform_training_args': ai_platform_training_args})
 
   # Uses TFMA to compute a evaluation statistics over features of a model.
-  model_analyzer = Evaluator(
-      examples=example_gen.outputs.examples,
-      model=trainer.outputs.output)
+  analyze = Evaluator(
+      examples=generate_examples.outputs.examples,
+      model=train.outputs.model)
 
   # Performs quality validation of a candidate model (compared to a baseline).
-  model_validator = ModelValidator(
-      examples=example_gen.outputs.examples, model=trainer.outputs.output)
+  validate = ModelValidator(
+      examples=generate_examples.outputs.examples, 
+      model=train.outputs.model)
 
   # Checks whether the model passed the validation steps and pushes the model
   # to a file destination if check passed.
-  pusher = Pusher(
+  deploy = Pusher(
       custom_executor_spec=executor_spec.ExecutorClassSpec(
           ai_platform_pusher_executor.Executor),
-      model=trainer.outputs.output,
-      model_blessing=model_validator.outputs.blessing,
+      model=train.outputs.model,
+      model_blessing=validate.outputs.blessing,
       custom_config={'ai_platform_serving_args': ai_platform_serving_args})
 
   return pipeline.Pipeline(
       pipeline_name=pipeline_name,
       pipeline_root=pipeline_root,
       components=[
-          example_gen, statistics_gen, infer_schema, validate_stats, transform,
-          trainer, model_analyzer, model_validator, pusher
+          generate_examples, generate_statistics, import_schema, infer_schema, validate_stats, transform,
+          train, analyze, validate, deploy
       ],
-      # enable_cache=True,
+      enable_cache=enable_cache,
       beam_pipeline_args=beam_pipeline_args
   )
 
@@ -149,33 +165,37 @@ if __name__ == '__main__':
       '--temp_location=' + beam_tmp_folder,
       '--region=' + gcp_region,
   ]
-
-  # ML Metadata settings
-  #_metadata_config = kubeflow_pb2.KubeflowMetadataConfig()
-  #_metadata_config.mysql_db_service_host.environment_variable = 'MYSQL_SERVICE_HOST'
-  #_metadata_config.mysql_db_service_port.environment_variable = 'MYSQL_SERVICE_PORT'
-  #_metadata_config.mysql_db_name.value = 'metadb'
-  #_metadata_config.mysql_db_user.environment_variable = 'MYSQL_USERNAME'
-  #_metadata_config.mysql_db_password.environment_variable = 'MYSQL_PASSWORD'
-
-  #operator_funcs = [
-  #    gcp.use_gcp_secret('user-gcp-sa'),
-  #    use_mysql_secret('mysql-credential')
-  #]
-
   
   # Set default values for the pipeline runtime parameters
     
-  module_file_param = data_types.RuntimeParameter(
-    name='module-file',
-    default='{}/{}/{}'.format(artifact_store_uri, pipeline_name, 'transform_train.py'),
-    ptype=Text,
+  module_file_uri = data_types.RuntimeParameter(
+      name='module-file_uri',
+      default='transform_train.py',
+      ptype=Text,
+  )
+
+  schema_file_uri = data_types.RuntimeParameter(
+      name='schema-file_uri',
+      default='schema.pbtxt',
+      ptype=Text,
   )
   
-  data_root_param = data_types.RuntimeParameter(
-      name='data-root',
+  data_root_uri = data_types.RuntimeParameter(
+      name='data-root-uri',
       default=data_root_uri,
       ptype=Text
+  )
+
+  train_steps = data_types.RuntimeParameter(
+      name='train-steps',
+      default=500,
+      ptype=int
+  )
+    
+  eval_steps = data_types.RuntimeParameter(
+      name='eval-steps',
+      default=500,
+      ptype=int
   )
   
   pipeline_root = '{}/{}'.format(artifact_store_uri, pipeline_name)
@@ -195,8 +215,11 @@ if __name__ == '__main__':
       _create__pipeline(
           pipeline_name=pipeline_name,
           pipeline_root=pipeline_root,
-          data_root=data_root_param,
-          module_file=module_file_param,
+          data_root_uri=data_root_uri,
+          module_file_uri=module_file_uri,
+          schema_file_uri=schema_file_uri,
+          train_steps=train_steps,
+          eval_steps=eval_steps,
           ai_platform_training_args=ai_platform_training_args,
           ai_platform_serving_args=ai_platform_serving_args,
           beam_pipeline_args=beam_pipeline_args))
