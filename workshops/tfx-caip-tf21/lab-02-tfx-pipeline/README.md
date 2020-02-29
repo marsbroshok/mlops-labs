@@ -22,10 +22,11 @@ The pipeline implements a typical TFX workflow as depicted on the below diagram:
 9. The *ModelValidate* component compares the model against a baseline. If this is the first run of the pipeline the model will be blessed regardless of an outcome of the evaluation. In subsequent runs, the baseline is a performance evaluation of the model from the previous run.
 10. If the model trained by the pipeline was blessed, the model is deployed to AI Platform Prediction using the *Pusher* component. The configuration of AI Platform Prediction is a compile time setting.
 
+The compile time settings, like the settings controlling AI Platform, and the default values for the runtime parameters are passed to the pipeline DSL using environment variables. This approach makes it easier to integrate the DSL with CI/CD workflow, which will be demonstrated in the `lab-03-tfx-cicd` lab.
 
-The pipeline uses a custom docker image, which is a derivative of the [tensorflow/tfx:0.21.0 image](https://hub.docker.com/r/tensorflow/tfx), as a runtime execution environment for the pipeline's components. The same image is also used as a a training image used by **AI Platform Training**
+The pipeline is configured to use a custom docker image as runtime environment for TFX components. The  image is a derivative of the standard [tensorflow/tfx:0.21.0 image](https://hub.docker.com/r/tensorflow/tfx). The same image is also used as a a training image used by **AI Platform Training**.
 
-The custom image modifies the base image by adding the  the `transform_train.py` file that contains data transformation and training code used by the pipeline's `Transform` and `Train` components.
+The custom image modifies the base image by adding the  the `transform_train.py` file that contains data transformation and training code and the `schema.pbtxt` that contains the custom schema developed in `lab-01-tfx-walkthrough`.
 
 ### Configuring the environment settings
 
