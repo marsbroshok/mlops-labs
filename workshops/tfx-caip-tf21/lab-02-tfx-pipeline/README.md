@@ -41,61 +41,43 @@ export ARTIFACT_STORE_URI=gs://$PREFIX-artifact-store
 export GCS_STAGING_PATH=${ARTIFACT_STORE_URI}/staging
 export GKE_CLUSTER_NAME=$PREFIX-cluster
 export DATA_ROOT_URI=gs://workshop-datasets/covertype/full
+
 gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
 export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
 
 export PIPELINE_NAME=tfx_covertype_continuous_training
 export RUNTIME_VERSION=1.15
-export PYTHON_VERSION-3.7
+export PYTHON_VERSION=3.7
 ```
-
-
-Follow the instructor who will walk you through the lab. The high level summary of the lab flow is as follows:
-
 
 
 
 ### Building and deploying the pipeline
-#### Creating the custom docker image
-The first step is to build the custom docker image and push it to your project's **Container Registry**. You will use **Cloud Build** to build the image.
 
-1. Create the Dockerfile describing the custom image
-```
-cat > Dockerfile << EOF
-FROM tensorflow/tfx:0.21.0
-RUN mkdir modules
-COPY  transform_train.py modules/
-EOF
-```
+You can build and upload the pipeline to the KFP environment in one step, using the `tfx pipeline create` command. The `tfx pipeline create` goes through the following steps:
+- (Optional) Builds an image to host your components, 
+- Compiles the pipeline DSL into the pipeline package 
+- Uploads the pipeline package to the KFP environment.
 
-2. Submit the **Cloud Build** job
-```
-IMAGE_NAME=tfx-image
-TAG=latest
-export TFX_IMAGE="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
+As you are debugging the pipeline DSL you may prefer to first use the `tfx pipeline compile` which only executes the compilation step. After the DSL compiles successfully you can use `tfx pipeline create` to go through all steps.
 
-gcloud builds submit --timeout 15m --tag ${TFX_IMAGE} .
+To compile the DSL
+```
+tfx pipeline compile --engine kubeflow --pipeline_path pipeline_dsl.py
+```
+This command creates a pipeline package named `${PIPELINE_NAME}.tar.gz`. The package containes the `pipeline.yaml` file that is a Kubeflow Pipelines YAML specification of the pipeline. 
+
+To inspect the YAML specification extract the `pipeline.yaml` file from the tar archive and view the file in the JupyterLab editor.
+```
+tar xvf ${PIPELINE_NAME}.tar.gx
 ```
 
-#### Building and uploading the pipeline to the KFP environment
-You can build and upload the pipeline in one step, using the `tfx pipeline create` command. The `tfx pipeline create` can optionally build an image to host your components, compiles the pipeline DSL into the pipeline package and uploads the pipeline package to the KFP environment.
-
-However; as you are debugging the pipeline DSL you may prefer to use the `tfx pipeline compile` which only executes the compilation step.
+To build the image for your components, compile the pipeline and upload the pipeline to the KFP environment use the `tfx pipeline create` command.
 
 ```
-
-
 tfx pipeline create --engine kubeflow --pipeline_path pipeline_dsl.py --endpoint $INVERSE_PROXY_HOSTNAME
 ```
-
-
-The `tfx pipeline create` command compiles the pipeline's DSL into the KFP package file - `tfx_covertype_classifier_training.tar.gz` and uploads the package to the KFP environment. The package file contains the description of the pipeline in the YAML format. If you want to examine the file, extract from the tarball file and use the JupyterLab editor.
-
-```
-tar xvf tfx_covertype_classifier_training.tar.gz
-```
-
-The name of the extracted file is `pipeline.yaml`.
+Notice that the command used **Cloud Build** to build the image and push it your project's **Container Registry**. This has been configured using the `build.yaml`. TFX CLI uses [skaffold](https://skaffold.dev/) for the build step and the `build.yaml` uses the build section of the full [`skaffold.yaml`](https://skaffold.dev/docs/design/config/) configuration.
 
 
 ### Submitting and monitoring pipeline runs
