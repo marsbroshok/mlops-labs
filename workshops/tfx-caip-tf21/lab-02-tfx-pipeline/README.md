@@ -78,7 +78,7 @@ To build and upload the pipeline to the KFP environment use the `tfx pipeline cr
 Before executing the `tfx pipeline create` command, modify the `image` field of the `build.yaml` file so it references your project. 
 ```
 SED_SCRIPT='s/\([[:blank:]]*image:[[:blank:]]*\).*/\1gcr\.io\/'$PROJECT_ID'\/custom_tfx/'
-sed - $SED_SCRIPT build.yaml
+sed -i $SED_SCRIPT build.yaml
 ```
 
 ```
