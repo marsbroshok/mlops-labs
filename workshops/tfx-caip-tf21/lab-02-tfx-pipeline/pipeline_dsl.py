@@ -34,6 +34,7 @@ from tfx.orchestration import data_types
 from tfx.orchestration import pipeline
 from tfx.orchestration.kubeflow import kubeflow_dag_runner
 from tfx.orchestration.kubeflow.proto import kubeflow_pb2
+from tfx.proto import example_gen_pb2
 from tfx.proto import evaluator_pb2
 from tfx.proto import trainer_pb2
 from tfx.utils.dsl_utils import external_input
@@ -52,14 +53,18 @@ def _create__pipeline(pipeline_name: Text,
                       ai_platform_serving_args: Dict[Text, Text],
                       beam_pipeline_args: List[Text],
                       enable_cache: Optional[bool] = True) -> pipeline.Pipeline:
-  """Implements the online news pipeline with TFX."""
+  """Trains and deploys the Covertype classifier."""
 
+ 
+  # Brings data into the pipeline and splits the data into training and eval splits
   examples = external_input(data_root_uri)
-
-  # Brings data into the pipeline or otherwise joins/converts training data.
+  output_config = example_gen_pb2.Output(
+    split_config=example_gen_pb2.SplitConfig(splits=[
+        example_gen_pb2.SplitConfig.Split(name='train', hash_buckets=4),
+        example_gen_pb2.SplitConfig.Split(name='eval', hash_buckets=1)
+    ]))
   generate_examples = CsvExampleGen(input=examples)
 
-  
   # Computes statistics over data for visualization and example validation.
   generate_statistics = StatisticsGen(examples=generate_examples.outputs.examples)
 
