@@ -5,7 +5,7 @@ In this lab you will develop, deploy and run a TFX pipeline that uses Kubeflow P
 
 ## Lab instructions
 
-### Understanding the pipeline's DSL.
+### Understanding the pipeline design.
 
 The pipeline implements a typical TFX workflow as depicted on the below diagram:
 
