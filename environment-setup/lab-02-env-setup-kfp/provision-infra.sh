@@ -44,6 +44,7 @@ gcloud config set project $PROJECT_ID
 # Enable services
 echo INFO: Enabling required services
 
+gcloud services enable automl.googleapis.com
 gcloud services enable \
 cloudbuild.googleapis.com \
 container.googleapis.com \
@@ -54,7 +55,7 @@ containeranalysis.googleapis.com \
 ml.googleapis.com \
 sqladmin.googleapis.com \
 dataflow.googleapis.com 
-#automl.googleapis.com
+
 
 # Give Cloud Build service account the project editor role
 echo INFO:Assigning the Cloud Build service account to the project editor role

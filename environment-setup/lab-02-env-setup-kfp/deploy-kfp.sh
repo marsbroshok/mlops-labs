@@ -43,8 +43,8 @@ pushd terraform
 # Retrieve resource names
 CLUSTER_NAME=$(terraform output cluster_name)
 KFP_SA_EMAIL=$(terraform output kfp_sa_email)
-#SQL_INSTANCE_NAME=$(terraform output sql_name)
-#SQL_CONNECTION_NAME=$(terraform output sql_connection_name)
+SQL_INSTANCE_NAME=$(terraform output sql_name)
+SQL_CONNECTION_NAME=$(terraform output sql_connection_name)
 BUCKET_NAME=$(terraform output artifact_store_bucket)
 ZONE=$(terraform output cluster_zone)
 
@@ -63,28 +63,30 @@ kubectl create secret -n $NAMESPACE generic user-gcp-sa --from-file=application_
 rm application_default_credentials.json
 
 # Create a Cloud SQL database user and store its credentials in mysql-credential secret
-#gcloud sql users create $SQL_USERNAME --instance=$SQL_INSTANCE_NAME --password=$SQL_PASSWORD --project $PROJECT_ID
-#kubectl create secret -n $NAMESPACE generic mysql-credential --from-literal=username=$SQL_USERNAME --from-literal=password=$SQL_PASSWORD
+gcloud sql users create $SQL_USERNAME --instance=$SQL_INSTANCE_NAME --password=$SQL_PASSWORD --project $PROJECT_ID
+kubectl create secret -n $NAMESPACE generic mysql-credential --from-literal=username=$SQL_USERNAME --from-literal=password=$SQL_PASSWORD
 
 # Generate an environment file with connection settings to Cloud SQL and artifact store
-#cat > gcp-configs.env << EOF
-#sql_connection_name=$SQL_CONNECTION_NAME
-#bucket_name=$BUCKET_NAME
-#EOF
+cat > gcp-configs.env << EOF
+sql_connection_name=$SQL_CONNECTION_NAME
+bucket_name=$BUCKET_NAME
+EOF
 
 # Deploy KFP to the cluster
-#kustomize build \
-#    github.com/kubeflow/pipelines/manifests/kustomize/base/crds/?ref=0.2.2
-#kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.io
-#kustomize build . | kubectl apply -f -
-
-export PIPELINE_VERSION=0.2.2
-kubectl apply -f https://storage.googleapis.com/ml-pipeline/pipeline-lite/$PIPELINE_VERSION/crd.yaml
+kustomize build \
+    github.com/kubeflow/pipelines/manifests/kustomize/base/crds/?ref=0.2.4 | kubectl apply -f -
 kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.io
-kubectl apply -f https://storage.googleapis.com/ml-pipeline/pipeline-lite/$PIPELINE_VERSION/namespaced-install.yaml
+kustomize build . | kubectl apply -f -
 
 popd
 
+echo INFO: KFP deployed successfully
+echo INFO: Sleeping for 180 seconds to allow for KFP services to start
+
+sleep 180
+
+echo INFO: KFP UI can be accessed at the below URI:
+echo "https://"$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
 
 
 
