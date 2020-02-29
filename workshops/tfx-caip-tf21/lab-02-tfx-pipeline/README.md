@@ -109,5 +109,9 @@ tfx run status --pipeline_name $PIPELINE_NAME --run_id [YOUR_RUN_ID] --endpoint 
  ```
  tfx run terminate --run_id [YOUR_RUN_ID] --endpoint $INVERSE_PROXY_HOSTNAME
  ```
-
+### Deleting the pipeline
+You can delete the pipeline from the KFP environment using the `tfx pipeline delete` command.
+```
+tfx pipeline delete --pipeline_name $PIPELINE_NAME --endpoint $INVERSE_PROXY_HOSTNAME
+```
 
