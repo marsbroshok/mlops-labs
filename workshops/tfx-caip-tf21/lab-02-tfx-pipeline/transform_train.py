@@ -231,7 +231,7 @@ def trainer_fn(hparams, schema):
       numeric_feature_keys=transformed_numeric_feature_keys,
       categorical_feature_keys=transformed_categorical_feature_keys,
       config=run_config,
-      warm_start_from=hparams.warm_start_from)
+      warm_start_from=hparams.base_model)
 
   # Create an input receiver for TFMA processing
   receiver_fn = lambda: _eval_input_receiver_fn(tf_transform_output, schema,
