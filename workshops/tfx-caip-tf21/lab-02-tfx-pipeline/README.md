@@ -73,12 +73,14 @@ To inspect the YAML specification extract the `pipeline.yaml` file from the tar 
 tar xvf ${PIPELINE_NAME}.tar.gz
 ```
 
-To build and upload the pipeline to the KFP environment use the `tfx pipeline create` command.
+To build and upload the pipeline to the KFP environment use the `tfx pipeline create` command. Note that the command is configured to use **Cloud Build** to build the image and push it to your project's **Container Registry**. This is set in the `build.yaml`. TFX CLI uses [skaffold](https://skaffold.dev/) for the build step and the `build.yaml` uses the build section of the full [`skaffold.yaml`](https://skaffold.dev/docs/design/config/) configuration.
+
+Before executing the `tfx pipeline create` command modify the `image` field of the `build.yaml` file so it references your project. Do not modify any other fields.
 
 ```
 tfx pipeline create --engine kubeflow --pipeline_path pipeline_dsl.py --endpoint $INVERSE_PROXY_HOSTNAME
 ```
-Notice that the command used **Cloud Build** to build the image and push it to your project's **Container Registry**. This has been configured using the `build.yaml`. TFX CLI uses [skaffold](https://skaffold.dev/) for the build step and the `build.yaml` uses the build section of the full [`skaffold.yaml`](https://skaffold.dev/docs/design/config/) configuration.
+
 
 
 ### Submitting and monitoring pipeline runs
