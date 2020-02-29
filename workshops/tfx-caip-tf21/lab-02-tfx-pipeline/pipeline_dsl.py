@@ -181,7 +181,7 @@ if __name__ == '__main__':
 
   schema_uri = data_types.RuntimeParameter(
       name='schema-uri',
-      default='.',
+      default='schema',
       ptype=Text,
   )
   
