@@ -46,7 +46,7 @@ def _create__pipeline(pipeline_name: Text,
                       pipeline_root: Text, 
                       data_root_uri: data_types.RuntimeParameter,
                       module_file_uri: data_types.RuntimeParameter, 
-                      schema_file_uri: data_types.RuntimeParameter,
+                      schema_uri: data_types.RuntimeParameter,
                       train_steps: data_types.RuntimeParameter,
                       eval_steps: data_types.RuntimeParameter,
                       ai_platform_training_args: Dict[Text, Text],
@@ -71,7 +71,7 @@ def _create__pipeline(pipeline_name: Text,
   # Import a user-provided schema
   import_schema = ImporterNode(
       instance_name='import_user_schema',
-      source_uri=schema_file_uri,
+      source_uri=schema_uri,
       artifact_type=Schema)
   
   # Generates schema based on statistics files.Even though, we use user-provided schema
@@ -179,9 +179,9 @@ if __name__ == '__main__':
       ptype=Text,
   )
 
-  schema_file_uri = data_types.RuntimeParameter(
-      name='schema-file_uri',
-      default='schema.pbtxt',
+  schema_uri = data_types.RuntimeParameter(
+      name='schema-uri',
+      default='.',
       ptype=Text,
   )
   
@@ -222,7 +222,7 @@ if __name__ == '__main__':
           pipeline_root=pipeline_root,
           data_root_uri=data_root_uri,
           module_file_uri=module_file_uri,
-          schema_file_uri=schema_file_uri,
+          schema_uri=schema_uri,
           train_steps=train_steps,
           eval_steps=eval_steps,
           ai_platform_training_args=ai_platform_training_args,
