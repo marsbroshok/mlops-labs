@@ -69,7 +69,7 @@ This command creates a pipeline package named `${PIPELINE_NAME}.tar.gz`. The pac
 
 To inspect the YAML specification extract the `pipeline.yaml` file from the tar archive and view the file in the JupyterLab editor.
 ```
-tar xvf ${PIPELINE_NAME}.tar.gx
+tar xvf ${PIPELINE_NAME}.tar.gz
 ```
 
 To build the image for your components, compile the pipeline and upload the pipeline to the KFP environment use the `tfx pipeline create` command.
