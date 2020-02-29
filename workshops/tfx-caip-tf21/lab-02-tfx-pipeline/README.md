@@ -59,7 +59,7 @@ You can build and upload the pipeline to the KFP environment in one step, using 
 - Compiles the pipeline DSL into the pipeline package 
 - Uploads the pipeline package to the KFP environment.
 
-As you are debugging the pipeline DSL you may prefer to first use the `tfx pipeline compile` which only executes the compilation step. After the DSL compiles successfully you can use `tfx pipeline create` to go through all steps.
+As you are debugging the pipeline DSL you may prefer to first use the `tfx pipeline compile`, which only executes the compilation step. After the DSL compiles successfully you can use `tfx pipeline create` to go through all steps.
 
 To compile the DSL
 ```
