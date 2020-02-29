@@ -46,6 +46,7 @@ gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
 export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
 
 export PIPELINE_NAME=tfx_covertype_continuous_training
+export TFX_IMAGE=gcr.io/${PROJECT_ID}/custom_tfx:latest
 export RUNTIME_VERSION=1.15
 export PYTHON_VERSION=3.7
 ```
