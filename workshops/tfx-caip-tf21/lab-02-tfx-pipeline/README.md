@@ -57,7 +57,7 @@ export PYTHON_VERSION=3.7
 
 You can build and upload the pipeline to the KFP environment in one step, using the `tfx pipeline create` command. The `tfx pipeline create` goes through the following steps:
 - (Optional) Builds an image to host your components, 
-- Compiles the pipeline DSL into the pipeline package 
+- Compiles the pipeline DSL into a pipeline package 
 - Uploads the pipeline package to the KFP environment.
 
 As you are debugging the pipeline DSL you may prefer to first use the `tfx pipeline compile`, which only executes the compilation step. After the DSL compiles successfully you can use `tfx pipeline create` to go through all steps.
