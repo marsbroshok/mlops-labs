@@ -14,13 +14,13 @@ output "gke_sa_name" {
     value = module.gke_service_account.service_account.email
 }
 
-#output "sql_name" {
-#    value = module.ml_metadata_mysql.mysql_instance.name
-#}
+output "sql_name" {
+    value = module.ml_metadata_mysql.mysql_instance.name
+}
 
-#output "sql_connection_name" {
-#    value = module.ml_metadata_mysql.mysql_instance.connection_name
-#}
+output "sql_connection_name" {
+    value = module.ml_metadata_mysql.mysql_instance.connection_name
+}
 
 output "artifact_store_bucket" {
     value = google_storage_bucket.artifact_store.name
