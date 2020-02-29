@@ -40,7 +40,7 @@ export ZONE=us-central1-a
 export ARTIFACT_STORE_URI=gs://$PREFIX-artifact-store
 export GCS_STAGING_PATH=${ARTIFACT_STORE_URI}/staging
 export GKE_CLUSTER_NAME=$PREFIX-cluster
-export DATA_ROOT_URI=gs://workshop-datasets/covertype/full
+export DATA_ROOT_URI=gs://workshop-datasets/covertype/small
 
 gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
 export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
