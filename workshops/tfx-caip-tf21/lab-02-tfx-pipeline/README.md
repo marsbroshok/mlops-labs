@@ -19,7 +19,7 @@ The pipeline implements a typical TFX workflow as depicted on the below diagram:
 6. The *Transform* component is used to preprocess the data and generate the preprocessing graph. The location of the Python script with the preprocessing code is passed as a runtime parameter
 7. The *Trainer* component is used to start an AI Platform Training job. The AI Platform Training job is configured to use a custom training container. The AI Platform Training configuration, which includes the URI of the custom training image, is a compile time parameter. 
 8. The *Evaluator* component is used to evaluate the trained model against the eval split
-9. The *ModelValidate* component compares the model against a baseline. If this is the first run of the pipeline the model will be blessed regardless of the outcome of the evaluation. In the subsequent runs, the baseline is a performance evaluation of the model from the previous run.
+9. The *ModelValidate* component compares the model against a baseline. If this is the first run of the pipeline the model will be blessed regardless of an outcome of the evaluation. In subsequent runs, the baseline is a performance evaluation of the model from the previous run.
 10. If the model trained by the pipeline was blessed, the model is deployed to AI Platform Prediction using the *Pusher* component.
 
 
