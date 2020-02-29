@@ -30,7 +30,7 @@ The custom image modifies the base image by adding the  the `transform_train.py`
 
 ### Configuring the environment settings
 
-You will use a JupyterLab terminal terminal as the primary interface during the lab. As noted in the previous section, the pipeline DSL retrieves the compile time settings from a set of environment variables. Before proceeding with the lab exercises you need to set these variables. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
+You will use a JupyterLab terminal as the primary interface during the lab. As noted in the previous section, the pipeline DSL retrieves the compile time settings from a set of environment variables. Before proceeding with the lab exercises you need to set these variables. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
 ```
 export PROJECT_ID=$(gcloud config get-value core/project)
 export PREFIX=$PROJECT_ID
