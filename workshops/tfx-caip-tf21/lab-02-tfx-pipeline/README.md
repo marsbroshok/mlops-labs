@@ -26,7 +26,7 @@ The compile time settings, like the settings controlling AI Platform, and the de
 
 The pipeline is configured to use a custom docker image as runtime environment for TFX components. The  image is a derivative of the standard [tensorflow/tfx:0.21.0 image](https://hub.docker.com/r/tensorflow/tfx). The same image is also used as a a training image used by **AI Platform Training**.
 
-The custom image modifies the base image by adding the  the `transform_train.py` file that contains data transformation and training code and the `schema.pbtxt` that contains the custom schema developed in `lab-01-tfx-walkthrough`.
+The custom image modifies the base image by adding the  the `transform_train.py` file that contains data transformation and training code and the `schema.pbtxt` that contains the custom schema developed in `lab-01-tfx-walkthrough`. The default values for the `module-file-uri` and `schema-file-uri` runtime parameters are set to point to these files. The default values of `module-file-uri` and `schema-file-uri` can overwritten to point to other locations - e.g. in GCS - when creating the pipeline run.
 
 ### Configuring the environment settings
 
