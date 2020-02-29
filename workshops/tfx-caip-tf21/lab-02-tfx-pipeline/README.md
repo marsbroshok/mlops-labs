@@ -30,7 +30,7 @@ The custom image modifies the base image by adding the  the `transform_train.py`
 
 ### Configuring the environment settings
 
-You will use a JupyterLab terminal terminal as the primary interface during the lab. Before proceeding with the lab exercises configure a set of environment variables that reflect your lab environment. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
+You will use a JupyterLab terminal terminal as the primary interface during the lab. As noted in the previous section, the pipeline DSL retrieves the compile time settings from a set of environment variables. Before proceeding with the lab exercises you need to set these variables. If you used the default settings during the environment setup you don't need to modify the below commands. If you provided custom values for PREFIX, REGION, ZONE, or NAMESPACE update the commands accordingly:
 ```
 export PROJECT_ID=$(gcloud config get-value core/project)
 export PREFIX=$PROJECT_ID
@@ -41,10 +41,14 @@ export ARTIFACT_STORE_URI=gs://$PREFIX-artifact-store
 export GCS_STAGING_PATH=${ARTIFACT_STORE_URI}/staging
 export GKE_CLUSTER_NAME=$PREFIX-cluster
 export DATA_ROOT_URI=gs://workshop-datasets/covertype/full
-
 gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $ZONE
 export INVERSE_PROXY_HOSTNAME=$(kubectl describe configmap inverse-proxy-config -n $NAMESPACE | grep "googleusercontent.com")
+
+export PIPELINE_NAME=tfx_covertype_continuous_training
+export RUNTIME_VERSION=1.15
+export PYTHON_VERSION-3.7
 ```
+
 
 Follow the instructor who will walk you through the lab. The high level summary of the lab flow is as follows:
 
