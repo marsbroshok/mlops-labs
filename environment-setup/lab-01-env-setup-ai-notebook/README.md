@@ -86,7 +86,7 @@ gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
 
 ### Provisioning an AI Platform notebook instance
 
-You can provision an instance of **AI Platform Notebooks** using the custom container image created in the previous steps using   [the GCP Console](https://cloud.google.com/ai-platform/notebooks/docs/custom-container) or using the `gcloud` command. To provision the instance using `gcloud`.
+You can provision an instance of **AI Platform Notebooks** using  [GCP Console](https://cloud.google.com/ai-platform/notebooks/docs/custom-container) or using the `gcloud` command. To provision the instance using `gcloud`.
 
 ```
 ZONE=[YOUR_ZONE]
