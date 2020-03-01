@@ -1,20 +1,18 @@
-# Full automated setup of an MLOps environment.
+# Provisioning MLOps services
 
-Provisioning of the environment has been fully automated with the `./install.sh` script. 
+In this lab, you will provision a standalone deployment of Kubeflow Pipelines and enable other managed services comprising the MLOps environment.
+
+Provisioning of the environment has been automated with the `./install.sh` script. 
 
 The script goes through the following steps:
-1. Enables the required GCP cloud services
-1. Assigns the Cloud Build service account the project editor role
-1. Builds the custom container optimized for TFX/KFP development to be used with AI Platform Notebooks
-1. Provisions an instance of AI Platform Notebooks based on the custom container image
-1. Creates and configures two service accounts:
-    - A service account for GKE worker nodes
-    - A service account to be used by KFP pipelines
-1. Creates a VPC to host a GKE cluster
-1. Creates a GKE cluster
-1. Creates a Cloud SQL instance 
-1. Creates a GCS bucket 
-1. Deploys Kubeflow Pipelines and configures the KFP services to use Cloud SQL for ML metadata management and GCS for artifact storage
+1. Enables managed cloud services
+1. Provisions an MVP infrastructure to host a standalone deployment of Kubeflow Pipelines. This step has been automated with **Terraform**:
+    1. Creates a VPC 
+    1. Creates and configures a GKE cluster
+    1. Creates an instance of Cloud SQL
+    1. Creates a GCS bucket
+    1. Creates a service account for GKE worker nodes and a service account to be used by KFP pipelines
+1. Deploys Kubeflow Pipelines and configures the KFP services to use Cloud SQL for ML metadata management and GCS for artifact storage. This step has been automated with **Kustomize**.
 
 ## Running the installation script
 
@@ -39,7 +37,7 @@ To start the provisioning script:
 2. Clone this repo under the `home` folder.
 ```
 git clone https://github.com/jarokaz/mlops-labs.git
-cd mlops-labs/lab-00-environment-setup
+cd mlops-labs/environment-setup/lab-02-env-setup-kfp
 ```
 
 3. Start installation
