@@ -2,7 +2,7 @@
 
 This folder contains the hands-on labs that guide you through the process of setting up a GCP based MLOps environment as depicted on the below diagram.
 
-![Reference topolgy](/images/lab_300.png)
+![Reference topolgy](/images/mlops-env.png)
 
 The core services in the environment are:
 - ML experimentation and development - AI Platform Notebooks 
