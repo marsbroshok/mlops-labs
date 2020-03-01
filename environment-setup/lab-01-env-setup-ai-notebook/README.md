@@ -36,7 +36,7 @@ cloudbuild.googleapis.com
 
 You will use a custom container image configured for KFP/TFX development as a base for your instance. 
 
-### Building the custom docker image:
+### Building a custom docker image:
 
 1. In **Cloud Shell**,  create a working folder in your `home` directory
 ```
