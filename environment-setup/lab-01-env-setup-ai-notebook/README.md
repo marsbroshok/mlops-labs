@@ -2,7 +2,7 @@
 
 This lab walks you through the steps required to provision  an AI Platfom Notebooks instance configured based on a custom container image optimized for TFX/KFP development.
 
-The accompanying lab - `lab-02-env-setup-kfp` - describe the steps to provision a lightweight deployment of Kubeflow Pipelines.
+The accompanying lab - `lab-02-env-setup-kfp` - describe the steps to provision a standalone deployment of Kubeflow Pipelines.
 
 ## Enabling the required cloud services
 
@@ -44,19 +44,9 @@ sqladmin.googleapis.com \
 dataflow.googleapis.com 
 ```
 
-3. After the services are enabled, grant the Cloud Build service account the Project Editor role.
-```
-PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
-CLOUD_BUILD_SERVICE_ACCOUNT="${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com"
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$CLOUD_BUILD_SERVICE_ACCOUNT \
-  --role roles/editor
-```
-
-
 ## Creating an **AI Platform Notebooks** instance
 
-You will use a custom container image configured for KFP/TFX development as an environment for your instance. The image is a derivative of the standard TensorFlow 1.15  [AI Deep Learning Containers](https://cloud.google.com/ai-platform/deep-learning-containers/docs/) image.
+You will use a custom container image configured for KFP/TFX development as a base for your instance. 
 
 ### Building the custom docker image:
 
