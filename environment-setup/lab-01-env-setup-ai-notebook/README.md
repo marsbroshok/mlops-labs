@@ -56,8 +56,14 @@ cd
 mkdir lab-workspace
 cd lab-workspace
 ```
+2. Make sure that **Cloud Shell** is set to your project
+```
+PROJECT_ID=[YOUR_PROJECT_ID]
 
-2. Create requirements file
+gcloud config set project $PROJECT_ID
+```
+
+3. Create the requirements file with the Python packages to deploy to your instance
 ```
 cat > requirements.txt << EOF
 absl-py<0.9
@@ -67,13 +73,13 @@ scikit-learn<0.22
 pandas<1.0.0
 cloudpickle==1.1.1
 tfx==0.21
-kfp==0.2.2
+kfp==0.2.5
 tensorboard~=2.1.0
 EOF
 ```
 
 
-3. Create Dockerfile 
+3. Create the Dockerfile defining you custom container image
 ```
 cat > Dockerfile << EOF
 FROM gcr.io/deeplearning-platform-release/base-cpu:m42
