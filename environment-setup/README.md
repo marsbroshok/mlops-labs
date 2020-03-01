@@ -17,7 +17,7 @@ The core services in the environment are:
     
 In the reference lab environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). 
 
-The environment uses a lightweight deployment of Kubeflow Pipelines on GKE, as depicted on the below diagram:
+The environment uses a [standalone deployment of Kubeflow Pipelines on GKE](https://www.kubeflow.org/docs/pipelines/installation/standalone-deployment/), as depicted on the below diagram:
 
 
 ![KFP Deployment](/images/kfp.png)
