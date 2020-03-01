@@ -26,7 +26,7 @@ gcloud config set project $PROJECT_ID
 3. Enable services
 ```
 gcloud services enable \
-compute.googleapis.com
+compute.googleapis.com \
 cloudbuild.googleapis.com \
 container.googleapis.com 
 ```
