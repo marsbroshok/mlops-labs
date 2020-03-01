@@ -6,18 +6,10 @@ The accompanying lab - `lab-02-env-setup-kfp` - describe the steps to provision 
 
 ## Enabling the required cloud services
 
-In addition to the [services enabled by default](https://cloud.google.com/service-usage/docs/enabled-service), the following additional services must be enabled in the project hosting an MLOps environment:
+In addition to the [services enabled by default](https://cloud.google.com/service-usage/docs/enabled-service), the following additional services must be enabled to provision an instance of **AI Platform Notebooks**:
 
 1. Compute Engine
 1. Container Registry
-1. AI Platform Training and Prediction
-1. IAM
-1. Dataflow
-1. Kubernetes Engine
-1. Cloud SQL
-1. Cloud SQL Admin
-1. Cloud Build
-1. Cloud Resource Manager
 
 Use [GCP Console](https://console.cloud.google.com/) or `gcloud` command line interface in [Cloud Shell](https://cloud.google.com/shell/docs/) to [enable the required services](https://cloud.google.com/service-usage/docs/enable-disable) . 
 
