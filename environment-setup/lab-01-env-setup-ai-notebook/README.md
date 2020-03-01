@@ -10,6 +10,7 @@ In addition to the [services enabled by default](https://cloud.google.com/servic
 
 1. Compute Engine
 1. Container Registry
+1. Cloud Build
 
 Use [GCP Console](https://console.cloud.google.com/) or `gcloud` command line interface in [Cloud Shell](https://cloud.google.com/shell/docs/) to [enable the required services](https://cloud.google.com/service-usage/docs/enable-disable) . 
 
@@ -25,15 +26,9 @@ gcloud config set project $PROJECT_ID
 3. Enable services
 ```
 gcloud services enable \
+compute.googleapis.com
 cloudbuild.googleapis.com \
-container.googleapis.com \
-cloudresourcemanager.googleapis.com \
-iam.googleapis.com \
-containerregistry.googleapis.com \
-containeranalysis.googleapis.com \
-ml.googleapis.com \
-sqladmin.googleapis.com \
-dataflow.googleapis.com 
+container.googleapis.com 
 ```
 
 ## Creating an **AI Platform Notebooks** instance
@@ -48,14 +43,8 @@ cd
 mkdir lab-workspace
 cd lab-workspace
 ```
-2. Make sure that **Cloud Shell** is set to your project
-```
-PROJECT_ID=[YOUR_PROJECT_ID]
 
-gcloud config set project $PROJECT_ID
-```
-
-3. Create the requirements file with the Python packages to deploy to your instance
+2. Create the requirements file with the Python packages to deploy to your instance
 ```
 cat > requirements.txt << EOF
 absl-py<0.9
@@ -84,7 +73,7 @@ RUN python -m pip install -U -r requirements.txt --ignore-installed PyYAML==3.13
 EOF
 ```
 
-3. Build the image and push it to your project's **Container Registry**
+4. Build the image and push it to your project's **Container Registry**
 
 ```
 IMAGE_NAME=mlops-dev
