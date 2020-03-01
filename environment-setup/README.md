@@ -28,7 +28,7 @@ The KFP services are deployed to the GKE cluster and configured to use the Cloud
 
 The provisioning of the environment has been split into two hands-on labs.
 
-In the first lab you create an instance of **AI Platform Notebooks**. In the second lab you provision other services comprising the environment, including a standalone deployment of Kubeflow Pipelines.
+In the first lab you create an instance of **AI Platform Notebooks**. In the second lab you provision other services comprising the environment, including a standalone deployment of **Kubeflow Pipelines**.
 
 ## [Creating an AI Platform Notebooke instance](lab-01-env-setup-ai-notebook/README.md)
 
