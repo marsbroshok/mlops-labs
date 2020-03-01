@@ -1,11 +1,11 @@
 # Provisioning MLOps services
 
-In this lab, you will provision a standalone deployment of Kubeflow Pipelines and enable other managed services comprising the MLOps environment.
+In this lab, you will enable managed services used in MLOps evironment and provision a standalone deployment of Kubeflow Pipelines and enable other managed services comprising the MLOps environment.
 
 Provisioning of the environment has been automated with the `./install.sh` script. 
 
 The script goes through the following steps:
-1. Enables managed cloud services
+1. Enables required cloud services
 1. Provisions an MVP infrastructure to host a standalone deployment of Kubeflow Pipelines. This step has been automated with **Terraform**:
     1. Creates a VPC 
     1. Creates and configures a GKE cluster
