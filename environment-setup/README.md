@@ -22,13 +22,7 @@ The environment uses a [standalone deployment of Kubeflow Pipelines on GKE](http
 
 ![KFP Deployment](/images/kfp.png)
 
-The deployment includes:
-- A VPC to host GKE cluster
-- A GKE cluster to host KFP services
-- A Cloud SQL managed MySQL instance to host KFP and ML Metadata databases
-- A Cloud Storage bucket to host artifact repository
-
-The KFP services are deployed to the GKE cluster and configured to use the Cloud SQL managed MySQL instance. The KFP services access the Cloud SQL through [Cloud SQL Proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy). External clients use [Inverting Proxy](https://github.com/google/inverting-proxy) to interact with the KFP services.
+The KFP services are deployed to the GKE cluster and configured to use the Cloud SQL managed MySQL instance for ML Metadata and GCS for artifact storage. The KFP services access the Cloud SQL through [Cloud SQL Proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy). External clients use [Inverting Proxy](https://github.com/google/inverting-proxy) to interact with the KFP services.
 
 You can choose between two options for setting up the environment:
 - A one-step, fully automated process 
