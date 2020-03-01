@@ -35,23 +35,13 @@ fi
 # Set script constants
 
 PROJECT_ID=${1}
-SQL_PASSWORD=${2}
 NAME_PREFIX=${3:-$PROJECT_ID}
 REGION=${4:-us-central1} 
 ZONE=${5:-us-central1-a}
 NAMESPACE=${6:-kubeflow}
 
-IMAGE_NAME=mlops-dev
-TAG=latest
-IMAGE_URI="gcr.io/${PROJECT_ID}/${IMAGE_NAME}:${TAG}"
-
-INSTANCE_NAME=${NAME_PREFIX}-notebook
-IMAGE_FAMILY="common-container"
-IMAGE_PROJECT="deeplearning-platform-release"
-INSTANCE_TYPE="n1-standard-4"
-METADATA="proxy-mode=service_account,container=$IMAGE_URI"
-
 SQL_USERNAME=root
+SQL_PASSWORD=${2}
 
 # Set project
 echo INFO: Setting the project to: $PROJECT_ID
@@ -73,40 +63,6 @@ sqladmin.googleapis.com \
 dataflow.googleapis.com 
 
 echo INFO: Required services enabled
-
-# Give Cloud Build service account the project editor role
-echo INFO:Assigning the Cloud Build service account to the project editor role
-PROJECT_NUMBER=$(gcloud projects describe $PROJECT_ID --format="value(projectNumber)")
-CLOUD_BUILD_SERVICE_ACCOUNT="${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com"
-gcloud projects add-iam-policy-binding $PROJECT_ID \
-  --member serviceAccount:$CLOUD_BUILD_SERVICE_ACCOUNT \
-  --role roles/editor
-  
-# Provision an AI Platform Notebook instance
-
-INSTANCE_NAME=${NAME_PREFIX}-notebook
-
-if [ $(gcloud compute instances list --filter="name=$INSTANCE_NAME" --zones $ZONE --format="value(name)") ]; then
-    echo INFO: Instance $INSTANCE_NAME exists in $ZONE. Skipping provisioning
-else
-    # Build the AI Platform Notebook image
-    echo INFO: Building AI Platform Notebooks container image: $IMAGE_URI
-    gcloud builds submit --timeout 15m --tag ${IMAGE_URI} .
-    
-    # Provision the AI Platform Notebook instance
-    echo INFO: Starting provisioning of $INSTANCE_NAME in $ZONE
-    gcloud compute instances create $INSTANCE_NAME \
-    --zone=$ZONE \
-    --image-family=$IMAGE_FAMILY \
-    --machine-type=$INSTANCE_TYPE \
-    --image-project=$IMAGE_PROJECT \
-    --maintenance-policy=TERMINATE \
-    --boot-disk-device-name=$INSTANCE_NAME-disk \
-    --boot-disk-size=100GB \
-    --boot-disk-type=pd-ssd \
-    --scopes=cloud-platform,userinfo-email \
-    --metadata=$METADATA
-fi
 
 # Configure KFP infrastructure
 pushd terraform
@@ -159,8 +115,9 @@ bucket_name=$BUCKET_NAME
 EOF
 
 # Deploy KFP to the cluster
+export PIPELINE_VERSION=0.2.5
 kustomize build \
-    github.com/kubeflow/pipelines/manifests/kustomize/base/crds/?ref=0.2.4 | kubectl apply -f -
+    github.com/kubeflow/pipelines/manifests/kustomize/base/crds/?ref=$PIPELINE_VERSION | kubectl apply -f -
 kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.io
 kustomize build . | kubectl apply -f -
 

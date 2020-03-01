@@ -13,8 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Destory KFP environment
+# Destroy the KFP environment
 
+# Verify command line parameters
 if [[ $# < 1 ]]; then
   echo 'USAGE:  ./destroy.sh PROJECT_ID [NAME_PREFIX=PROJECT_ID] [REGION=us-central1] [ZONE=us-central1-a]'
   exit 1
@@ -25,6 +26,7 @@ NAME_PREFIX=${2:-$PROJECT_ID}
 REGION=${3:-us-central1} 
 ZONE=${4:-us-central1-a}
 
+# Destroy the Terraform configuration
 echo INFO: Starting Terraform destroy
 pushd terraform
 terraform destroy \

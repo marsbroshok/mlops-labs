@@ -27,6 +27,7 @@ variable "cluster_node_type" {
     default     = "n1-standard-4"
 }
 
+
 variable "gke_service_account_roles" {
   description = "The roles to assign to the GKE service account"
   default = [
@@ -49,4 +50,6 @@ variable "kfp_service_account_roles" {
     "cloudsql.admin"
   ]
 }
+
+
 
