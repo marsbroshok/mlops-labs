@@ -1,6 +1,6 @@
 # Setting up a reference MLOps environment
 
-This folder contains the hands-on labs that guide you through the process of setting up a reference MLOps environment depicted on the below diagram.
+This folder contains the hands-on labs that guide you through the process of setting up a GCP based MLOps environment as depicted on the below diagram.
 
 ![Reference topolgy](/images/lab_300.png)
 
@@ -15,7 +15,7 @@ The core services in the environment are:
 - Machine learning metadata  management - ML Metadata on Cloud SQL
 - CI/CD tooling - Cloud Build
     
-In the reference lab environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). 
+In the environment, all services are provisioned in the same [Google Cloud Project](https://cloud.google.com/storage/docs/projects). 
 
 The environment uses a [standalone deployment of Kubeflow Pipelines on GKE](https://www.kubeflow.org/docs/pipelines/installation/standalone-deployment/), as depicted on the below diagram:
 
@@ -24,29 +24,9 @@ The environment uses a [standalone deployment of Kubeflow Pipelines on GKE](http
 
 The KFP services are deployed to the GKE cluster and configured to use the Cloud SQL managed MySQL instance for ML Metadata and GCS for artifact storage. The KFP services access the Cloud SQL through [Cloud SQL Proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy). External clients use [Inverting Proxy](https://github.com/google/inverting-proxy) to interact with the KFP services.
 
-You can choose between two options for setting up the environment:
-- A one-step, fully automated process 
-- A two step, semi-automated process.
+In the environment, an **AI Platform Notebooks** instance is configured using a custom container image that includes all packages required for KFP/TFX development.
 
-## Setting up the environment using a fully automated process
-
-To use this option follow the instructions in:
-
-[lab-00-env-setup-automated](lab-00-env-setup-automated/README.md)
-
-The provisioning of the environment has been fully automated in the `./install.sh` script. The script uses [Google Cloud SDK](https://cloud.google.com/sdk), [Terraform](https://www.terraform.io/docs/providers/google/index.html), and [Kustomize](https://kustomize.io/) to enable the required services, create an instance of **AI Platform Notebooks**, and provision a lightweight deployment of Kubeflow Pipelines.
-
-
-## Setting up the environment using a two step process
-
-In this option, the provisioning process has been split into two steps. In the first step, you create an instance of **AI Platform Notebook**. In the second step, you provision a lightweigth deployment of Kubeflow Pipelines. The second step is further divided into provisioning of infrastructure services to host Kubeflow Pipelines and deploying Kubeflow Pipelines to the provisioned infrastructure.
-
-To use this process step through the following labs:
-
-[lab-01-env-setup-ai-notebook](lab-01-env-setup-ai-notebook/README.md), and
-
-[lab-02-env-setup-kfp](lab-02-env-setup-kfp/README.md)
-
-
-
+Two set up the environment follow the instructions in two hands-on labs:
+1. [Creating an AI Platform Notebooke instance](lab-01-env-setup-ai-notebook/README.md)
+2. [Provisioning a standalone deployment of Kubeflow Pipelines](lab-02-env-setup-kfp/README.md)
 
