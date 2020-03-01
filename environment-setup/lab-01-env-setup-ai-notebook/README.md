@@ -27,8 +27,9 @@ gcloud config set project $PROJECT_ID
 ```
 gcloud services enable \
 compute.googleapis.com \
-cloudbuild.googleapis.com \
-container.googleapis.com 
+container.googleapis.com \
+cloudbuild.googleapis.com 
+
 ```
 
 ## Creating an **AI Platform Notebooks** instance
