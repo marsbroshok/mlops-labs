@@ -1,1 +1,1 @@
-FROM gcr.io/mlops-workshop/mlops-dev:latest
+FROM gcr.io/auv-labs-project/mlops-dev:latest
